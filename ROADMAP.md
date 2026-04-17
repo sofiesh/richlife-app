@@ -10,7 +10,7 @@ Uppdaterad: 2026-04-17
 
 - Firebase Auth fungerar: inloggning, registrering, utloggning
 - React Router v6 med routes för `/login` och `/register`
-- PurchasePlan-komponenter (form + lista) är skrivna men kommenterade bort i App.js
+- PurchasePlan-komponenter (form + lista) är skrivna men kommenterade i App.js
 - Ingen dashboard för inloggad användare ännu
 - MongoDB och Express borttagna — all data lagras i Firestore
 

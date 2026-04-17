@@ -11,18 +11,14 @@ Projektet påbörjades för ~2 år sedan och återstartas nu.
 - Historik: köpta varor, besparing vs möjlig besparing
 - Analys av konsumtionsmönster
 
-## Status vid återstart
-Oklart hur långt projektet kom – Claude ska hjälpa till att kartlägga detta.
-
 ## Prioriteringar vid återstart
 1. **Kartlägg kodbasen** – förstå vad som finns och vad som (ev.) fungerar
 2. **Uppdatera beroenden** – identifiera föråldrade paket och säkerhetsrisker
 3. **Städa och refaktorera** – förbättra kodkvalitet där det behövs
 
 ## Instruktioner till Claude
-- Börja alltid med att läsa den här filen innan du gör något
-- Kartlägg projektstrukturen och sammanfatta vad du hittar
-- Föreslå ändringar innan du genomför något större
+- Börja alltid med att läsa den här filen
+- Föreslå ändringar innan du genomför något
 - Flagga teknisk skuld med prioritet: hög / medel / låg
 - Skapa en ROADMAP.md efter initial genomgång
 - Arbeta en feature eller ett område i taget

@@ -2,7 +2,7 @@ import logo from './Susbud_logo.png'
 import './App.css'
 import Login from './components/login'
 import Register from './components/register'
-import Button from './components/button'
+import Navbar from './components/Navbar'
 // import PurchasePlan from './components/purchasePlan'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -16,101 +16,74 @@ import { auth } from './firebase'
  */
 function AppRoute () {
   const [user, setUser] = useState(null)
-  const [showLogin, setShowLogin] = useState(false)
-  const [showRegister, setShowRegister] = useState(false)
   const navigate = useNavigate()
-  // const [setShowRegister] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user)
-      if (user) {
-        setShowLogin(false)
-        setShowRegister(false)
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      if (currentUser) navigate('/')
     })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [])
+    return () => unsubscribe()
+  }, [navigate])
 
   /**
-   * Function to handle the click event for the home button.
+   * Handles the click event for the home button.
+   *
+   * @returns {void}
    */
-  const handleHomeClick = () => {
-    setShowLogin(false)
-    setShowRegister(false)
-    navigate('/')
-  }
+  const handleHomeClick = () => navigate('/')
 
   /**
-   * Function to handle the click event for the login button.
+   * Handles the click event for the login button.
+   *
+   * @returns {void}
    */
-  const handleLoginClick = () => {
-    setShowLogin(true)
-    navigate('/login')
-  }
+  const handleLoginClick = () => navigate('/login')
 
   /**
-   * Function to handle the click event for the register button.
+   * Handles the click event for the register button.
+   *
+   * @returns {void}
    */
-  const handleRegisterClick = () => {
-    setShowLogin(false)
-    setShowRegister(true)
-    navigate('/register')
-  }
+  const handleRegisterClick = () => navigate('/register')
 
   /**
-   * Function to handle the click event for the logout button.
+   * Handles the click event for the logout button.
+   *
+   * @returns {void}
    */
   const handleLogoutClick = () => {
     auth.signOut()
     setUser(null)
-    setShowLogin(false)
-    setShowRegister(false)
     navigate('/')
   }
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          {user
-            ? (
-              <p>Användaren är inloggad</p>
-              )
-            : (
-              <p>Användaren är utloggad</p>
-              )}
-        </div>
-        <nav>
-            <Button text="Home" backgroundColor="grey" onClick={handleHomeClick} />
-        </nav>
-        <img src={logo} className="App-logo" alt="Susbud logo" />
-        <h1>Susbud</h1>
-        <div className="startp">Talk about your finances</div>
-        {user
-          ? (
-            <Button text="Logga ut" backgroundColor="orange" onClick={handleLogoutClick} />
-            )
-          : (
-            <div>
-              {!showLogin && !showRegister && (
-                <div className="button-container">
-                  <Button text="Logga in" backgroundColor="#d959e4" onClick={handleLoginClick} />
-                  <Button text="Registrera ny användare" backgroundColor="green" onClick={handleRegisterClick} />
-                </div>
+      <Navbar
+        user={user}
+        onHome={handleHomeClick}
+        onLogin={handleLoginClick}
+        onRegister={handleRegisterClick}
+        onLogout={handleLogoutClick}
+      />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={
+            <div className="landing">
+              <img src={logo} className="landing-logo" alt="Susbud logo" />
+              <h1>Susbud</h1>
+              <p className="tagline">Talk about your finances</p>
+              {!user && (
+                <button className="btn-cta" onClick={handleLoginClick}>Kom igång</button>
               )}
             </div>
-            )}
-        <Routes>
-          <Route path="/" element={user ? <Navigate to="/" /> : <div />} />
-          <Route path="/login" element={!user && showLogin ? <Login setUser={setUser} /> : <Navigate to="/" />} />
-          <Route path="/register" element={!user && showRegister ? <Register setUser={setUser} /> : <Navigate to="/" />} />
-          <Route path="*" element={<Navigate to={user ? '/' : '/'} />} />
+          } />
+          <Route path="/login" element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />} />
+          <Route path="/register" element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </header>
+      </main>
     </div>
   )
 }
