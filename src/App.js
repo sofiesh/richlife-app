@@ -1,8 +1,9 @@
 import logo from './Susbud_logo.png'
 import './App.css'
-import Login from './components/login'
+import Login from './pages/login'
 import Register from './components/register'
 import Navbar from './components/Navbar'
+import Dashboard from './pages/dashboard.js'
 // import PurchasePlan from './components/purchasePlan'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -21,7 +22,7 @@ function AppRoute () {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
-      if (currentUser) navigate('/')
+      if (currentUser) navigate('/dashboard')
     })
     return () => unsubscribe()
   }, [navigate])
@@ -81,6 +82,7 @@ function AppRoute () {
           } />
           <Route path="/login" element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />} />
           <Route path="/register" element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />} />
+          <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

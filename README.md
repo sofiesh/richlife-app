@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Acknowledgements
+The project idea comes from diving into the world of minimalism and living a rich life with the resources you already have. In a family it is important to talk about what you value and what you want to spend your time and money on. The application owes thanks to my husband, ChatGPT and Claude. For help troubleshooting any hour of the day, for bouncing ideas and helping me see things from different perspectives. 
+Also many thanks to my course collegues for [coming...]
+
