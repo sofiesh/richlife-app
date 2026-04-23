@@ -1,0 +1,62 @@
+export const purchaseItemsMock = [
+  {
+    id: 1,
+    name: 'iPhone 15',
+    price: 12990,
+    category: 'Elektronik',
+    priority: 'high',
+    bought: false,
+    savedAmount: 2000,
+    valueRating: 2
+  },
+  {
+    id: 2,
+    name: 'Nike sneakers',
+    price: 1499,
+    category: 'Kläder',
+    priority: 'medium',
+    bought: true,
+    savedAmount: 0,
+    valueRating: 3
+  },
+  {
+    id: 3,
+    name: 'Kontorsstol',
+    price: 2499,
+    category: 'Hem',
+    priority: 'high',
+    bought: false,
+    savedAmount: 500,
+    valueRating: 4
+  },
+  {
+    id: 4,
+    name: 'Gaming tangentbord',
+    price: 999,
+    category: 'Elektronik',
+    priority: 'low',
+    bought: false,
+    savedAmount: 150,
+    valueRating: 2
+  },
+  {
+    id: 5,
+    name: 'Kaffebryggare',
+    price: 799,
+    category: 'Kök',
+    priority: 'medium',
+    bought: true,
+    savedAmount: 0,
+    valueRating: 5
+  },
+  {
+    id: 6,
+    name: 'Hörlurar',
+    price: 1990,
+    category: 'Elektronik',
+    priority: 'high',
+    bought: false,
+    savedAmount: 300,
+    valueRating: 3
+  }
+]
