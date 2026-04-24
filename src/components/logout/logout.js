@@ -1,7 +1,7 @@
 // Logout.js
 import React from 'react'
 // import { renderToString } from 'react-dom/server'
-import { signOut } from '../auth'
+import { signOut } from '../../auth'
 import './logout.css'
 
 /**

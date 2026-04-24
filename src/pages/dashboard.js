@@ -5,6 +5,7 @@ import './dashboard.css'
 import { purchaseItemsMock } from '../mockData/purchaseItemsMock.js'
 import Stars from '../components/rankingStar.js'
 import { calculateStarScore } from '../assets/calculateStarScore.js'
+import Button from '../components/button/button.js'
 
 /**
  * Landing page for logged in users.
@@ -33,7 +34,9 @@ const Dashboard = ({ user }) => {
         <div className="dashboard">
             <h1>Köpkollen</h1>
 
-            <button>Lägg till produkt</button>
+                <Button className="add-product" onClick={() => { }} variant="outline">
+                    Lägg till produkt
+                </Button>
 
             {/* KPI-boxar */}
             <div className="stats">
@@ -85,10 +88,10 @@ const Dashboard = ({ user }) => {
                                     <td style={{ padding: '8px' }}>{item.valueRating || 'Unknown'}</td>
                                     <td>
                                         <Stars
-                                          value={item.valueRating}
-                                          onChange={(newValue) => {
-                                            console.log(item.id, newValue)
-                                          }}
+                                            value={item.valueRating}
+                                            onChange={(newValue) => {
+                                              console.log(item.id, newValue)
+                                            }}
                                         />
                                     </td>
                                 </tr>

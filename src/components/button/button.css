@@ -1,0 +1,47 @@
+/* Defines color variables */
+:root {
+  --button-bg-color: #555;
+  /* Default background color */
+  --button-hover-lightness: 50%;
+  /* Ljusstyrkan för hover-effekten */
+}
+
+/* Knappstil */
+.button {
+  font-size: 16px;
+  padding: 10px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn--primary {
+  background-color: #555;
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: #333;
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: #555;
+  border: 2px solid #555;
+}
+
+.btn--outline:hover {
+  background-color: #f0f0f0;
+}
+
+.btn--text {
+  background-color: transparent;
+  color: #555;
+  padding: 10px 12px;
+}
+
+.btn--text:hover {
+  text-decoration: underline;
+}

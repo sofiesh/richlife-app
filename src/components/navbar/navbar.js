@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import logo from '../Susbud_logo.png'
-import './Navbar.css'
+import logo from '../../Susbud_logo.png'
+import './navbar.css'
 
 /**
  * Top navigation bar component.

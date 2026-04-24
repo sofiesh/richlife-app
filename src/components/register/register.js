@@ -1,7 +1,7 @@
 // Register.js
 
 import React, { useState } from 'react'
-import { signIn, signUp } from '../auth'
+import { signIn, signUp } from '../../auth'
 import './register.css'
 
 /**

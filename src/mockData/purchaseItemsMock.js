@@ -17,7 +17,7 @@ export const purchaseItemsMock = [
     priority: 'medium',
     bought: true,
     savedAmount: 0,
-    valueRating: 3
+    valueRating: 6
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ export const purchaseItemsMock = [
     priority: 'medium',
     bought: true,
     savedAmount: 0,
-    valueRating: 5
+    valueRating: 10
   },
   {
     id: 6,
