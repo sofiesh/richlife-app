@@ -11,10 +11,11 @@ import './navbar.css'
  * @param {Function} props.onHome - Navigate to home.
  * @param {Function} props.onLogin - Navigate to login.
  * @param {Function} props.onRegister - Navigate to register.
+ * @param {Function} props.onProfile - Navigate to user profile.
  * @param {Function} props.onLogout - Sign out user.
  * @returns {Function} JSX Element.
  */
-const Navbar = ({ user, onHome, onLogin, onRegister, onLogout }) => (
+const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
   <nav className="navbar">
     <button className="navbar-brand" onClick={onHome}>
       <img src={logo} alt="Susbud" className="navbar-logo" />
@@ -23,7 +24,10 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onLogout }) => (
     <div className="navbar-actions">
       {user
         ? (
+          <>
+          <button className="nav-btn nav-btn--outline" onClick={onProfile}>⚙️</button>
           <button className="nav-btn nav-btn--outline" onClick={onLogout}>Logga ut</button>
+          </>
           )
         : (
           <>
@@ -40,6 +44,7 @@ Navbar.propTypes = {
   onHome: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
+  onProfile: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired
 }
 

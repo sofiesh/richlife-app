@@ -4,6 +4,7 @@ import Login from './pages/login'
 import Register from './components/register/register.js'
 import Navbar from './components/navbar/navbar.js'
 import Dashboard from './pages/dashboard.js'
+import UserProfile from './pages/userProfile.js'
 // import PurchasePlan from './components/purchasePlan'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -22,10 +23,9 @@ function AppRoute () {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
-      if (currentUser) navigate('/dashboard')
     })
     return () => unsubscribe()
-  }, [navigate])
+  }, [])
 
   /**
    * Handles the click event for the home button.
@@ -49,6 +49,16 @@ function AppRoute () {
   const handleRegisterClick = () => navigate('/register')
 
   /**
+   * Handles the click event for the profile button.
+   *
+   * @returns {void}
+   */
+  const handleUserProfileClick = () => {
+    console.log('profil klickad')
+    navigate('/userProfile')
+  }
+
+  /**
    * Handles the click event for the logout button.
    *
    * @returns {void}
@@ -66,6 +76,7 @@ function AppRoute () {
         onHome={handleHomeClick}
         onLogin={handleLoginClick}
         onRegister={handleRegisterClick}
+        onProfile={handleUserProfileClick}
         onLogout={handleLogoutClick}
       />
       <main className="main-content">
@@ -83,6 +94,7 @@ function AppRoute () {
           <Route path="/login" element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />} />
           <Route path="/register" element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />} />
           <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
+          <Route path="/userProfile" element={user ? <UserProfile user={user} /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
