@@ -1,5 +1,6 @@
 // import React, { useState } from 'react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './dashboard.css'
 import { purchaseItemsMock } from '../../mockData/purchaseItemsMock.js'
@@ -14,6 +15,7 @@ import Button from '../../components/button/button.js'
  * @returns {Function} JSX Element.
  */
 const Dashboard = ({ user }) => {
+  const navigate = useNavigate()
   const products = purchaseItemsMock
   //   const notBought = products.filter(p => !p.bought)
   //   const bought = products.filter(p => p.bought)
@@ -33,7 +35,6 @@ const Dashboard = ({ user }) => {
   return (
         <div className="dashboard">
             <h1>Köpkollen</h1>
-
                 <Button className="add-product" onClick={() => { }} variant="outline">
                     Lägg till produkt
                 </Button>
@@ -80,6 +81,7 @@ const Dashboard = ({ user }) => {
                             {rankedProducts.map(item => (
                                 <tr
                                     key={item.id}
+                                    onClick={() => navigate(`/items/${item.id}`)}
                                     style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}
                                 >
                                     <td style={{ padding: '8px' }}>{item.name}</td>

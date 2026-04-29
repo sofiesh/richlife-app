@@ -1,0 +1,36 @@
+#button.item-back {
+  align-self: left;
+}
+
+.item-detail-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.item-detail-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  row-gap: 10px;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.item-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.item-value {
+  color: #111;
+}
+
+.item-status {
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.item-buttons {
+  margin-top: 20px;
+}
