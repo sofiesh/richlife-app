@@ -1,5 +1,6 @@
 import logo from './Susbud_logo.png'
 import './App.css'
+import ItemDetail from './pages/itemdetail/itemDetail.js'
 import Login from './pages/login/login.js'
 import Register from './components/register/register.js'
 import Navbar from './components/navbar/navbar.js'
@@ -32,7 +33,7 @@ function AppRoute () {
    *
    * @returns {void}
    */
-  const handleHomeClick = () => navigate('/')
+  const handleHomeClick = () => navigate('/dashboard')
 
   /**
    * Handles the click event for the login button.
@@ -94,6 +95,7 @@ function AppRoute () {
           <Route path="/login" element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />} />
           <Route path="/register" element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />} />
           <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
+          <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
           <Route path="/userProfile" element={user ? <UserProfile user={user} /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
