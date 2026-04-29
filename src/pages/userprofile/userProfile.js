@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { updateProfile } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../../firebase'
 import './userProfile.css'
 
 /**

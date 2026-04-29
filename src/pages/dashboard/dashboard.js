@@ -2,10 +2,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './dashboard.css'
-import { purchaseItemsMock } from '../mockData/purchaseItemsMock.js'
-import Stars from '../components/rankingStar.js'
-import { calculateStarScore } from '../assets/calculateStarScore.js'
-import Button from '../components/button/button.js'
+import { purchaseItemsMock } from '../../mockData/purchaseItemsMock.js'
+import Stars from '../../components/rankingstars/rankingStar.js'
+import { calculateStarScore } from '../../assets/calculateStarScore.js'
+import Button from '../../components/button/button.js'
 
 /**
  * Landing page for logged in users.

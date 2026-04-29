@@ -1,7 +1,7 @@
 // Login.js
 
 import React, { useState } from 'react'
-import { signIn } from '../auth'
+import { signIn } from '../../auth'
 import './login.css'
 
 /**
