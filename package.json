@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint ./src || exit 0",
-    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "lint:fix": "npx eslint ./src --fix",
     "prepare": "husky"
   },
   "eslintConfig": {
@@ -36,18 +36,22 @@
     },
     "overrides": [
       {
-        "files": ["**/*.test.js"],
+        "files": [
+          "**/*.test.js"
+        ],
         "rules": {
-          "jsdoc/require-jsdoc": "off"
+          "jsdoc/require-jsdoc": "off",
+          "jsdoc/require-description": "off",
+          "jsdoc/require-returns": "off",
+          "jsdoc/require-param-description": "off",
+          "jsdoc/require-param-type": "off"
         }
       }
     ]
   },
   "lint-staged": {
-    "src/**/*.{js,css}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
+    "src/**/*.{js,css}": ["prettier --write"],
+    "src/**/!(*.test).js": ["eslint --fix"]
   },
   "browserslist": {
     "production": [
@@ -68,6 +72,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^46.10.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "husky": "^9.1.7",
