@@ -27,7 +27,8 @@
     "extends": [
       "@lnu",
       "plugin:react/recommended",
-      "plugin:react-hooks/recommended"
+      "plugin:react-hooks/recommended",
+      "prettier"
     ],
     "settings": {
       "react": {
@@ -50,8 +51,12 @@
     ]
   },
   "lint-staged": {
-    "src/**/*.{js,css}": ["prettier --write"],
-    "src/**/!(*.test).js": ["eslint --fix"]
+    "src/**/*.{js,css}": [
+      "prettier --write"
+    ],
+    "src/**/!(*.test).js": [
+      "eslint --fix"
+    ]
   },
   "browserslist": {
     "production": [
@@ -69,6 +74,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@lnu/eslint-config": "^1.1.10",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^46.10.1",
