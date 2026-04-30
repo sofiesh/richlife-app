@@ -8,7 +8,7 @@ const props = {
   onLogin: jest.fn(),
   onRegister: jest.fn(),
   onProfile: jest.fn(),
-  onLogout: jest.fn()
+  onLogout: jest.fn(),
 }
 
 test('visar Logga in och Registrera när användaren är utloggad', () => {
