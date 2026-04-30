@@ -24,16 +24,24 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
     <div className="navbar-actions">
       {user
         ? (
-          <>
-          <button className="nav-btn nav-btn--outline" onClick={onProfile}>⚙️</button>
-          <button className="nav-btn nav-btn--outline" onClick={onLogout}>Logga ut</button>
-          </>
+        <>
+          <button className="nav-btn nav-btn--outline" onClick={onProfile}>
+            ⚙️
+          </button>
+          <button className="nav-btn nav-btn--outline" onClick={onLogout}>
+            Logga ut
+          </button>
+        </>
           )
         : (
-          <>
-            <button className="nav-btn nav-btn--text" onClick={onLogin}>Logga in</button>
-            <button className="nav-btn nav-btn--primary" onClick={onRegister}>Registrera</button>
-          </>
+        <>
+          <button className="nav-btn nav-btn--text" onClick={onLogin}>
+            Logga in
+          </button>
+          <button className="nav-btn nav-btn--primary" onClick={onRegister}>
+            Registrera
+          </button>
+        </>
           )}
     </div>
   </nav>

@@ -34,21 +34,31 @@ function Register () {
   }
 
   return (
-<div className="register-container">
-  <h3>Registrera ny användare</h3>
-  {registrationSuccess
-    ? (
-    <p>Registrering lyckades</p>
-      )
-    : (
-    <form onSubmit={handleRegister}>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-post" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord" />
-      <button type="submit">Registrera</button>
-    </form>
-      )}
-  {error && <p>{error}</p>}
-</div>
+    <div className="register-container">
+      <h3>Registrera ny användare</h3>
+      {registrationSuccess
+        ? (
+        <p>Registrering lyckades</p>
+          )
+        : (
+        <form onSubmit={handleRegister}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-post"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Lösenord"
+          />
+          <button type="submit">Registrera</button>
+        </form>
+          )}
+      {error && <p>{error}</p>}
+    </div>
   )
 }
 

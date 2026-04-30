@@ -14,12 +14,9 @@ import './button.css'
  */
 const Button = ({ onClick, children, variant = 'primary' }) => {
   return (
-        <button
-          className={`button btn--${variant}`}
-          onClick={onClick}
-        >
-          {children}
-        </button>
+    <button className={`button btn--${variant}`} onClick={onClick}>
+      {children}
+    </button>
   )
 }
 

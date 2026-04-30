@@ -60,7 +60,9 @@ const UserProfile = ({ user }) => {
             placeholder="Lägg till ett namn"
             className="profile-input"
           />
-          <button type="submit" className="profile-save-btn">Spara</button>
+          <button type="submit" className="profile-save-btn">
+            Spara
+          </button>
         </form>
 
         {status && <p className="profile-status">{status}</p>}

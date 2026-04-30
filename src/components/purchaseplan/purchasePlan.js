@@ -44,15 +44,15 @@ const PurchasePlan = () => {
 
   return (
     <div>
-        <p>Add a new item to your purchase plan</p>
-        <PurchasePlanForm
-            items={items}
-            handleChange={handleChange}
-            handleAddItem={handleAddItem}
-            handleSubmit={handleSubmit}
-        />
-        <p>Your purchase plan</p>
-        <PurchasePlanList items={items} />
+      <p>Add a new item to your purchase plan</p>
+      <PurchasePlanForm
+        items={items}
+        handleChange={handleChange}
+        handleAddItem={handleAddItem}
+        handleSubmit={handleSubmit}
+      />
+      <p>Your purchase plan</p>
+      <PurchasePlanList items={items} />
     </div>
   )
 }
