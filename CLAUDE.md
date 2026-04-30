@@ -21,4 +21,3 @@ Projektet påbörjades för ~2 år sedan och återstartas nu.
 - Genomför inga ändringar, ge feedback och guida.
 - Flagga teknisk skuld med prioritet: hög / medel / låg
 - Skapa en ROADMAP.md efter initial genomgång
-- Arbeta en feature eller ett område i taget

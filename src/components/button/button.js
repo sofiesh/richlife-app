@@ -14,19 +14,16 @@ import './button.css'
  */
 const Button = ({ onClick, children, variant = 'primary' }) => {
   return (
-        <button
-          className={`button btn--${variant}`}
-          onClick={onClick}
-        >
-          {children}
-        </button>
+    <button className={`button btn--${variant}`} onClick={onClick}>
+      {children}
+    </button>
   )
 }
 
 Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'outline', 'text'])
+  variant: PropTypes.oneOf(['primary', 'outline', 'text']),
 }
 
 export default Button

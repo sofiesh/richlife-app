@@ -20,19 +20,43 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint ./src || exit 0",
-    "lint:fix": "npx eslint ./src --fix || exit 0"
+    "lint:fix": "npx eslint ./src --fix",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
       "@lnu",
       "plugin:react/recommended",
-      "plugin:react-hooks/recommended"
+      "plugin:react-hooks/recommended",
+      "prettier"
     ],
     "settings": {
       "react": {
         "version": "detect"
       }
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.test.js"
+        ],
+        "rules": {
+          "jsdoc/require-jsdoc": "off",
+          "jsdoc/require-description": "off",
+          "jsdoc/require-returns": "off",
+          "jsdoc/require-param-description": "off",
+          "jsdoc/require-param-type": "off"
+        }
+      }
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,css}": [
+      "prettier --write"
+    ],
+    "src/**/!(*.test).js": [
+      "eslint --fix"
+    ]
   },
   "browserslist": {
     "production": [
@@ -47,14 +71,19 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@lnu/eslint-config": "^1.1.10",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^46.10.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "@babel/plugin-proposal-private-property-in-object": "^7.22.5"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3"
   },
   "homepage": "/budgetapp/"
 }

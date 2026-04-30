@@ -4,10 +4,15 @@ import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 
 jest.mock('firebase/auth', () => ({
+  /**
+   *
+   * @param auth
+   * @param callback
+   */
   onAuthStateChanged: (auth, callback) => {
     callback(null)
     return () => {}
-  }
+  },
 }))
 jest.mock('./firebase', () => ({ auth: {} }))
 
@@ -15,7 +20,7 @@ test('appen renderar utan att krascha', () => {
   render(
     <MemoryRouter>
       <App />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
   expect(screen.getAllByText('Susbud').length).toBeGreaterThan(0)
 })
@@ -24,7 +29,7 @@ test('visar Logga in och Registrera när användaren är utloggad', () => {
   render(
     <MemoryRouter>
       <App />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
   expect(screen.getByText('Logga in')).toBeInTheDocument()
   expect(screen.getByText('Registrera')).toBeInTheDocument()

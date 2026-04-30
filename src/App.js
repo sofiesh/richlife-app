@@ -17,7 +17,7 @@ import { auth } from './firebase'
  *
  * @returns {Function} JSX Element.
  */
-function AppRoute () {
+function AppRoute() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
@@ -82,21 +82,38 @@ function AppRoute () {
       />
       <main className="main-content">
         <Routes>
-          <Route path="/" element={
-            <div className="landing">
-              <img src={logo} className="landing-logo" alt="Susbud logo" />
-              <h1>Susbud</h1>
-              <p className="tagline">Talk about your finances</p>
-              {!user && (
-                <button className="btn-cta" onClick={handleLoginClick}>Kom igång</button>
-              )}
-            </div>
-          } />
-          <Route path="/login" element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />} />
-          <Route path="/register" element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />} />
-          <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/login" />} />
+          <Route
+            path="/"
+            element={
+              <div className="landing">
+                <img src={logo} className="landing-logo" alt="Susbud logo" />
+                <h1>Susbud</h1>
+                <p className="tagline">Talk about your finances</p>
+                {!user && (
+                  <button className="btn-cta" onClick={handleLoginClick}>
+                    Kom igång
+                  </button>
+                )}
+              </div>
+            }
+          />
+          <Route
+            path="/login"
+            element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/register"
+            element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/dashboard"
+            element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+          />
           <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
-          <Route path="/userProfile" element={user ? <UserProfile user={user} /> : <Navigate to="/login" />} />
+          <Route
+            path="/userProfile"
+            element={user ? <UserProfile user={user} /> : <Navigate to="/login" />}
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

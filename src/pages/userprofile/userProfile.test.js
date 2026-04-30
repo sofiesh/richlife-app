@@ -5,14 +5,14 @@ import { updateProfile } from 'firebase/auth'
 
 // Mocka Firebase
 jest.mock('firebase/auth', () => ({
-  updateProfile: jest.fn()
+  updateProfile: jest.fn(),
 }))
 jest.mock('../../firebase', () => ({ auth: {} }))
 
 const mockUser = {
   email: 'test@example.com',
   displayName: 'Anna',
-  metadata: { creationTime: 'Thu, 01 Jan 2024 00:00:00 GMT' }
+  metadata: { creationTime: 'Thu, 01 Jan 2024 00:00:00 GMT' },
 }
 
 test('visar användarens e-post', () => {

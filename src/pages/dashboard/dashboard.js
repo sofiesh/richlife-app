@@ -24,37 +24,38 @@ const Dashboard = ({ user }) => {
   // const visibleProducts = showBought ? bought : notBought
 
   const rankedProducts = [...products]
-    .map(p => ({
+    .map((p) => ({
       ...p,
-      score: calculateStarScore(p)
+      score: calculateStarScore(p),
     }))
     .sort((a, b) => b.score - a.score)
 
   const bestProduct = rankedProducts[0]
 
   return (
-        <div className="dashboard">
-            <h1>Köpkollen</h1>
-                <Button className="add-product" onClick={() => { }} variant="outline">
-                    Lägg till produkt
-                </Button>
+    <div className="dashboard">
+      <h1>Köpkollen</h1>
+      <Button className="add-product" onClick={() => {}} variant="outline">
+        Lägg till produkt
+      </Button>
 
-            {/* KPI-boxar */}
-            <div className="stats">
-                <div className="card">I önskelistan</div>
-                <div className="card">Viktigast köp nu
-                    {bestProduct && (
-                        <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
-                            {bestProduct.name} ({bestProduct.price} kr)
-                        </div>
-                    )}
-                </div>
-                <div className="card">Totalt spenderat</div>
-                <div className="card">Köppoäng</div>
+      {/* KPI-boxar */}
+      <div className="stats">
+        <div className="card">I önskelistan</div>
+        <div className="card">
+          Viktigast köp nu
+          {bestProduct && (
+            <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
+              {bestProduct.name} ({bestProduct.price} kr)
             </div>
+          )}
+        </div>
+        <div className="card">Totalt spenderat</div>
+        <div className="card">Köppoäng</div>
+      </div>
 
-            {/* Toggle */}
-            {/* <div className="toggle">
+      {/* Toggle */}
+      {/* <div className="toggle">
                 <button onClick={() => setShowBought(false)}>
                     Ej köpta ({notBought.length})
                 </button>
@@ -64,52 +65,52 @@ const Dashboard = ({ user }) => {
                 </button>
             </div> */}
 
-            {/* Lista */}
-            <div className="list">
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr style={{ textAlign: 'left', borderBottom: '2px solid #ccc' }}>
-                                <th style={{ padding: '8px' }}>Produkt</th>
-                                <th style={{ padding: '8px' }}>Kategori</th>
-                                <th style={{ padding: '8px' }}>Pris</th>
-                                <th style={{ padding: '8px' }}>Värdering</th>
-                            </tr>
-                        </thead>
+      {/* Lista */}
+      <div className="list">
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ textAlign: 'left', borderBottom: '2px solid #ccc' }}>
+                <th style={{ padding: '8px' }}>Produkt</th>
+                <th style={{ padding: '8px' }}>Kategori</th>
+                <th style={{ padding: '8px' }}>Pris</th>
+                <th style={{ padding: '8px' }}>Värdering</th>
+              </tr>
+            </thead>
 
-                        <tbody>
-                            {rankedProducts.map(item => (
-                                <tr
-                                    key={item.id}
-                                    onClick={() => navigate(`/items/${item.id}`)}
-                                    style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}
-                                >
-                                    <td style={{ padding: '8px' }}>{item.name}</td>
-                                    <td style={{ padding: '8px' }}>{item.category || 'Unknown'}</td>
-                                    <td style={{ padding: '8px' }}>{item.price || 'Unknown'}</td>
-                                    <td style={{ padding: '8px' }}>{item.valueRating || 'Unknown'}</td>
-                                    <td>
-                                        <Stars
-                                            value={item.valueRating}
-                                            onChange={(newValue) => {
-                                              console.log(item.id, newValue)
-                                            }}
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div >
+            <tbody>
+              {rankedProducts.map((item) => (
+                <tr
+                  key={item.id}
+                  onClick={() => navigate(`/items/${item.id}`)}
+                  style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}
+                >
+                  <td style={{ padding: '8px' }}>{item.name}</td>
+                  <td style={{ padding: '8px' }}>{item.category || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.price || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.valueRating || 'Unknown'}</td>
+                  <td>
+                    <Stars
+                      value={item.valueRating}
+                      onChange={(newValue) => {
+                        console.log(item.id, newValue)
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
+    </div>
   )
 }
 
 Dashboard.propTypes = {
   user: PropTypes.shape({
-    email: PropTypes.string
-  })
+    email: PropTypes.string,
+  }),
 }
 
 export default Dashboard

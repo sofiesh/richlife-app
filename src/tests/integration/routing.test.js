@@ -11,10 +11,14 @@ jest.mock('../../firebase.js', () => ({ auth: {} }))
 const mockUser = {
   email: 'test@example.com',
   displayName: '',
-  metadata: { creationTime: 'Thu, 01 Jan 2024 00:00:00 GMT' }
+  metadata: { creationTime: 'Thu, 01 Jan 2024 00:00:00 GMT' },
 }
 
 // Hjälpfunktion — renderar /userProfile med eller utan inloggad användare
+/**
+ *
+ * @param user
+ */
 const renderProfileRoute = (user) =>
   render(
     <MemoryRouter initialEntries={['/userProfile']}>
@@ -24,7 +28,7 @@ const renderProfileRoute = (user) =>
           element={user ? <UserProfile user={user} /> : <div>Logga in</div>}
         />
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
 test('inloggad användare ser profilsidan', () => {

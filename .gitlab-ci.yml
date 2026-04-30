@@ -1,0 +1,24 @@
+stages:
+  - test
+  - lint
+
+lint:
+  stage: lint
+  image: node:20
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm ci --legacy-peer-deps
+    - npm run lint
+    - npx prettier --check "src/**/*.{js,css}"
+
+test:
+  stage: test
+  image: node:20
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm ci --legacy-peer-deps
+    - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)

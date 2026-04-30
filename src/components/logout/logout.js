@@ -9,7 +9,7 @@ import './logout.css'
  *
  * @returns {Function} JSX Element.
  */
-function Logout () {
+function Logout() {
   /**
    * Logout handler.
    *
@@ -24,7 +24,9 @@ function Logout () {
   }
 
   return (
-        <button onClick={handleLogout} className="logout-button">Logga ut</button>
+    <button onClick={handleLogout} className="logout-button">
+      Logga ut
+    </button>
   )
 }
 

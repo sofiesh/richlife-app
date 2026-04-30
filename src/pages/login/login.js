@@ -9,7 +9,7 @@ import './login.css'
  *
  * @returns {Function} JSX Element.
  */
-function Login () {
+function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -34,17 +34,25 @@ function Login () {
   return (
     <div className="login-container">
       <h3>Logga in</h3>
-      {loginSuccess
-        ? (
+      {loginSuccess ? (
         <p>Du är inloggad</p>
-          )
-        : (
-      <form onSubmit={handleLogin}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-post" />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord" />
-        <button type="submit">Logga in</button>
-      </form>
-          )}
+      ) : (
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-post"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Lösenord"
+          />
+          <button type="submit">Logga in</button>
+        </form>
+      )}
       {error && <p>{error}</p>}
     </div>
   )

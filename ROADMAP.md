@@ -1,6 +1,6 @@
 # ROADMAP – Susbud
 
-Uppdaterad: 2026-04-17
+Uppdaterad: 2026-04-30
 
 **Stack:** React 18 + Firebase (Auth + Firestore) — ingen egen backend.
 
@@ -8,15 +8,14 @@ Uppdaterad: 2026-04-17
 
 ## Nuläge
 
-- Firebase Auth fungerar: inloggning, registrering, utloggning
-- React Router v6 med routes för `/login` och `/register`
-- PurchasePlan-komponenter (form + lista) är skrivna men kommenterade i App.js
-- Ingen dashboard för inloggad användare ännu
+- Firebase Auth: inloggning, registrering, utloggning
+- React Router v6 med routes för `/login`, `/register`, `/dashboard`, `/userprofile`, `/itemdetail`
+- PurchasePlan-komponenter mockade
 - MongoDB och Express borttagna — all data lagras i Firestore
 
 ---
 
-## Fas 1 – Klar (städning & säkerhet)
+## Fas 1 – Städning & säkerhet ✅
 
 - [x] Firebase-config flyttad till `.env`
 - [x] Firebase-initialisering extraherad till `src/firebase.js`
@@ -28,20 +27,21 @@ Uppdaterad: 2026-04-17
 
 ## Fas 2 – Kärnfunktioner
 
-### 2a. Dashboard för inloggad användare
-- Skapa `/dashboard`-route (skyddad, kräver inloggning)
-- Flytta nav-logik till en `<Navbar>`-komponent
-- Rendera `<PurchasePlan />` i dashboard
+### 2a. Dashboard för inloggad användare ✅
+- [x] `/dashboard`-route (skyddad, kräver inloggning)
+- [x] Nav-logik i `<Navbar>`-komponent
+- [x] `<PurchasePlan />` i dashboard
+- [x] `<itemdetail />` separat page samt länk i dashboard
+- [x] Datamodell (basic): `{ name, price, createdAt, ... }`
 
 ### 2b. Koppla inköpslista till Firestore
-- Spara items per användare i Firestore: `users/{uid}/purchasePlans/{id}`
-- Ladda items när användaren loggar in
-- `handleSubmit` i PurchasePlan skriver till Firestore istället för `console.log`
+- [ ] Spara items per användare i Firestore: `users/{uid}/purchasePlans/{id}`
+- [ ] Ladda items när användaren loggar in
 
 ### 2c. Komplettera CRUD för inköpsposter
-- Redigera ett item
-- Ta bort ett item
-- Datamodell: `{ name, newPrice, usedPrice, createdAt }`
+- [ ] Redigera ett item
+- [ ] Ta bort ett item
+- [ ] Datamodell (advanced): `{ CO2, savings opportunity ... }`
 
 ---
 

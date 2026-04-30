@@ -36,7 +36,7 @@ const PurchasePlanForm = ({ items, handleAddItem }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='purchaseplaninputfield-component'>
+      <div className="purchaseplaninputfield-component">
         <PurchasePlanInputField
           name="name"
           placeholder="Artikel"
@@ -44,7 +44,7 @@ const PurchasePlanForm = ({ items, handleAddItem }) => {
           onChange={handleChange}
         />
       </div>
-      <div className='purchaseplaninputfield-component'>
+      <div className="purchaseplaninputfield-component">
         <PurchasePlanInputField
           name="price"
           placeholder="Pris"
@@ -52,7 +52,9 @@ const PurchasePlanForm = ({ items, handleAddItem }) => {
           onChange={handleChange}
         />
       </div>
-      <Button text="Add new item" backgroundColor="#1a8c51" type="submit" >Skicka</Button>
+      <Button text="Add new item" backgroundColor="#1a8c51" type="submit">
+        Skicka
+      </Button>
     </form>
   )
 }
@@ -61,10 +63,10 @@ PurchasePlanForm.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired
-    })
+      price: PropTypes.string.isRequired,
+    }),
   ).isRequired,
-  handleAddItem: PropTypes.func.isRequired
+  handleAddItem: PropTypes.func.isRequired,
 }
 
 export default PurchasePlanForm

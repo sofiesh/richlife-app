@@ -22,19 +22,25 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
       <span className="navbar-title">Susbud</span>
     </button>
     <div className="navbar-actions">
-      {user
-        ? (
-          <>
-          <button className="nav-btn nav-btn--outline" onClick={onProfile}>⚙️</button>
-          <button className="nav-btn nav-btn--outline" onClick={onLogout}>Logga ut</button>
-          </>
-          )
-        : (
-          <>
-            <button className="nav-btn nav-btn--text" onClick={onLogin}>Logga in</button>
-            <button className="nav-btn nav-btn--primary" onClick={onRegister}>Registrera</button>
-          </>
-          )}
+      {user ? (
+        <>
+          <button className="nav-btn nav-btn--outline" onClick={onProfile}>
+            ⚙️
+          </button>
+          <button className="nav-btn nav-btn--outline" onClick={onLogout}>
+            Logga ut
+          </button>
+        </>
+      ) : (
+        <>
+          <button className="nav-btn nav-btn--text" onClick={onLogin}>
+            Logga in
+          </button>
+          <button className="nav-btn nav-btn--primary" onClick={onRegister}>
+            Registrera
+          </button>
+        </>
+      )}
     </div>
   </nav>
 )
@@ -45,7 +51,7 @@ Navbar.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   onProfile: PropTypes.func.isRequired,
-  onLogout: PropTypes.func.isRequired
+  onLogout: PropTypes.func.isRequired,
 }
 
 export default Navbar

@@ -6,19 +6,26 @@ import ItemDetail from './itemDetail'
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate
+  /**
+   *
+   */
+  useNavigate: () => mockNavigate,
 }))
 
 beforeEach(() => mockNavigate.mockClear())
 
 // Renderar ItemDetail med ett specifikt produkt-id
+/**
+ *
+ * @param id
+ */
 const renderItemDetail = (id) =>
   render(
     <MemoryRouter initialEntries={[`/items/${id}`]}>
       <Routes>
         <Route path="/items/:id" element={<ItemDetail />} />
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
 test('visar produktnamn och detaljer', () => {

@@ -7,7 +7,7 @@ export const purchaseItemsMock = [
     priority: 'high',
     bought: false,
     savedAmount: 2000,
-    valueRating: 2
+    valueRating: 2,
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const purchaseItemsMock = [
     priority: 'medium',
     bought: true,
     savedAmount: 0,
-    valueRating: 6
+    valueRating: 6,
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const purchaseItemsMock = [
     priority: 'high',
     bought: false,
     savedAmount: 500,
-    valueRating: 4
+    valueRating: 4,
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ export const purchaseItemsMock = [
     priority: 'low',
     bought: false,
     savedAmount: 150,
-    valueRating: 2
+    valueRating: 2,
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ export const purchaseItemsMock = [
     priority: 'medium',
     bought: true,
     savedAmount: 0,
-    valueRating: 10
+    valueRating: 10,
   },
   {
     id: 6,
@@ -57,6 +57,6 @@ export const purchaseItemsMock = [
     priority: 'high',
     bought: false,
     savedAmount: 300,
-    valueRating: 3
-  }
+    valueRating: 3,
+  },
 ]

@@ -4,7 +4,7 @@
  * @param {{ valueRating: number, price: number }} products - The product object containing valueRating and price.
  * @returns {number} The calculated star score.
  */
-export function calculateStarScore (products) {
+export function calculateStarScore(products) {
   const value = products.valueRating || 0
   const price = products.price || 1
 

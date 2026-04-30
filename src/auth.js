@@ -1,6 +1,10 @@
 // auth.js
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth'
 import { auth } from './firebase'
 
 /**
@@ -10,7 +14,7 @@ import { auth } from './firebase'
  * @param {string} password - User password
  * @returns {Promise<import("firebase/auth").UserCredential>} - User credentials
  */
-function signUp (email, password) {
+function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
 }
 
@@ -21,7 +25,7 @@ function signUp (email, password) {
  * @param {string} password - User password
  * @returns {Promise<import("firebase/auth").UserCredential>} - User credentials
  */
-function signIn (email, password) {
+function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password)
 }
 
@@ -30,7 +34,7 @@ function signIn (email, password) {
  *
  * @returns {Promise<void>} - Resolved promise
  */
-function signOut () {
+function signOut() {
   return auth.signOut()
 }
 
@@ -40,7 +44,7 @@ function signOut () {
  * @param {Function} callback - Callback function.
  * @returns {function(): void} - State observer.
  */
-function observeAuthState (callback) {
+function observeAuthState(callback) {
   return onAuthStateChanged(auth, callback)
 }
 

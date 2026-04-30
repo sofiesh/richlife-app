@@ -6,23 +6,32 @@ import Dashboard from './dashboard'
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate
+  /**
+   *
+   */
+  useNavigate: () => mockNavigate,
 }))
 
 jest.mock('../../components/rankingstars/rankingStar.js', () => () => null)
 jest.mock('../../assets/calculateStarScore.js', () => ({
-  calculateStarScore: () => 5
+  /**
+   *
+   */
+  calculateStarScore: () => 5,
 }))
 
 const mockUser = { email: 'test@example.com' }
 
 beforeEach(() => mockNavigate.mockClear())
 
+/**
+ *
+ */
 const renderDashboard = () =>
   render(
     <MemoryRouter>
       <Dashboard user={mockUser} />
-    </MemoryRouter>
+    </MemoryRouter>,
   )
 
 test('visar produktlistan', () => {
