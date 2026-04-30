@@ -17,7 +17,7 @@ import { auth } from './firebase'
  *
  * @returns {Function} JSX Element.
  */
-function AppRoute () {
+function AppRoute() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
 

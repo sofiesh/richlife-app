@@ -26,7 +26,7 @@ const Dashboard = ({ user }) => {
   const rankedProducts = [...products]
     .map((p) => ({
       ...p,
-      score: calculateStarScore(p)
+      score: calculateStarScore(p),
     }))
     .sort((a, b) => b.score - a.score)
 
@@ -109,8 +109,8 @@ const Dashboard = ({ user }) => {
 
 Dashboard.propTypes = {
   user: PropTypes.shape({
-    email: PropTypes.string
-  })
+    email: PropTypes.string,
+  }),
 }
 
 export default Dashboard

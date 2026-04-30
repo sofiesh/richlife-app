@@ -9,7 +9,7 @@ import './register.css'
  *
  * @returns {Function} JSX Element.
  */
-function Register () {
+function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -36,11 +36,9 @@ function Register () {
   return (
     <div className="register-container">
       <h3>Registrera ny användare</h3>
-      {registrationSuccess
-        ? (
+      {registrationSuccess ? (
         <p>Registrering lyckades</p>
-          )
-        : (
+      ) : (
         <form onSubmit={handleRegister}>
           <input
             type="email"
@@ -56,7 +54,7 @@ function Register () {
           />
           <button type="submit">Registrera</button>
         </form>
-          )}
+      )}
       {error && <p>{error}</p>}
     </div>
   )

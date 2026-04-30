@@ -9,7 +9,7 @@ import './logout.css'
  *
  * @returns {Function} JSX Element.
  */
-function Logout () {
+function Logout() {
   /**
    * Logout handler.
    *

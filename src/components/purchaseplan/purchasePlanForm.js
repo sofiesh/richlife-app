@@ -63,10 +63,10 @@ PurchasePlanForm.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired
-    })
+      price: PropTypes.string.isRequired,
+    }),
   ).isRequired,
-  handleAddItem: PropTypes.func.isRequired
+  handleAddItem: PropTypes.func.isRequired,
 }
 
 export default PurchasePlanForm

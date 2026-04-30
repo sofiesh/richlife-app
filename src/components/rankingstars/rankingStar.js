@@ -19,7 +19,7 @@ const Star = ({ value = 0, onChange }) => {
           style={{
             cursor: 'pointer',
             color: star <= value ? '#f5c518' : '#ccc',
-            fontSize: '20px'
+            fontSize: '20px',
           }}
         >
           ★
@@ -31,7 +31,7 @@ const Star = ({ value = 0, onChange }) => {
 
 Star.propTypes = {
   value: PropTypes.number,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 }
 
 export default Star

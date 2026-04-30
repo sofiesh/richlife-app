@@ -22,8 +22,7 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
       <span className="navbar-title">Susbud</span>
     </button>
     <div className="navbar-actions">
-      {user
-        ? (
+      {user ? (
         <>
           <button className="nav-btn nav-btn--outline" onClick={onProfile}>
             ⚙️
@@ -32,8 +31,7 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
             Logga ut
           </button>
         </>
-          )
-        : (
+      ) : (
         <>
           <button className="nav-btn nav-btn--text" onClick={onLogin}>
             Logga in
@@ -42,7 +40,7 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
             Registrera
           </button>
         </>
-          )}
+      )}
     </div>
   </nav>
 )
@@ -53,7 +51,7 @@ Navbar.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   onProfile: PropTypes.func.isRequired,
-  onLogout: PropTypes.func.isRequired
+  onLogout: PropTypes.func.isRequired,
 }
 
 export default Navbar

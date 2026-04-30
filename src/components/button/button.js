@@ -23,7 +23,7 @@ const Button = ({ onClick, children, variant = 'primary' }) => {
 Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'outline', 'text'])
+  variant: PropTypes.oneOf(['primary', 'outline', 'text']),
 }
 
 export default Button
