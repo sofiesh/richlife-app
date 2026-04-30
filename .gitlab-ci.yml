@@ -2,12 +2,17 @@ stages:
   - test
   - lint
 
-lint:
-  stage: lint
+default:
   image: node:20
   cache:
+    key:
+      files:
+        - package-lock.json
     paths:
       - node_modules/
+
+lint:
+  stage: lint
   script:
     - npm ci --legacy-peer-deps
     - npm run lint
@@ -15,10 +20,7 @@ lint:
 
 test:
   stage: test
-  image: node:20
-  cache:
-    paths:
-      - node_modules/
+  needs: []
   script:
     - npm ci --legacy-peer-deps
     - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)
