@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import './dashboard.css'
+import './purchasePlan.css'
 import { purchaseItemsMock } from '../../mockData/purchaseItemsMock.js'
 import Stars from '../../components/rankingstars/rankingStar.js'
 import { calculateStarScore } from '../../assets/calculateStarScore.js'
@@ -14,7 +14,7 @@ import Button from '../../components/button/button.js'
  * @param {{ user: { email: string } }} props - Props containing user information.
  * @returns {Function} JSX Element.
  */
-const Dashboard = ({ user }) => {
+const PurchasePlan = ({ user }) => {
   const navigate = useNavigate()
   const products = purchaseItemsMock
   //   const notBought = products.filter(p => !p.bought)
@@ -33,7 +33,7 @@ const Dashboard = ({ user }) => {
   const bestProduct = rankedProducts[0]
 
   return (
-    <div className="dashboard">
+    <div className="purchaseplan">
       <h1>Köpkollen</h1>
       <Button className="add-product" onClick={() => {}} variant="outline">
         Lägg till produkt
@@ -107,10 +107,10 @@ const Dashboard = ({ user }) => {
   )
 }
 
-Dashboard.propTypes = {
+PurchasePlan.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
   }),
 }
 
-export default Dashboard
+export default PurchasePlan

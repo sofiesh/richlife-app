@@ -19,7 +19,7 @@ const ItemDetail = () => {
   return (
     <div>
       <div className="item-detail-container">
-        <button className="item-back" onClick={() => navigate('/dashboard')}>
+        <button className="item-back" onClick={() => navigate('/purchaseplan')}>
           Tillbaka
         </button>
 

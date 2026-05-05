@@ -9,7 +9,7 @@ Uppdaterad: 2026-04-30
 ## Nuläge
 
 - Firebase Auth: inloggning, registrering, utloggning
-- React Router v6 med routes för `/login`, `/register`, `/dashboard`, `/userprofile`, `/itemdetail`
+- React Router v6 med routes för `/login`, `/register`, `/purchaseplan`, `/userprofile`, `/itemdetail`
 - PurchasePlan-komponenter mockade
 - MongoDB och Express borttagna — all data lagras i Firestore
 
@@ -28,9 +28,9 @@ Uppdaterad: 2026-04-30
 ## Fas 2 – Kärnfunktioner
 
 ### 2a. Dashboard för inloggad användare ✅
-- [x] `/dashboard`-route (skyddad, kräver inloggning)
+- [x] `/purchaseplan`-route (skyddad, kräver inloggning)
 - [x] Nav-logik i `<Navbar>`-komponent
-- [x] `<PurchasePlan />` i dashboard
+- [x] `<PurchasePlan />` i purchase plan
 - [x] `<itemdetail />` separat page samt länk i dashboard
 - [x] Datamodell (basic): `{ name, price, createdAt, ... }`
 
