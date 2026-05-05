@@ -5,7 +5,7 @@ import Login from './pages/login/login.js'
 import Register from './components/register/register.js'
 import Navbar from './components/navbar/navbar.js'
 import HomePage from './pages/home/homePage.js'
-import Dashboard from './pages/purchaseplan/purchasePlan.js'
+import PurchasePlan from './pages/purchaseplan/purchasePlan.js'
 import UserProfile from './pages/userprofile/userProfile.js'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -101,11 +101,11 @@ function AppRoute() {
           />
           <Route
             path="/homepage"
-            element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+            element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
           />
           <Route
             path="/purchaseplan"
-            element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+            element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
           />
           <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
           <Route

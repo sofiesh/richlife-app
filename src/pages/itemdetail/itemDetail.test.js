@@ -53,8 +53,8 @@ test('togglar köpt-status vid knappklick', () => {
   expect(screen.getByText('Markera som ej köpt')).toBeInTheDocument()
 })
 
-test('Tillbaka-knappen navigerar till /dashboard', () => {
+test('Tillbaka-knappen navigerar till /purchaseplan', () => {
   renderItemDetail('1')
   fireEvent.click(screen.getByText('Tillbaka'))
-  expect(mockNavigate).toHaveBeenCalledWith('/dashboard')
+  expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan')
 })

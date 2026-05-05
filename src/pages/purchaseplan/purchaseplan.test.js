@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import Dashboard from './purchasePlan'
+import PurchasePlan from './purchasePlan'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -27,21 +27,21 @@ beforeEach(() => mockNavigate.mockClear())
 /**
  *
  */
-const renderDashboard = () =>
+const renderPurchasePlan = () =>
   render(
     <MemoryRouter>
-      <Dashboard user={mockUser} />
+      <PurchasePlan user={mockUser} />
     </MemoryRouter>,
   )
 
 test('visar produktlistan', () => {
-  renderDashboard()
+  renderPurchasePlan()
   expect(screen.getByText('iPhone 15')).toBeInTheDocument()
   expect(screen.getByText('Nike sneakers')).toBeInTheDocument()
 })
 
 test('navigerar till detaljsida vid klick på produktrad', () => {
-  renderDashboard()
+  renderPurchasePlan()
   fireEvent.click(screen.getByText('iPhone 15'))
   expect(mockNavigate).toHaveBeenCalledWith('/items/1')
 })
