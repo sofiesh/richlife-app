@@ -1,12 +1,12 @@
-import logo from './Susbud_logo.png'
+// import logo from './Susbud_logo.png'
 import './App.css'
 import ItemDetail from './pages/itemdetail/itemDetail.js'
 import Login from './pages/login/login.js'
 import Register from './components/register/register.js'
 import Navbar from './components/navbar/navbar.js'
-import Dashboard from './pages/dashboard/dashboard.js'
+import HomePage from './pages/home/homepage.js'
+import Dashboard from './pages/purchaseplan/purchaseplan.js'
 import UserProfile from './pages/userprofile/userProfile.js'
-// import PurchasePlan from './components/purchasePlan'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -33,7 +33,7 @@ function AppRoute() {
    *
    * @returns {void}
    */
-  const handleHomeClick = () => navigate('/dashboard')
+  const handleHomeClick = () => navigate('/')
 
   /**
    * Handles the click event for the login button.
@@ -48,6 +48,13 @@ function AppRoute() {
    * @returns {void}
    */
   const handleRegisterClick = () => navigate('/register')
+
+  /**
+   * Handles the click event for the purchaseplan button.
+   *
+   * @returns {void}
+   */
+  const handlePurchasePlanClick = () => navigate('/purchaseplan')
 
   /**
    * Handles the click event for the profile button.
@@ -77,26 +84,13 @@ function AppRoute() {
         onHome={handleHomeClick}
         onLogin={handleLoginClick}
         onRegister={handleRegisterClick}
+        onPurchasePlan={handlePurchasePlanClick}
         onProfile={handleUserProfileClick}
         onLogout={handleLogoutClick}
       />
       <main className="main-content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="landing">
-                <img src={logo} className="landing-logo" alt="Susbud logo" />
-                <h1>Susbud</h1>
-                <p className="tagline">Talk about your finances</p>
-                {!user && (
-                  <button className="btn-cta" onClick={handleLoginClick}>
-                    Kom igång
-                  </button>
-                )}
-              </div>
-            }
-          />
+          <Route path="/" element={<HomePage user={user} onLogin={handleLoginClick} />} />
           <Route
             path="/login"
             element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />}
@@ -106,7 +100,11 @@ function AppRoute() {
             element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />}
           />
           <Route
-            path="/dashboard"
+            path="/homepage"
+            element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/purchaseplan"
             element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
           />
           <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />

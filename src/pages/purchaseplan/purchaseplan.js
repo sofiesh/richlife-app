@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import './dashboard.css'
+import './purchaseplan.css'
 import { purchaseItemsMock } from '../../mockData/purchaseItemsMock.js'
 import Stars from '../../components/rankingstars/rankingStar.js'
 import { calculateStarScore } from '../../assets/calculateStarScore.js'
