@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import Dashboard from './purchaseplan'
+import Dashboard from './purchasePlan'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({

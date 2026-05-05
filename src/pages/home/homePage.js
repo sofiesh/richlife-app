@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import InfoCard from '../../components/infocard/infoCard.js'
-import './homepage.css'
+import './homePage.css'
 import { Link } from 'react-router-dom'
 
 /**

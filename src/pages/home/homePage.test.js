@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import HomePage from './homepage.js'
+import HomePage from './homePage.js'
 
 const onLogin = jest.fn()
 
