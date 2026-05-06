@@ -1,6 +1,7 @@
 stages:
   - test
   - lint
+  - docker
 
 default:
   image: node:20
@@ -24,3 +25,30 @@ test:
   script:
     - npm ci --legacy-peer-deps
     - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)
+
+docker:
+  stage: docker
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker compose build
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy_staging:
+  stage: deploy
+  image: docker:24
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+  script:
+    - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
+  only:
+    - main

@@ -1,0 +1,14 @@
+# This is not a pure allow list but an exclusion list
+# simulating allow listing with *+!
+
+# Exkludera allt
+*
+
+# Tillåt endast det som behövs
+!public
+!src
+!package.json
+!package-lock.json
+
+# Viktigt för Node-projekt
+node_modules
