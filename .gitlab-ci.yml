@@ -41,17 +41,20 @@ deploy_staging:
   stage: deploy
   only:
     - main
-  image: docker:24
-  services:
-    - docker:24-dind
-  variables:
-    DOCKER_TLS_CERTDIR: ""
+  image: alpine:latest
   before_script:
     - apk add --no-cache openssh-client
+  # setup ssh key
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
+  # trust server
+    - ssh-keyscan 172.27.61.59 >> ~/.ssh/known_hosts
   script:
+    - export DOCKER_HOST=ssh://ubuntu@172.27.61.59
+    - export DOCKER_PORT=80
+    - export SESSION_SECRET=test123
+
     - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
   only:
     - main
