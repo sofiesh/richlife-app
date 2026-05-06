@@ -1,14 +1,17 @@
 # This is not a pure allow list but an exclusion list
 # simulating allow listing with *+!
 
-# Exkludera allt
+# Exclude all by default
 *
 
-# Tillåt endast det som behövs
-!public
-!src
+# Allow configuration files
 !package.json
 !package-lock.json
+!nginx.conf
+
+# Allow source code and public assets
+!public
+!src
 
 # Viktigt för Node-projekt
 node_modules

@@ -5,3 +5,4 @@ services:
       dockerfile: Dockerfile.production
     environment:
       - NODE_ENV=production
+      - TRUST_PROXY=${TRUST_PROXY:-1}

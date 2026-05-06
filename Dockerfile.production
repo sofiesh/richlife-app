@@ -1,9 +1,8 @@
 # Step 1: Dependencies stage
 FROM node:lts-bookworm-slim AS build
-
 WORKDIR /usr/src/app
-
 COPY package*.json ./
+
 # npm ci instead of npm install to ensure reproduceable builds
 RUN npm ci --legacy-peer-deps
 
