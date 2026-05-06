@@ -32,7 +32,7 @@ deploy_staging:
     - main
   image: alpine:latest
   before_script:
-    - apk add --no-cache docker-cli docker-compose-plugin openssh-client
+    - apk add --no-cache docker-cli docker-compose openssh-client  
   # setup ssh key
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -44,4 +44,4 @@ deploy_staging:
     - export DOCKER_PORT=80
     - export SESSION_SECRET=test123
 
-    - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
+    - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
