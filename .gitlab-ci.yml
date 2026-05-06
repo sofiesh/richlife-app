@@ -1,7 +1,6 @@
 stages:
   - test
   - lint
-  - docker
   - deploy
 
 default:
@@ -27,23 +26,13 @@ test:
     - npm ci --legacy-peer-deps
     - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)
 
-docker:
-  stage: docker
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker compose build
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-
 deploy_staging:
   stage: deploy
   only:
     - main
   image: alpine:latest
   before_script:
-    - apk add --no-cache openssh-client
+    - apk add --no-cache docker-cli openssh-client
   # setup ssh key
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -56,5 +45,3 @@ deploy_staging:
     - export SESSION_SECRET=test123
 
     - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
-  only:
-    - main
