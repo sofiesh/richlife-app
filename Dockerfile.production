@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # npm ci instead of npm install to ensure reproduceable builds
-RUN npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps && chown -R node:node /usr/src/app
 
 # Copy application source code (run as non-root user)
 COPY --chown=node:node . .
