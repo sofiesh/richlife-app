@@ -1,0 +1,6 @@
+services:
+  app:
+    container_name: budgetapp
+    build: .
+    ports:
+      - "${DOCKER_PORT}:80"

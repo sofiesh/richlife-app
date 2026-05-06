@@ -1,0 +1,20 @@
+# Step 1: Dependencies stage
+FROM node:lts-bookworm-slim AS build
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+# npm ci instead of npm install to ensure reproduceable builds
+RUN npm ci --omit=dev --ignore-scripts
+
+# Copy application source code (run as non-root user)
+COPY --chown=node:node . .
+USER node
+RUN npm run build
+
+# Step 2: Runtime stage
+# Possible change: nginxinc/nginx-unprivileged THEN update nginx.conf to listen 8080 AND docker-compose.yml ports: "3002:8080"
+FROM nginx:alpine
+
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY nginx-conf /etc/nginx/conf.d/default.conf
