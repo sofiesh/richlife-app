@@ -35,7 +35,7 @@ deploy_staging:
     - apk add --no-cache docker-cli docker-compose openssh-client  
   # setup ssh key
     - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
   # trust server
     - ssh-keyscan 172.27.61.59 >> ~/.ssh/known_hosts
