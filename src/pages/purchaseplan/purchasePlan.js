@@ -1,9 +1,10 @@
 // import React, { useState } from 'react'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './purchasePlan.css'
-import { purchaseItemsMock } from '../../mockData/purchaseItemsMock.js'
+import PurchasePlanForm from '../../components/purchaseplan/purchasePlanForm.js'
+import { getProducts, addProduct } from '../../repositories/productRepository.js'
 import Stars from '../../components/rankingstars/rankingStar.js'
 import { calculateStarScore } from '../../assets/calculateStarScore.js'
 import Button from '../../components/button/button.js'
@@ -15,13 +16,15 @@ import Button from '../../components/button/button.js'
  * @returns {Function} JSX Element.
  */
 const PurchasePlan = ({ user }) => {
+  const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate()
-  const products = purchaseItemsMock
-  //   const notBought = products.filter(p => !p.bought)
-  //   const bought = products.filter(p => p.bought)
+  const [products, setProducts] = useState([])
 
-  // const [showBought, setShowBought] = useState(false)
-  // const visibleProducts = showBought ? bought : notBought
+  useEffect(() => {
+    getProducts(user.uid)
+      .then(setProducts)
+      .catch((err) => console.error('Supabase error: ', err))
+  }, [user.uid])
 
   const rankedProducts = [...products]
     .map((p) => ({
@@ -30,14 +33,27 @@ const PurchasePlan = ({ user }) => {
     }))
     .sort((a, b) => b.score - a.score)
 
+  /**
+   * Adds a new product and updates product list.
+   *
+   * @param {Function} item - The product to be added to an owners list
+   */
+  const handleAddItem = async (item) => {
+    const saved = await addProduct(user.uid, item)
+    setProducts([...products, saved])
+    setShowForm(false)
+  }
+
   const bestProduct = rankedProducts[0]
 
   return (
     <div className="purchaseplan">
       <h1>Köpkollen</h1>
-      <Button className="add-product" onClick={() => {}} variant="outline">
-        Lägg till produkt
+      <Button onClick={() => setShowForm(!showForm)} variant="outline">
+        {showForm ? 'Avbryt' : 'Lägg till produkt'}
       </Button>
+
+      {showForm && <PurchasePlanForm onAdd={handleAddItem} />}
 
       {/* KPI-boxar */}
       <div className="stats">
@@ -73,7 +89,8 @@ const PurchasePlan = ({ user }) => {
               <tr style={{ textAlign: 'left', borderBottom: '2px solid #ccc' }}>
                 <th style={{ padding: '8px' }}>Produkt</th>
                 <th style={{ padding: '8px' }}>Kategori</th>
-                <th style={{ padding: '8px' }}>Pris</th>
+                <th style={{ padding: '8px' }}>Pris: nyköp</th>
+                <th style={{ padding: '8px' }}>Pris: secondhand</th>
                 <th style={{ padding: '8px' }}>Värdering</th>
               </tr>
             </thead>
@@ -87,11 +104,12 @@ const PurchasePlan = ({ user }) => {
                 >
                   <td style={{ padding: '8px' }}>{item.name}</td>
                   <td style={{ padding: '8px' }}>{item.category || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.price || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.valueRating || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.new_price || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.second_hand_price || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.priority || 'Unknown'}</td>
                   <td>
                     <Stars
-                      value={item.valueRating}
+                      value={item.priority}
                       onChange={(newValue) => {
                         console.log(item.id, newValue)
                       }}
@@ -110,6 +128,7 @@ const PurchasePlan = ({ user }) => {
 PurchasePlan.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
+    uid: PropTypes.string.isRequired,
   }),
 }
 

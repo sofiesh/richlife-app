@@ -15,24 +15,25 @@ import PropTypes from 'prop-types'
  */
 const PurchasePlanInputField = ({ label, name, placeholder, value, onChange }) => {
   return (
-    <div>
-      <label>
+    <div className="form-field">
+      <label className="form-label" htmlFor={name}>
         {label}
-        <input
-          type="text"
-          name={name}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          style={{ display: 'block', marginTop: '0.5rem' }}
-        />
       </label>
+      <input
+        className="form-input"
+        id={name}
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   )
 }
 
 PurchasePlanInputField.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
