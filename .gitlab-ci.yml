@@ -1,6 +1,5 @@
 stages:
-  - test
-  - lint
+  - check
   - deploy
 
 default:
@@ -10,20 +9,19 @@ default:
       files:
         - package-lock.json
     paths:
-      - node_modules/
+      - .npm/
 
 lint:
-  stage: lint
+  stage: check
   script:
-    - npm ci --legacy-peer-deps
+    - npm ci --legacy-peer-deps --cache .npm --prefer-offline
     - npm run lint
     - npx prettier --check "src/**/*.{js,css}"
 
 test:
-  stage: test
-  needs: []
+  stage: check
   script:
-    - npm ci --legacy-peer-deps
+    - npm ci --legacy-peer-deps --cache .npm --prefer-offline
     - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)
 
 deploy_staging:
@@ -31,6 +29,7 @@ deploy_staging:
   only:
     - main
   image: alpine:latest
+  cache: []
   before_script:
     - apk add --no-cache docker-cli docker-compose openssh-client  
   # setup ssh key
@@ -43,5 +42,4 @@ deploy_staging:
     - export DOCKER_HOST=ssh://ubuntu@172.27.61.59
     - export DOCKER_PORT=80
     - export SESSION_SECRET=test123
-
     - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
