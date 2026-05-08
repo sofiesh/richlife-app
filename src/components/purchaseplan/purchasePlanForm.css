@@ -1,5 +1,92 @@
-.purchaseplaninputfield-component {
+.purchase-plan-form {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0 20px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.form-field {
   display: flex;
   flex-direction: column;
-  margin: 0 0 20px 0;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #111827;
+  background: #ffffff;
+  transition:
+    border 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1a8c51;
+  box-shadow: 0 0 0 3px rgba(26, 140, 81, 0.12);
+}
+
+@media (min-width: 600px) {
+  .purchase-plan-form {
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .form-field {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-label {
+    width: 150px;
+    flex-shrink: 0;
+  }
+
+  .form-input {
+    flex: 1;
+    width: auto;
+  }
+}
+
+.form-submit-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1a8c51;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.form-submit-btn:hover {
+  background: #157a44;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
 }

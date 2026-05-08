@@ -4,20 +4,28 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import ItemDetail from './itemDetail'
 
 const mockNavigate = jest.fn()
+jest.mock('../../repositories/productRepository', () => {
+  const products = {
+    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, is_bought: false },
+    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, is_bought: true },
+  }
+  return {
+    getProductById: (id) => Promise.resolve(products[id]),
+    updateProduct: (_id, updates) => Promise.resolve(updates),
+  }
+})
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  /**
-   *
-   */
   useNavigate: () => mockNavigate,
 }))
 
 beforeEach(() => mockNavigate.mockClear())
 
-// Renderar ItemDetail med ett specifikt produkt-id
 /**
+ * Renderar ItemDetail med ett specifikt produkt-id.
  *
- * @param id
+ * @param id the item id
  */
 const renderItemDetail = (id) =>
   render(
@@ -28,33 +36,33 @@ const renderItemDetail = (id) =>
     </MemoryRouter>,
   )
 
-test('visar produktnamn och detaljer', () => {
+test('visar produktnamn och detaljer', async () => {
   renderItemDetail('1')
-  expect(screen.getByText('iPhone 15')).toBeInTheDocument()
-  expect(screen.getByText('Elektronik')).toBeInTheDocument()
-  expect(screen.getByText('12990 kr')).toBeInTheDocument()
+  expect(await screen.findByText('iPhone 15')).toBeInTheDocument()
+  expect(await screen.findByText('Elektronik')).toBeInTheDocument()
+  expect(await screen.findByText('12990 kr')).toBeInTheDocument()
 })
 
-test('visar Ej köpt för en ej köpt produkt', () => {
-  renderItemDetail('1') // iPhone 15, bought: false
-  expect(screen.getByText('Ej köpt')).toBeInTheDocument()
-  expect(screen.getByText('Markera som köpt')).toBeInTheDocument()
-})
-
-test('visar Köpt för en redan köpt produkt', () => {
-  renderItemDetail('2') // Nike sneakers, bought: true
-  expect(screen.getByText('Köpt')).toBeInTheDocument()
-  expect(screen.getByText('Markera som ej köpt')).toBeInTheDocument()
-})
-
-test('togglar köpt-status vid knappklick', () => {
+test('visar Ej köpt för en ej köpt produkt', async () => {
   renderItemDetail('1')
-  fireEvent.click(screen.getByText('Markera som köpt'))
-  expect(screen.getByText('Markera som ej köpt')).toBeInTheDocument()
+  expect(await screen.findByText('Ej köpt')).toBeInTheDocument()
+  expect(await screen.findByText('Markera som köpt')).toBeInTheDocument()
 })
 
-test('Tillbaka-knappen navigerar till /purchaseplan', () => {
+test('visar Köpt för en redan köpt produkt', async () => {
+  renderItemDetail('2')
+  expect(await screen.findByText('Köpt')).toBeInTheDocument()
+  expect(await screen.findByText('Markera som ej köpt')).toBeInTheDocument()
+})
+
+test('togglar köpt-status vid knappklick', async () => {
   renderItemDetail('1')
-  fireEvent.click(screen.getByText('Tillbaka'))
+  fireEvent.click(await screen.findByText('Markera som köpt'))
+  expect(await screen.findByText('Markera som ej köpt')).toBeInTheDocument()
+})
+
+test('Tillbaka-knappen navigerar till /purchaseplan', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Tillbaka'))
   expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan')
 })

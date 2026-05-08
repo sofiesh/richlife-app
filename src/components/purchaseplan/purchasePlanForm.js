@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import PurchasePlanInputField from './purchasePlanInputField'
-import Button from './button'
+import './purchasePlanForm.css'
 
 /**
  * Purchase plan form component.
  *
  * @param {object} props - The props object.
- * @param {Array} props.items - The list of items in the purchase plan. Each item is an object with `name` and `price` properties.
- * @param {Function} props.handleAddItem - Function to add a new item to the form.
+ * @param {Function} props.onAdd - The function to add new items.
  * @returns {Function} JSX Element.
  */
-const PurchasePlanForm = ({ items, handleAddItem }) => {
-  const [formItem, setFormItem] = useState({ name: '', price: '' })
+const PurchasePlanForm = ({ onAdd }) => {
+  const [formItem, setFormItem] = useState({
+    name: '',
+    new_price: '',
+    second_hand_price: '',
+    category: '',
+    priority: '',
+    value_rating: '',
+  })
 
   /**
    * Function to handle changes to the form fields.
@@ -30,43 +36,79 @@ const PurchasePlanForm = ({ items, handleAddItem }) => {
    */
   const handleSubmit = (event) => {
     event.preventDefault()
-    handleAddItem(formItem)
-    setFormItem({ name: '', price: '' })
+    const parsed = {
+      ...formItem,
+      new_price: formItem.new_price ? Number(formItem.new_price) : null,
+      second_hand_price: formItem.second_hand_price ? Number(formItem.second_hand_price) : null,
+      priority: formItem.priority ? Number(formItem.priority) : null,
+      value_rating: formItem.value_rating ? Number(formItem.value_rating) : null,
+    }
+    onAdd(parsed)
+    setFormItem({
+      name: '',
+      new_price: '',
+      second_hand_price: '',
+      category: '',
+      priority: '',
+      value_rating: '',
+    })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="purchaseplaninputfield-component">
-        <PurchasePlanInputField
-          name="name"
-          placeholder="Artikel"
-          value={formItem.name}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="purchaseplaninputfield-component">
-        <PurchasePlanInputField
-          name="price"
-          placeholder="Pris"
-          value={formItem.price}
-          onChange={handleChange}
-        />
-      </div>
-      <Button text="Add new item" backgroundColor="#1a8c51" type="submit">
-        Skicka
-      </Button>
+    <form className="purchase-plan-form" onSubmit={handleSubmit}>
+      <h2>Ny produkt</h2>
+      <PurchasePlanInputField
+        name="name"
+        label="Artikel"
+        placeholder="t.ex. Cykel"
+        value={formItem.name}
+        onChange={handleChange}
+      />
+      <PurchasePlanInputField
+        name="new_price"
+        label="Nypris (kr)"
+        placeholder="0"
+        value={formItem.new_price}
+        onChange={handleChange}
+      />
+      <PurchasePlanInputField
+        name="second_hand_price"
+        label="Secondhand (kr)"
+        placeholder="0"
+        value={formItem.second_hand_price}
+        onChange={handleChange}
+      />
+      <PurchasePlanInputField
+        name="category"
+        label="Kategori"
+        placeholder="t.ex. Sport"
+        value={formItem.category}
+        onChange={handleChange}
+      />
+      <PurchasePlanInputField
+        name="priority"
+        label="Prioritet (1–5)"
+        placeholder="3"
+        value={formItem.priority}
+        onChange={handleChange}
+      />
+      <PurchasePlanInputField
+        name="value_rating"
+        label="Värdering (1–5)"
+        placeholder="3"
+        value={formItem.value_rating}
+        onChange={handleChange}
+      />
+
+      <button className="form-submit-btn" type="submit">
+        Lägg till produkt
+      </button>
     </form>
   )
 }
 
 PurchasePlanForm.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  handleAddItem: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 }
 
 export default PurchasePlanForm

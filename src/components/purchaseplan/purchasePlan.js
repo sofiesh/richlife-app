@@ -1,60 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import PurchasePlanForm from './purchasePlanForm'
 import PurchasePlanList from './purchasePlanList'
+import { getProducts, addProduct } from '../../repositories/productRepository'
 
 /**
  * Purchase plan component.
  *
- * @returns {Function} JSX Element.
+ * @param {object} props - Component props.
+ * @param {object} props.user - The authenticated user.
+ * @returns {Function} The purchase plan view with product list and add-item form.
  */
-const PurchasePlan = () => {
+const PurchasePlan = ({ user }) => {
   const [items, setItems] = useState([])
+  const [showForm, setShowForm] = useState(false)
 
   /**
-   * Handles changes to the form fields.
-   *
-   * @param {number} index - The index of the item being changed
-   * @param {Event} event - The event object
-   */
-  const handleChange = (index, event) => {
-    const values = [...items]
-    values[index][event.target.name] = event.target.value
-    setItems(values)
-  }
-
-  /**
-   * Adds a new item to the form.
+   * Adds a new item to the form and save to Supabase.
    *
    * @param {object} item - The item to add to the form
    */
-  const handleAddItem = (item) => {
+  const handleAddItem = async (item) => {
+    await addProduct(user.uid, item)
     setItems([...items, item])
+    setShowForm(false)
   }
 
-  /**
-   * Handles form submission.
-   *
-   * @param {Event} event - The event object.
-   */
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    // Här kan du hantera formulärets inlämning, till exempel skicka data till en server eller uppdatera tillstånd
-    console.log('Purchase Plan:', items)
-  }
+  // Steg 3 — hämta från Supabase vid load
+  useEffect(() => {
+    getProducts(user.uid).then(setItems)
+  }, [user.uid])
 
   return (
     <div>
-      <p>Add a new item to your purchase plan</p>
-      <PurchasePlanForm
-        items={items}
-        handleChange={handleChange}
-        handleAddItem={handleAddItem}
-        handleSubmit={handleSubmit}
-      />
+      <button onClick={() => setShowForm(!showForm)}>
+        {showForm ? 'Avbryt' : 'Lägg till produkt'}
+      </button>
+
+      {showForm && <PurchasePlanForm onAdd={handleAddItem} />}
+
       <p>Your purchase plan</p>
       <PurchasePlanList items={items} />
     </div>
   )
+}
+
+PurchasePlan.propTypes = {
+  user: PropTypes.shape({
+    uid: PropTypes.string.isRequired,
+  }),
 }
 
 export default PurchasePlan

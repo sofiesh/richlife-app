@@ -6,8 +6,9 @@
   /* Ljusstyrkan för hover-effekten */
 }
 
-/* Knappstil */
+/* Button styling */
 .button {
+  background-color: #1a8c51;
   font-size: 16px;
   padding: 10px 24px;
   margin: 10px;
@@ -27,13 +28,12 @@
 }
 
 .btn--outline {
-  background-color: transparent;
-  color: #555;
-  border: 2px solid #555;
+  color: #f0f0f0;
 }
 
 .btn--outline:hover {
-  background-color: #f0f0f0;
+  color: #f0f0f0;
+  background-color: #12643a;
 }
 
 .btn--text {
