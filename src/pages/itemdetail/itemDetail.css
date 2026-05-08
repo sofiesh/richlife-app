@@ -1,36 +1,125 @@
-#button.item-back {
-  align-self: left;
+.item-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #e4f7e7);
+  padding: 20px 16px;
 }
 
 .item-detail-container {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  font-family: sans-serif;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 12px;
+  padding: 20px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.item-back {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.item-back:hover {
+  color: #1a8c51;
+}
+
+.item-detail-container h1 {
+  font-size: 1.3rem;
+  color: #1f2a37;
+  margin: 0 0 16px 0;
 }
 
 .item-detail-grid {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  row-gap: 10px;
-  column-gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-detail-row {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
 }
 
 .item-label {
-  font-weight: 600;
-  color: #555;
+  font-size: 0.85rem;
+  color: #6b7280;
 }
 
 .item-value {
-  color: #111;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111827;
 }
 
-.item-status {
-  margin-top: 16px;
-  font-weight: bold;
+.item-status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.item-status-badge.bought {
+  background: #d1fae5;
+  color: #065f46;
+}
+.item-status-badge.not-bought {
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .item-buttons {
   margin-top: 20px;
+}
+
+.item-toggle-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1a8c51;
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.item-toggle-btn:hover {
+  background: #157a44;
+}
+.item-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 600px) {
+  .item-detail-page {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .item-detail-container {
+    max-width: 520px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .item-detail-container h1 {
+    font-size: 1.6rem;
+  }
 }
