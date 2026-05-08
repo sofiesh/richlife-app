@@ -5,6 +5,7 @@ import App from './App'
 
 jest.mock('firebase/auth', () => ({
   /**
+   * Mock for Firebase auth.
    *
    * @param auth
    * @param callback
@@ -15,6 +16,21 @@ jest.mock('firebase/auth', () => ({
   },
 }))
 jest.mock('./firebase', () => ({ auth: {} }))
+
+/**
+ * Mock for Supabase to ensure URL at createClient.
+ * When App.js is not mocking productRepository the Supabase object can be empty.
+ *
+ * @param supabase
+ * @param callback
+ */
+jest.mock('./lib/supabase', () => ({ supabase: {} }))
+jest.mock('firebase/auth', () => ({
+  onAuthStateChanged: (auth, callback) => {
+    callback(null)
+    return () => {}
+  },
+}))
 
 test('appen renderar utan att krascha', () => {
   render(
