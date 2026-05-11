@@ -25,6 +25,18 @@
   gap: 4px;
 }
 
+.btn-delete {
+  background-color: #c0392b;
+  color: white;
+}
+
+.delete-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 .item-back:hover {
   color: #1a8c51;
 }
@@ -73,6 +85,7 @@
   background: #d1fae5;
   color: #065f46;
 }
+
 .item-status-badge.not-bought {
   background: #f3f4f6;
   color: #6b7280;
@@ -100,8 +113,14 @@
 .item-toggle-btn:hover {
   background: #157a44;
 }
+
 .item-toggle-btn:active {
   transform: scale(0.98);
+}
+
+.delete-error {
+  color: #c0392b;
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 600px) {
@@ -121,5 +140,9 @@
 
   .item-detail-container h1 {
     font-size: 1.6rem;
+  }
+
+  .btn-delete:hover {
+    background-color: #862a20;
   }
 }

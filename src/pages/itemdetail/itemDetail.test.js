@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import ItemDetail from './itemDetail'
 
@@ -12,6 +12,7 @@ jest.mock('../../repositories/productRepository', () => {
   return {
     getProductById: (id) => Promise.resolve(products[id]),
     updateProduct: (_id, updates) => Promise.resolve(updates),
+    deleteProduct: jest.fn().mockResolvedValue(),
   }
 })
 
@@ -65,4 +66,29 @@ test('Tillbaka-knappen navigerar till /purchaseplan', async () => {
   renderItemDetail('1')
   fireEvent.click(await screen.findByText('Tillbaka'))
   expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan')
+})
+
+test('visar bekräftelse när Ta bort-knappen klickas', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ta bort produkt'))
+  expect(await screen.findByText(/Är du säker/)).toBeInTheDocument()
+})
+
+test('navigerar till /purchaseplan efter bekräftad borttagning', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ta bort produkt'))
+  fireEvent.click(await screen.findByText('Ja, ta bort'))
+  await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan'))
+})
+
+test('visar felmeddelande om borttagningen misslyckas', async () => {
+  const { deleteProduct } = require('../../repositories/productRepository')
+  deleteProduct.mockRejectedValueOnce(new Error('Supabase error'))
+
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ta bort produkt'))
+  fireEvent.click(await screen.findByText('Ja, ta bort'))
+
+  expect(await screen.findByRole('alert')).toHaveTextContent('Något gick fel. Försök igen.')
+  expect(mockNavigate).not.toHaveBeenCalled()
 })
