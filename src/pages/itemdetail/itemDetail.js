@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getProductById, updateProduct } from '../../repositories/productRepository'
+import { getProductById, updateProduct, deleteProduct } from '../../repositories/productRepository'
 import './itemDetail.css'
 
 /**
@@ -12,6 +12,9 @@ const ItemDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [item, setItem] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState(null)
 
   useEffect(() => {
     getProductById(id).then(setItem).catch(console.error)
@@ -25,6 +28,21 @@ const ItemDetail = () => {
   const toggleBought = async () => {
     const updated = await updateProduct(id, { is_bought: !item.is_bought })
     setItem(updated)
+  }
+
+  /**
+   * Deletes a product from the database.
+   */
+  const handleDelete = async () => {
+    setIsDeleting(true)
+    try {
+      await deleteProduct(id)
+      navigate('/purchaseplan')
+    } catch (err) {
+      setDeleteError('Något gick fel. Försök igen.')
+      setIsDeleting(false)
+      setConfirmDelete(false)
+    }
   }
 
   return (
@@ -60,10 +78,38 @@ const ItemDetail = () => {
             </span>
           </div>
         </div>
+
+        {deleteError && (
+          <p className="delete-error" role="alert">
+            {deleteError}
+          </p>
+        )}
         <div className="item-buttons">
           <button onClick={toggleBought}>
             {item.is_bought ? 'Markera som ej köpt' : 'Markera som köpt'}
           </button>
+
+          {!confirmDelete ? (
+            <button
+              className="btn-delete"
+              onClick={() => {
+                setConfirmDelete(true)
+                setDeleteError(null)
+              }}
+            >
+              Ta bort produkt
+            </button>
+          ) : (
+            <div className="delete-confirm">
+              <p>Är du säker på att du vill ta bort {item.name}?</p>
+              <button className="btn-delete" onClick={handleDelete} disabled={isDeleting}>
+                {isDeleting ? 'Tar bort…' : 'Ja, ta bort'}
+              </button>
+              <button onClick={() => setConfirmDelete(false)} disabled={isDeleting}>
+                Avbryt
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
