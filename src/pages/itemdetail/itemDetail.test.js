@@ -11,7 +11,12 @@ jest.mock('../../repositories/productRepository', () => {
   }
   return {
     getProductById: (id) => Promise.resolve(products[id]),
-    updateProduct: (_id, updates) => Promise.resolve(updates),
+    updateProduct: (_id, updates) =>
+      Promise.resolve({
+        id: '1',
+        is_bought: false,
+        ...updates,
+      }),
     deleteProduct: jest.fn().mockResolvedValue(),
   }
 })
@@ -66,6 +71,49 @@ test('Tillbaka-knappen navigerar till /purchaseplan', async () => {
   renderItemDetail('1')
   fireEvent.click(await screen.findByText('Tillbaka'))
   expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan')
+})
+
+test('visar redigeringsformulär när Ändra produkt klickas', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ändra produkt'))
+  expect(await screen.findByDisplayValue('Elektronik')).toBeInTheDocument()
+  expect(await screen.findByDisplayValue('12990')).toBeInTheDocument()
+})
+
+test('uppdaterar visad kategori efter sparning', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ändra produkt'))
+
+  const input = await screen.findByDisplayValue('Elektronik')
+  fireEvent.change(input, { target: { value: 'Sport' } })
+  fireEvent.click(screen.getByText('Spara'))
+
+  expect(await screen.findByText('Sport')).toBeInTheDocument()
+})
+
+test('avbryt-knappen stänger redigeringsläget', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ändra produkt'))
+  fireEvent.click(await screen.findByText('Avbryt'))
+  expect(await screen.findByText('Ändra produkt')).toBeInTheDocument()
+  expect(screen.queryByDisplayValue('iPhone 15')).not.toBeInTheDocument()
+})
+
+test('döljer Ta bort-knappen under redigering', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ändra produkt'))
+  expect(screen.queryByText('Ta bort produkt')).not.toBeInTheDocument()
+})
+
+test('visar felmeddelande om uppdateringen misslyckas', async () => {
+  const repo = require('../../repositories/productRepository')
+  jest.spyOn(repo, 'updateProduct').mockRejectedValueOnce(new Error('Supabase error'))
+
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByText('Ändra produkt'))
+  fireEvent.click(await screen.findByText('Spara'))
+
+  expect(await screen.findByRole('alert')).toHaveTextContent('Något gick fel vid uppdatering')
 })
 
 test('visar bekräftelse när Ta bort-knappen klickas', async () => {
