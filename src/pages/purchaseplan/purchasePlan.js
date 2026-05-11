@@ -33,6 +33,18 @@ const PurchasePlan = ({ user }) => {
     }))
     .sort((a, b) => b.score - a.score)
 
+  const scores = rankedProducts.map((p) => p.score)
+  const min = Math.min(...scores)
+  const max = Math.max(...scores)
+
+  const normalizedProducts = rankedProducts.map((p) => ({
+    ...p,
+    starValue:
+      max === min
+        ? 3 // alla lika → alla får mitt
+        : Math.round(1 + ((p.score - min) / (max - min)) * 4),
+  }))
+
   /**
    * Adds a new product and updates product list.
    *
@@ -92,11 +104,13 @@ const PurchasePlan = ({ user }) => {
                 <th style={{ padding: '8px' }}>Pris: nyköp</th>
                 <th style={{ padding: '8px' }}>Pris: secondhand</th>
                 <th style={{ padding: '8px' }}>Värdering</th>
+                <th style={{ padding: '8px' }}>Prioritet</th>
+                <th style={{ padding: '8px' }}>Score</th>
               </tr>
             </thead>
 
             <tbody>
-              {rankedProducts.map((item) => (
+              {normalizedProducts.map((item) => (
                 <tr
                   key={item.id}
                   onClick={() => navigate(`/items/${item.id}`)}
@@ -106,10 +120,11 @@ const PurchasePlan = ({ user }) => {
                   <td style={{ padding: '8px' }}>{item.category || 'Unknown'}</td>
                   <td style={{ padding: '8px' }}>{item.new_price || 'Unknown'}</td>
                   <td style={{ padding: '8px' }}>{item.second_hand_price || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.priority || 'Unknown'}</td>
+                  <td style={{ padding: '8px' }}>{item.value_rating || '-'}</td>
+                  <td style={{ padding: '8px' }}>{item.priority || '-'}</td>
                   <td>
                     <Stars
-                      value={item.priority}
+                      value={item.starValue}
                       onChange={(newValue) => {
                         console.log(item.id, newValue)
                       }}
