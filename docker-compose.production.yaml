@@ -13,8 +13,21 @@ services:
         - REACT_APP_APP_ID=${REACT_APP_APP_ID}
         - REACT_APP_SUPABASE_URL=$REACT_APP_SUPABASE_URL
         - REACT_APP_SUPABASE_ANON_KEY=$REACT_APP_SUPABASE_ANON_KEY
-    ports:
-      - "80:80"
+    # ports: - "80:80"
     environment:
       - NODE_ENV=production
       - TRUST_PROXY=${TRUST_PROXY:-1}
+  
+  caddy:
+    image: caddy:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - app
+
+  volumes:
+    caddy_data:
