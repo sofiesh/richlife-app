@@ -20,11 +20,11 @@ services:
   
   caddy:
     image: caddy:alpine
+    command: caddy reverse-proxy --from cu1059.camp.lnu.se --to app:80
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
     depends_on:
       - app
