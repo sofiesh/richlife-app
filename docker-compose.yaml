@@ -2,6 +2,8 @@ services:
   app:
     container_name: budgetapp
     build: .
+    networks:
+      - proxy-network
   caddy:
     image: caddy:2.11-alpine
     restart: unless-stopped
