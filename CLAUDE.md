@@ -2,12 +2,12 @@
 
 ## Om projektet
 En React-app för personlig inköpshantering med fokus på inköpsbeslut.
-Projektet påbörjades för ~2 år sedan och återstartas nu.
+Projektet påbörjades för ~2 år sedan och har nu återupptagits.
 
 ## Mål med appen
 - Hantera inköpslistor (skapa, redigera, ta bort)
-- Inloggning med OAuth 2.0
-- För varje entry i inköpslistan: Prisuppskattning nyköp vs second-hand
+- Säker och mest moderna Identity Management. Registrering, inloggning och hantering av personuppgifter. OAuth 2.0
+- För varje entry i inköpslistan lägger användaren till information och tillhandahålls även beräknade värden. Tex: Prisuppskattning nyköp vs second-hand, CO2 utsläpp vid nytillverkning, tillfört värde kopplat till prioritet (hur viktigt köpet är för personen/familjen)
 - Historik: köpta varor, besparing vs möjlig besparing
 - Analys av konsumtionsmönster
 
@@ -20,4 +20,3 @@ Projektet påbörjades för ~2 år sedan och återstartas nu.
 - Börja alltid med att läsa den här filen
 - Genomför inga ändringar, ge feedback och guida.
 - Flagga teknisk skuld med prioritet: hög / medel / låg
-- Skapa en ROADMAP.md efter initial genomgång

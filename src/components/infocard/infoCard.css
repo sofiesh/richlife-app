@@ -30,9 +30,11 @@
 .info-card--highlight {
   border-left: 4px solid #4caf50;
 }
+
 .info-card--warning {
   border-left: 4px solid #ff9800;
 }
+
 .info-card--success {
   border-left: 4px solid #2196f3;
 }

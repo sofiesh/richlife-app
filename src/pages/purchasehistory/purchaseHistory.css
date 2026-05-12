@@ -1,0 +1,53 @@
+/* Purchase plan page styling */
+.purchasehistory {
+  padding: 1rem;
+  text-align: left;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  background: #f5f5f5;
+  padding: 0.75rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.list {
+  margin-top: 1rem;
+}
+
+.add-product {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .purchasehistory {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .card {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

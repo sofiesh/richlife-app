@@ -25,7 +25,7 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
       {user ? (
         <>
           <button className="nav-btn nav-btn--outline" onClick={onProfile}>
-            ⚙️
+            <div className="profile-icon">👤</div>
           </button>
           <button className="nav-btn nav-btn--outline" onClick={onLogout}>
             Logga ut

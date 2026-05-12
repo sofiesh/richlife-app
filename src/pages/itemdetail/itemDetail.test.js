@@ -6,15 +6,15 @@ import ItemDetail from './itemDetail'
 const mockNavigate = jest.fn()
 jest.mock('../../repositories/productRepository', () => {
   const products = {
-    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, is_bought: false },
-    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, is_bought: true },
+    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, purchased: false },
+    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, purchased: true },
   }
   return {
     getProductById: (id) => Promise.resolve(products[id]),
     updateProduct: (_id, updates) =>
       Promise.resolve({
         id: '1',
-        is_bought: false,
+        purchased: false,
         ...updates,
       }),
     deleteProduct: jest.fn().mockResolvedValue(),

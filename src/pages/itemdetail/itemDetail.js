@@ -37,7 +37,10 @@ const ItemDetail = () => {
    * Toggle function for bought or not bought.
    */
   const toggleBought = async () => {
-    const updated = await updateProduct(id, { is_bought: !item.is_bought })
+    const updated = await updateProduct(id, {
+      purchased: !item.purchased,
+      purchased_at: !item.purchased ? new Date().toISOString() : null,
+    })
     setItem(updated)
   }
 
@@ -171,8 +174,8 @@ const ItemDetail = () => {
             </div>
             <div className="item-detail-row">
               <span className="item-label">Status</span>
-              <span className={`item-status-badge ${item.is_bought ? 'bought' : 'not-bought'}`}>
-                {item.is_bought ? 'Köpt' : 'Ej köpt'}
+              <span className={`item-status-badge ${item.purchased ? 'bought' : 'not-bought'}`}>
+                {item.purchased ? 'Köpt' : 'Ej köpt'}
               </span>
             </div>
           </div>
@@ -186,7 +189,7 @@ const ItemDetail = () => {
 
           <div className="item-buttons">
             <button type="button" onClick={toggleBought}>
-              {item.is_bought ? 'Markera som ej köpt' : 'Markera som köpt'}
+              {item.purchased ? 'Markera som ej köpt' : 'Markera som köpt'}
             </button>
 
             {isEditing ? (

@@ -67,3 +67,36 @@ export const deleteProduct = async (productId) => {
   const { error } = await supabase.from('products').delete().eq('id', productId)
   if (error) throw error
 }
+
+/**
+ * Marks a product purchased in database.
+ *
+ * @param {*} productId the product that is updated
+ * @returns {Array} array with product data
+ */
+export const markAsPurchased = async (productId) => {
+  const { data, error } = await supabase
+    .from('products')
+    .update({ purchased: true, purchased_at: new Date().toISOString() })
+    .eq('id', productId)
+    .select()
+  if (error) throw error
+  return data[0]
+}
+
+/**
+ * Gets an object with the purchased products.
+ *
+ * @param {*} userId the user id of signed in user
+ * @returns {object} the purchased products
+ */
+export const getPurchasedProducts = async (userId) => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('purchased', true)
+    .order('purchased_at', { ascending: false })
+  if (error) throw error
+  return data
+}

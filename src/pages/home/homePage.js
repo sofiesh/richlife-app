@@ -46,6 +46,13 @@ const HomePage = ({ user, onLogin }) => {
           <span className="home-nav__arrow">→</span>
         </Link>
       </section>
+
+      <section className="home-nav">
+        <Link to="/purchasehistory" className="home-nav__card">
+          <span className="home-nav__label">Köphistorik</span>
+          <span className="home-nav__arrow">→</span>
+        </Link>
+      </section>
     </div>
   )
 }

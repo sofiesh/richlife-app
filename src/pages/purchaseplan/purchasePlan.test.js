@@ -7,8 +7,8 @@ const mockNavigate = jest.fn()
 jest.mock('../../repositories/productRepository', () => ({
   getProducts: () =>
     Promise.resolve([
-      { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, is_bought: false },
-      { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, is_bought: true },
+      { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, purchased: false },
+      { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, purchased: true },
     ]),
   addProduct: () => Promise.resolve(),
 }))
@@ -40,7 +40,7 @@ const renderPurchasePlan = () =>
 test('visar produktlistan', async () => {
   renderPurchasePlan()
   expect(await screen.findByText('iPhone 15')).toBeInTheDocument()
-  expect(await screen.findByText('Nike sneakers')).toBeInTheDocument()
+  expect(screen.queryByText('Nike sneakers')).not.toBeInTheDocument()
 })
 
 test('navigerar till detaljsida vid klick på produktrad', async () => {

@@ -22,7 +22,7 @@ const PurchasePlan = ({ user }) => {
 
   useEffect(() => {
     getProducts(user.uid)
-      .then(setProducts)
+      .then((all) => setProducts(all.filter((p) => !p.purchased)))
       .catch((err) => console.error('Supabase error: ', err))
   }, [user.uid])
 
@@ -60,6 +60,9 @@ const PurchasePlan = ({ user }) => {
 
   return (
     <div className="purchaseplan">
+      <button type="button" className="item-back" onClick={() => navigate('/')}>
+        Tillbaka
+      </button>
       <h1>Köpkollen</h1>
       <Button onClick={() => setShowForm(!showForm)} variant="outline">
         {showForm ? 'Avbryt' : 'Lägg till produkt'}
