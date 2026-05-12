@@ -8,6 +8,8 @@
 !package.json
 !package-lock.json
 !nginx.conf
+!Caddyfile
+!Dockerfile.caddy
 
 # Allow source code and public assets
 !public
