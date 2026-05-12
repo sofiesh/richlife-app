@@ -2,3 +2,30 @@ services:
   app:
     container_name: budgetapp
     build: .
+  caddy:
+    image: caddy:2.11-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - SITE_ADDRESS=${SITE_ADDRESS:-localhost}
+      - SERVER_HOST=${SERVER_HOST:-server}
+      - SERVER_PORT=${SERVER_PORT:-3000}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certs/LNU_FTK_Campus_Root_CA_2025.crt:/etc/ssl/certs/LNU_FTK_Campus_Root_CA_2025.crt
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    name: proxy-network
+
+volumes:
+  caddy_data:
+  caddy_config:
+

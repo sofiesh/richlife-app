@@ -19,8 +19,9 @@ services:
       - TRUST_PROXY=${TRUST_PROXY:-1}
   
   caddy:
-    image: caddy:alpine
-    command: caddy reverse-proxy --from 194-47-188-55.sslip.io --to app:80
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
     ports:
       - "80:80"
       - "443:443"
