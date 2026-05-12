@@ -48,6 +48,14 @@
           "jsdoc/require-param-description": "off",
           "jsdoc/require-param-type": "off"
         }
+      },
+      {
+        "files": [
+          "src/serviceWorkerRegistration.js"
+        ],
+        "rules": {
+          "jsdoc/require-description": "off"
+        }
       }
     ]
   },
