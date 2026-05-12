@@ -14,8 +14,6 @@ services:
       - SERVER_HOST=${SERVER_HOST:-server}
       - SERVER_PORT=${SERVER_PORT:-3000}
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs/LNU_FTK_Campus_Root_CA_2025.crt:/etc/ssl/certs/LNU_FTK_Campus_Root_CA_2025.crt
       - caddy_data:/data
       - caddy_config:/config
     networks:
