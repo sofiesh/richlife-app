@@ -20,7 +20,7 @@ services:
   
   caddy:
     image: caddy:alpine
-    command: caddy reverse-proxy --from cu1059.camp.lnu.se --to app:80
+    command: caddy reverse-proxy --from 194-47-188-55.sslip.io --to app:80
     ports:
       - "80:80"
       - "443:443"
