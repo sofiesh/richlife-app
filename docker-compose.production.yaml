@@ -29,5 +29,5 @@ services:
     depends_on:
       - app
 
-  volumes:
-    caddy_data:
+volumes:
+  caddy_data:
