@@ -1,0 +1,125 @@
+/* Purchase plan page styling */
+.budget {
+  padding: 1rem;
+  text-align: left;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  background: #f5f5f5;
+  padding: 0.75rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.list {
+  margin-top: 1rem;
+}
+
+.add-product {
+  margin-top: 1rem;
+}
+
+product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-table thead tr {
+  border-bottom: 2px solid #ccc;
+}
+
+.product-row {
+  cursor: pointer;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-table thead tr {
+  border-bottom: 2px solid #ccc;
+}
+
+.product-row {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .product-table thead {
+    display: none;
+  }
+
+  .product-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: #fff;
+  }
+
+  .product-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border: none;
+  }
+
+  .product-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+}
+
+@media (min-width: 768px) {
+  .budget {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .card {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

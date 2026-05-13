@@ -7,6 +7,7 @@ import Navbar from './components/navbar/navbar.js'
 import HomePage from './pages/home/homePage.js'
 import PurchasePlan from './pages/purchaseplan/purchasePlan.js'
 import PurchaseHistory from './pages/purchasehistory/purchaseHistory.js'
+import Budget from './pages/budget/budget.js'
 import UserProfile from './pages/userprofile/userProfile.js'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -112,6 +113,11 @@ function AppRoute() {
           <Route
             path="/purchasehistory"
             element={user ? <PurchaseHistory user={user} /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/budget"
+            element={user ? <Budget user={user} /> : <Navigate to="/budget" />}
           />
 
           <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
