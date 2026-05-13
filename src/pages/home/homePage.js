@@ -33,9 +33,6 @@ const HomePage = ({ user, onLogin }) => {
           variant="highlight"
         />
         <InfoCard title="Köppoäng" value="72" subtitle="den här månaden" />
-      </section>
-
-      <section className="home-mid">
         <InfoCard title="I önskelistan" value="5 produkter" />
         <InfoCard title="Insikter" value="2 alerts" variant="warning" />
       </section>

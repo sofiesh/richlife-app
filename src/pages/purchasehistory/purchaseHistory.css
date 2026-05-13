@@ -33,6 +33,78 @@
   margin-top: 1rem;
 }
 
+product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-table thead tr {
+  border-bottom: 2px solid #ccc;
+}
+
+.product-row {
+  cursor: pointer;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-table thead tr {
+  border-bottom: 2px solid #ccc;
+}
+
+.product-row {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .product-table thead {
+    display: none;
+  }
+
+  .product-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: #fff;
+  }
+
+  .product-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border: none;
+  }
+
+  .product-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+}
+
 @media (min-width: 768px) {
   .purchasehistory {
     max-width: 1000px;

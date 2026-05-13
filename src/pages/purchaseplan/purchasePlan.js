@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './purchasePlan.css'
-import PurchasePlanForm from '../../components/purchaseplan/purchasePlanForm.js'
-import { getProducts, addProduct } from '../../repositories/productRepository.js'
-import Stars from '../../components/rankingstars/rankingStar.js'
-import { calculateStarScore } from '../../assets/calculateStarScore.js'
 import Button from '../../components/button/button.js'
+import { calculateStarScore } from '../../assets/calculateStarScore.js'
+import { getProducts, addProduct } from '../../repositories/productRepository.js'
+import InfoCard from '../../components/infocard/infoCard.js'
+import PurchasePlanForm from '../../components/purchaseplan/purchasePlanForm.js'
+import Stars from '../../components/rankingstars/rankingStar.js'
 
 /**
  * Landing page for logged in users.
@@ -71,19 +72,24 @@ const PurchasePlan = ({ user }) => {
       {showForm && <PurchasePlanForm onAdd={handleAddItem} />}
 
       {/* KPI-boxar */}
-      <div className="stats">
-        <div className="card">I önskelistan</div>
-        <div className="card">
-          Viktigast köp nu
-          {bestProduct && (
-            <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
-              {bestProduct.name} ({bestProduct.price} kr)
-            </div>
-          )}
-        </div>
-        <div className="card">Totalt spenderat</div>
-        <div className="card">Köppoäng</div>
-      </div>
+      <InfoCard title="I önskelistan" value="15 000 kr" subtitle="av 5 000 kr budget" />
+
+      <InfoCard
+        title="Viktigaste köp nu"
+        {...(bestProduct && (
+          <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
+            {bestProduct.name} ({bestProduct.price} kr)
+          </div>
+        ))}
+      />
+
+      <InfoCard
+        title="Totalt spenderat nuvarande månad"
+        value="15 000 kr"
+        subtitle="av 5 000 kr budget"
+      />
+
+      <InfoCard title="Köppoäng" value="3/5" subtitle="Se analys och tips" variant="highlight" />
 
       {/* Toggle */}
       {/* <div className="toggle">
@@ -99,39 +105,33 @@ const PurchasePlan = ({ user }) => {
       {/* Lista */}
       <div className="list">
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table className="product-table">
             <thead>
-              <tr style={{ textAlign: 'left', borderBottom: '2px solid #ccc' }}>
-                <th style={{ padding: '8px' }}>Produkt</th>
-                <th style={{ padding: '8px' }}>Kategori</th>
-                <th style={{ padding: '8px' }}>Pris: nyköp</th>
-                <th style={{ padding: '8px' }}>Pris: secondhand</th>
-                <th style={{ padding: '8px' }}>Värdering</th>
-                <th style={{ padding: '8px' }}>Prioritet</th>
-                <th style={{ padding: '8px' }}>Score</th>
+              <tr>
+                <th>Produkt</th>
+                <th>Kategori</th>
+                <th>Pris: nyköp</th>
+                <th>Pris: secondhand</th>
+                <th>Värdering</th>
+                <th>Prioritet</th>
+                <th>Score</th>
               </tr>
             </thead>
-
             <tbody>
               {normalizedProducts.map((item) => (
                 <tr
                   key={item.id}
+                  className="product-row"
                   onClick={() => navigate(`/items/${item.id}`)}
-                  style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}
                 >
-                  <td style={{ padding: '8px' }}>{item.name}</td>
-                  <td style={{ padding: '8px' }}>{item.category || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.new_price || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.second_hand_price || 'Unknown'}</td>
-                  <td style={{ padding: '8px' }}>{item.value_rating || '-'}</td>
-                  <td style={{ padding: '8px' }}>{item.priority || '-'}</td>
-                  <td>
-                    <Stars
-                      value={item.starValue}
-                      onChange={(newValue) => {
-                        console.log(item.id, newValue)
-                      }}
-                    />
+                  <td data-label="Produkt">{item.name}</td>
+                  <td data-label="Kategori">{item.category || '-'}</td>
+                  <td data-label="Nypris">{item.new_price || '-'} kr</td>
+                  <td data-label="Andrahandspris">{item.second_hand_price || '-'} kr</td>
+                  <td data-label="Value-rating">{item.value_rating || '-'}</td>
+                  <td data-label="Priority">{item.priority || '-'}</td>
+                  <td data-label="Score">
+                    <Stars value={item.starValue} onChange={() => {}} />
                   </td>
                 </tr>
               ))}

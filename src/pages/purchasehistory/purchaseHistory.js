@@ -43,26 +43,26 @@ const PurchaseHistory = ({ user }) => {
       {Object.entries(grouped).map(([month, items]) => (
         <div key={month}>
           <h2>{month}</h2>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table className="product-table">
             <thead>
-              <tr style={{ borderBottom: '2px solid #ccc' }}>
-                <th style={{ padding: '8px', textAlign: 'left' }}>Produkt</th>
-                <th style={{ padding: '8px', textAlign: 'left' }}>Kategori</th>
-                <th style={{ padding: '8px', textAlign: 'left' }}>Pris</th>
-                <th style={{ padding: '8px', textAlign: 'left' }}>Datum</th>
+              <tr>
+                <th>Produkt</th>
+                <th>Kategori</th>
+                <th>Pris</th>
+                <th>Datum</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item) => (
                 <tr
                   key={item.id}
+                  className="product-row"
                   onClick={() => navigate(`/items/${item.id}`)}
-                  style={{ borderBottom: '1px solid #ccc', cursor: 'pointer' }}
                 >
-                  <td style={{ padding: '8px' }}>{item.name}</td>
-                  <td style={{ padding: '8px' }}>{item.category || '-'}</td>
-                  <td style={{ padding: '8px' }}>{item.new_price || '-'} kr</td>
-                  <td style={{ padding: '8px' }}>
+                  <td data-label="Produkt">{item.name}</td>
+                  <td data-label="Kategori">{item.category || '-'}</td>
+                  <td data-label="Pris">{item.new_price || '-'} kr</td>
+                  <td data-label="Datum">
                     {new Date(item.purchased_at).toLocaleDateString('sv-SE')}
                   </td>
                 </tr>
