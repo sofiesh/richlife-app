@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './purchasePlan.css'
 import Button from '../../components/button/button.js'
-import { calculateStarScore } from '../../assets/calculateStarScore.js'
+import { calculateStarScore } from '../../utils/calculateStarScore.js'
 import { getProducts, addProduct } from '../../repositories/productRepository.js'
+import { countProducts, sumNewPrice, getBestProduct } from '../../utils/productUtils.js'
 import InfoCard from '../../components/infocard/infoCard.js'
 import PurchasePlanForm from '../../components/purchaseplan/purchasePlanForm.js'
 import Stars from '../../components/rankingstars/rankingStar.js'
@@ -72,13 +73,18 @@ const PurchasePlan = ({ user }) => {
       {showForm && <PurchasePlanForm onAdd={handleAddItem} />}
 
       {/* KPI-boxar */}
-      <InfoCard title="I önskelistan" value="15 000 kr" subtitle="av 5 000 kr budget" />
+      <InfoCard
+        title="I önskelistan"
+        value={`${countProducts(products)} produkter`}
+        subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+      />
 
       <InfoCard
         title="Viktigaste köp nu"
+        valiue={`${getBestProduct(products)}`}
         {...(bestProduct && (
           <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
-            {bestProduct.name} ({bestProduct.price} kr)
+            {bestProduct.name} ({bestProduct.new_price} kr)
           </div>
         ))}
       />

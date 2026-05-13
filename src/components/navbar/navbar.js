@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import logo from '../../Susbud_logo.png'
 import './navbar.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Top navigation bar component.
@@ -24,8 +26,8 @@ const Navbar = ({ user, onHome, onLogin, onRegister, onProfile, onLogout }) => (
     <div className="navbar-actions">
       {user ? (
         <>
-          <button className="nav-btn nav-btn--outline" onClick={onProfile}>
-            <div className="profile-icon">👤</div>
+          <button className="nav-btn nav-btn--outline2" onClick={onProfile}>
+            <FontAwesomeIcon icon={faCircleUser} />
           </button>
           <button className="nav-btn nav-btn--outline" onClick={onLogout}>
             Logga ut

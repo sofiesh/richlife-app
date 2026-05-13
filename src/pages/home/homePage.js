@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import InfoCard from '../../components/infocard/infoCard.js'
+import { getProducts } from '../../repositories/productRepository.js'
+import { countProducts, sumNewPrice } from '../../utils/productUtils.js'
 import './homePage.css'
 import { Link } from 'react-router-dom'
 
@@ -11,6 +13,15 @@ import { Link } from 'react-router-dom'
  * @returns {Function} jsx element
  */
 const HomePage = ({ user, onLogin }) => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    if (!user) return
+    getProducts(user.uid)
+      .then((all) => setProducts(all.filter((p) => !p.purchased)))
+      .catch((err) => console.error('Supabase error: ', err))
+  }, [user])
+
   if (!user) {
     return (
       <div className="landing">
@@ -32,8 +43,14 @@ const HomePage = ({ user, onLogin }) => {
           subtitle="av 5 000 kr budget"
           variant="highlight"
         />
+        <Link to="/purchaseplan" className="card-link">
+          <InfoCard
+            title="I önskelistan"
+            value={`${countProducts(products)} produkter`}
+            subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+          />
+        </Link>
         <InfoCard title="Köppoäng" value="72" subtitle="den här månaden" />
-        <InfoCard title="I önskelistan" value="5 produkter" />
         <InfoCard title="Insikter" value="2 alerts" variant="warning" />
       </section>
 

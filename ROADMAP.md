@@ -47,14 +47,12 @@ Uppdaterad: 2026-04-30
 
 ## Fas 3 – Features (från kravlistan)
 
-| Feature | Beskrivning |
-|---------|-------------|
-| Prisuppskattning | Nyköp vs second-hand per artikel, visa potentiell besparing |
-| Köpbeslut | Markera post som köpt (faktiskt pris, datum, ny/begagnad) |
-| Köphistorik | Lista köpta varor med datum och betalat pris |
-| Besparingsanalys | Faktisk besparing vs möjlig besparing |
-| Konsumtionsmönster | Statistik per kategori över tid |
-| OAuth 2.0 | Google-inloggning via Firebase Auth (redan förberett) |
+1. Mobil layout
+2. Budget-funktion
+3. Auth-uppgradering
+4. Sustainability-data
+5. Nyköp vs secondhand
+6. Insikter/analys
 
 ---
 
