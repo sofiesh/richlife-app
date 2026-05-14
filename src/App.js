@@ -8,6 +8,7 @@ import HomePage from './pages/home/homePage.js'
 import PurchasePlan from './pages/purchaseplan/purchasePlan.js'
 import PurchaseHistory from './pages/purchasehistory/purchaseHistory.js'
 import Budget from './pages/budget/budget.js'
+import { BudgetProvider } from './context/budgetContext.js'
 import UserProfile from './pages/userprofile/userProfile.js'
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
@@ -91,42 +92,41 @@ function AppRoute() {
         onLogout={handleLogoutClick}
       />
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage user={user} onLogin={handleLoginClick} />} />
-          <Route
-            path="/login"
-            element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/register"
-            element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/homepage"
-            element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/purchaseplan"
-            element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
-          />
+        <BudgetProvider user={user}>
+          <Routes>
+            <Route path="/" element={<HomePage user={user} onLogin={handleLoginClick} />} />
+            <Route
+              path="/login"
+              element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <Register setUser={setUser} /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/homepage"
+              element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/purchaseplan"
+              element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
+            />
 
-          <Route
-            path="/purchasehistory"
-            element={user ? <PurchaseHistory user={user} /> : <Navigate to="/login" />}
-          />
+            <Route
+              path="/purchasehistory"
+              element={user ? <PurchaseHistory user={user} /> : <Navigate to="/login" />}
+            />
 
-          <Route
-            path="/budget"
-            element={user ? <Budget user={user} /> : <Navigate to="/budget" />}
-          />
+            <Route path="/budget" element={user ? <Budget /> : <Navigate to="/login" />} />
 
-          <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
-          <Route
-            path="/userProfile"
-            element={user ? <UserProfile user={user} /> : <Navigate to="/login" />}
-          />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
+            <Route
+              path="/userProfile"
+              element={user ? <UserProfile user={user} /> : <Navigate to="/login" />}
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </BudgetProvider>
       </main>
     </div>
   )
