@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import InfoCard from '../../components/infocard/infoCard.js'
 import { getProducts } from '../../repositories/productRepository.js'
 import { countProducts, sumNewPrice } from '../../utils/productUtils.js'
+import { useBudget } from '../../context/budgetContext.js'
 import './homePage.css'
 import { Link } from 'react-router-dom'
 
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom'
  * @returns {Function} jsx element
  */
 const HomePage = ({ user, onLogin }) => {
+  const { safeToSpend } = useBudget()
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const HomePage = ({ user, onLogin }) => {
       <section className="home-top">
         <InfoCard
           title="Safe to spend"
-          value="3 200 kr"
+          value={`${safeToSpend.toLocaleString('sv-SE')} kr`}
           subtitle="av 5 000 kr budget"
           variant="highlight"
         />
@@ -64,6 +66,13 @@ const HomePage = ({ user, onLogin }) => {
       <section className="home-nav">
         <Link to="/purchasehistory" className="home-nav__card">
           <span className="home-nav__label">Köphistorik</span>
+          <span className="home-nav__arrow">→</span>
+        </Link>
+      </section>
+
+      <section className="home-nav">
+        <Link to="/budget" className="home-nav__card">
+          <span className="home-nav__label">Min budget</span>
           <span className="home-nav__arrow">→</span>
         </Link>
       </section>

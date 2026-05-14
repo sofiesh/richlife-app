@@ -14,7 +14,7 @@ jest.mock('../../repositories/productRepository', () => {
     updateProduct: (_id, updates) =>
       Promise.resolve({
         id: '1',
-        purchased: false,
+        is_bought: false,
         ...updates,
       }),
     deleteProduct: jest.fn().mockResolvedValue(),
