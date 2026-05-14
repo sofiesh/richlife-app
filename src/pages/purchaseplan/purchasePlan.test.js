@@ -19,7 +19,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('../../components/rankingstars/rankingStar.js', () => () => null)
-jest.mock('../../assets/calculateStarScore.js', () => ({
+jest.mock('../../utils/calculateStarScore.js', () => ({
   calculateStarScore: () => 5,
 }))
 
