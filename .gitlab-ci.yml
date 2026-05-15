@@ -67,8 +67,7 @@ deploy_staging:
   
   script:
     - export DOCKER_HOST=ssh://ubuntu@172.27.61.59
-    - export DOCKER_PORT=80
-    - export SESSION_SECRET=test123
     - export REACT_APP_SUPABASE_URL=$REACT_APP_SUPABASE_URL
     - export REACT_APP_SUPABASE_ANON_KEY=$REACT_APP_SUPABASE_ANON_KEY
+    - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml down   # lägg till down
     - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
