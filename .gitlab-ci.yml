@@ -1,5 +1,8 @@
 stages:
-  - check
+  - install
+  - lint
+  - test
+  - build
   - deploy
 
 default:
@@ -11,18 +14,40 @@ default:
     paths:
       - .npm/
 
-lint:
-  stage: check
+install:
+  stage: install
   script:
-    - npm ci --legacy-peer-deps --cache .npm --prefer-offline
+    - npm ci --legacy-peer-deps
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+lint:
+  stage: lint
+  dependencies:
+    - install
+  script:
     - npm run lint
     - npx prettier --check "src/**/*.{js,css}"
 
 test:
-  stage: check
+  stage: test
+  dependencies:
+    - install
   script:
-    - npm ci --legacy-peer-deps --cache .npm --prefer-offline
-    - npm test -- --watchAll=false --ci # runs Jest once and completes (not interactive)
+    - npm test -- --watchAll=false --ci --forceExit # runs Jest once and completes (not interactive)
+
+build:
+  stage: build
+  dependencies:
+    - install
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 week
 
 deploy_staging:
   stage: deploy
@@ -30,6 +55,7 @@ deploy_staging:
     - main
   image: alpine:latest
   cache: []
+
   before_script:
     - apk add --no-cache docker-cli docker-compose openssh-client  
   # setup ssh key
@@ -38,12 +64,11 @@ deploy_staging:
     - chmod 600 ~/.ssh/id_rsa
   # trust server
     - ssh-keyscan 172.27.61.59 >> ~/.ssh/known_hosts
+  
   script:
     - export DOCKER_HOST=ssh://ubuntu@172.27.61.59
     - export DOCKER_PORT=80
     - export SESSION_SECRET=test123
-    - export REACT_APP_SUPABASE_URL=$REACT_APP_SUPABASE_URL
-    - export REACT_APP_SUPABASE_ANON_KEY=$REACT_APP_SUPABASE_ANON_KEY
     - export REACT_APP_SUPABASE_URL=$REACT_APP_SUPABASE_URL
     - export REACT_APP_SUPABASE_ANON_KEY=$REACT_APP_SUPABASE_ANON_KEY
     - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d

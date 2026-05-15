@@ -1,20 +1,19 @@
 (lnu_tls) {
-	tls {
-		issuer acme {
-			dir https://ca.camp.lnu.se:9000/acme/acme/directory
-		}
-
-		issuer internal
-	}
+    tls {
+        issuer acme {
+            dir https://ca.camp.lnu.se:9000/acme/acme/directory
+        }
+        issuer internal
+    }
 }
 
 cu1059.camp.lnu.se {
-	import lnu_tls
+    import lnu_tls
 
-	reverse_proxy app:80
+    reverse_proxy app:80
 
-	log {
-		output stdout
-		format json
-	}
+    log {
+        output stdout
+        format json
+    }
 }

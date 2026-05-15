@@ -4,28 +4,7 @@ services:
     build: .
     networks:
       - proxy-network
-  caddy:
-    image: caddy:2.11-alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      - SITE_ADDRESS=${SITE_ADDRESS:-localhost}
-      - SERVER_HOST=${SERVER_HOST:-server}
-      - SERVER_PORT=${SERVER_PORT:-3000}
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-    networks:
-      - proxy-network
 
 networks:
   proxy-network:
     name: proxy-network
-
-volumes:
-  caddy_data:
-  caddy_config:
-

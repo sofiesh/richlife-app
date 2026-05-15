@@ -25,12 +25,6 @@ jest.mock('./firebase', () => ({ auth: {} }))
  * @param callback
  */
 jest.mock('./lib/supabase', () => ({ supabase: {} }))
-jest.mock('firebase/auth', () => ({
-  onAuthStateChanged: (auth, callback) => {
-    callback(null)
-    return () => {}
-  },
-}))
 
 test('appen renderar utan att krascha', () => {
   render(
