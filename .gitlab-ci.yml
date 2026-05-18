@@ -2,7 +2,6 @@ stages:
   - install
   - lint
   - test
-  - build
   - deploy
 
 default:
@@ -38,23 +37,14 @@ test:
   script:
     - npm test -- --watchAll=false --ci --forceExit # runs Jest once and completes (not interactive)
 
-build:
-  stage: build
-  dependencies:
-    - install
-  script:
-    - npm run build
-  artifacts:
-    paths:
-      - build/
-    expire_in: 1 week
-
 deploy_staging:
   stage: deploy
   only:
     - main
   tags:
     - vps-deploy
+  dependencies: [] # do not load node_modules.
+  cache: [] # do not use cache, Docker handles on server.
   script:
     - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d --remove-orphans
     - docker system prune -f
