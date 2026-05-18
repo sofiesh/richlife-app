@@ -53,27 +53,8 @@ deploy_staging:
   stage: deploy
   only:
     - main
-  image: alpine:latest
-  cache: []
-
-  before_script:
-    - apk add --no-cache docker-cli docker-compose openssh-client  
-  # setup ssh key
-    - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-  # trust server
-    - ssh-keyscan 172.27.61.59 >> ~/.ssh/known_hosts
-  
+  tags:
+    - vps-deploy
   script:
-    - export DOCKER_HOST=ssh://ubuntu@172.27.61.59
-    - export REACT_APP_SUPABASE_URL=$REACT_APP_SUPABASE_URL
-    - export REACT_APP_SUPABASE_ANON_KEY=$REACT_APP_SUPABASE_ANON_KEY
-    - |
-      ssh ubuntu@172.27.61.59 "
-        sudo kill -9 \$(sudo docker inspect --format='{{.State.Pid}}' budgetapp 2>/dev/null) 2>/dev/null || true
-        sudo kill -9 \$(sudo docker inspect --format='{{.State.Pid}}' budget-app-caddy-1 2>/dev/null) 2>/dev/null || true
-        sleep 2
-        sudo docker rm budgetapp budget-app-caddy-1 2>/dev/null || true
-      "
-    - docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
+    - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d --remove-orphans
+    - docker system prune -f
