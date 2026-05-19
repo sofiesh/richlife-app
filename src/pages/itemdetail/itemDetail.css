@@ -1,12 +1,11 @@
 .item-detail-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   background: linear-gradient(135deg, #f5f7fa, #e4f7e7);
   padding: 20px 16px;
 }
 
 .item-detail-container {
   background: #ffffff;
-  width: 100%;
   border-radius: 12px;
   padding: 20px 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
@@ -43,8 +42,10 @@
 
 .item-detail-container h1 {
   font-size: 1.3rem;
-  color: #1f2a37;
+  color: #1a8c51;
   margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #1a8c51;
 }
 
 .item-detail-grid {
@@ -93,34 +94,87 @@
 
 .item-buttons {
   margin-top: 20px;
-}
-
-.item-toggle-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #1a8c51;
-  color: white;
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.1s ease;
-}
-
-.item-toggle-btn:hover {
-  background: #157a44;
-}
-
-.item-toggle-btn:active {
-  transform: scale(0.98);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
 }
 
 .delete-error {
   color: #c0392b;
   margin-top: 0.5rem;
+}
+
+/* Item status button */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.toggle-switch input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 44px;
+  height: 24px;
+  background: #d1d5db;
+  border-radius: 99px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.toggle-slider::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: left 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #1a8c51;
+}
+
+.toggle-switch input:checked + .toggle-slider::after {
+  left: 23px;
+}
+
+/* Icons */
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+
+.btn-icon--edit {
+  background: #dfede5;
+  color: #1a8c51;
+}
+
+.btn-icon--edit:hover {
+  background: #d1fae5;
+}
+
+.btn-icon--delete {
+  background: #eddbdb;
+  color: #c0392b;
+}
+
+.btn-icon--delete:hover {
+  background: #fee2e2;
 }
 
 @media (min-width: 600px) {

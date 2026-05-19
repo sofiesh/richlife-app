@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById, updateProduct, deleteProduct } from '../../repositories/productRepository'
 import './itemDetail.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Creates a view for item details.
@@ -174,9 +176,11 @@ const ItemDetail = () => {
             </div>
             <div className="item-detail-row">
               <span className="item-label">Status</span>
-              <span className={`item-status-badge ${item.purchased ? 'bought' : 'not-bought'}`}>
-                {item.purchased ? 'Köpt' : 'Ej köpt'}
-              </span>
+              <label className="toggle-switch">
+                <input type="checkbox" checked={item.purchased} onChange={toggleBought} />
+                <span className="toggle-slider" />
+                <span className="toggle-label">{item.purchased ? 'Köpt' : 'Ej köpt'}</span>
+              </label>
             </div>
           </div>
 
@@ -188,10 +192,6 @@ const ItemDetail = () => {
           )}
 
           <div className="item-buttons">
-            <button type="button" onClick={toggleBought}>
-              {item.purchased ? 'Markera som ej köpt' : 'Markera som köpt'}
-            </button>
-
             {isEditing ? (
               <>
                 <button type="submit" disabled={isUpdating}>
@@ -202,8 +202,13 @@ const ItemDetail = () => {
                 </button>
               </>
             ) : (
-              <button type="button" className="btn-update" onClick={handleEditClick}>
-                Ändra produkt
+              <button
+                className="btn-icon btn-icon--edit"
+                type="button"
+                aria-label="Redigera produkt"
+                onClick={handleEditClick}
+              >
+                <FontAwesomeIcon icon={faPen} />
               </button>
             )}
 
@@ -211,13 +216,14 @@ const ItemDetail = () => {
               (!confirmDelete ? (
                 <button
                   type="button"
-                  className="btn-delete"
+                  className="btn-icon btn-icon--delete"
+                  aria-label="Ta bort produkt"
                   onClick={() => {
                     setConfirmDelete(true)
                     setDeleteError(null)
                   }}
                 >
-                  Ta bort produkt
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               ) : (
                 <div className="delete-confirm">

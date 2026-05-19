@@ -32,28 +32,38 @@ function Login() {
   }
 
   return (
-    <div className="login-container">
-      <h3>Logga in</h3>
-      {loginSuccess ? (
-        <p>Du är inloggad</p>
-      ) : (
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-post"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Lösenord"
-          />
-          <button type="submit">Logga in</button>
-        </form>
-      )}
-      {error && <p>{error}</p>}
+    <div className="login-page">
+      <div className="login-container">
+        <h3>Logga in</h3>
+        {loginSuccess ? (
+          <p>Du är inloggad</p>
+        ) : (
+          <form onSubmit={handleLogin}>
+            <div className="login-field">
+              <label>E-post</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="din@epost.se"
+              />
+            </div>
+            <div className="login-field">
+              <label>Lösenord</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
+            {error && <p className="login-error">{error}</p>}
+            <button type="submit" className="btn-primary">
+              Logga in
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   )
 }

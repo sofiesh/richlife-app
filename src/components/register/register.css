@@ -1,5 +1,35 @@
 /* Register container styling */
+.register-page {
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(135deg, #f5f7fa, #e4f7e7);
+  padding: 40px 16px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .register-container {
-  /* background-color: #ffffff; */
-  padding: 20px;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.register-container h3 {
+  font-size: 1.3rem;
+  color: #1f2a37;
+  margin: 0 0 20px 0;
+  padding-left: 12px;
+  border-left: 3px solid #1a8c51;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }

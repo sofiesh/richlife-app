@@ -66,27 +66,3 @@
     width: auto;
   }
 }
-
-.form-submit-btn {
-  width: 100%;
-  margin-top: 16px;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #1a8c51;
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.1s ease;
-}
-
-.form-submit-btn:hover {
-  background: #157a44;
-}
-
-.form-submit-btn:active {
-  transform: scale(0.98);
-}
