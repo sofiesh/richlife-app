@@ -1,4 +1,4 @@
-{lnu_tls} {
+(lnu_tls) {
     tls {
         issuer acme {
             dir https://ca.camp.lnu.se:9000/acme/acme/directory
