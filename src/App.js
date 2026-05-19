@@ -7,6 +7,7 @@ import Navbar from './components/navbar/navbar.js'
 import HomePage from './pages/home/homePage.js'
 import PurchasePlan from './pages/purchaseplan/purchasePlan.js'
 import PurchaseHistory from './pages/purchasehistory/purchaseHistory.js'
+import ScrollToTop from './components/scrollToTop/scrollToTop.js'
 import Budget from './pages/budget/budget.js'
 import { BudgetProvider } from './context/budgetContext.js'
 import UserProfile from './pages/userprofile/userProfile.js'
@@ -60,6 +61,20 @@ function AppRoute() {
   const handlePurchasePlanClick = () => navigate('/purchaseplan')
 
   /**
+   * Handles the click event for the purchase history button.
+   *
+   * @returns {void}
+   */
+  const handlePurchaseHistoryClick = () => navigate('/purchasehistory')
+
+  /**
+   * Handles the click event for the budget button.
+   *
+   * @returns {void}
+   */
+  const handleBudgetClick = () => navigate('/budget')
+
+  /**
    * Handles the click event for the profile button.
    *
    * @returns {void}
@@ -88,13 +103,21 @@ function AppRoute() {
         onLogin={handleLoginClick}
         onRegister={handleRegisterClick}
         onPurchasePlan={handlePurchasePlanClick}
+        onPurchaseHistory={handlePurchaseHistoryClick}
+        onBudget={handleBudgetClick}
         onProfile={handleUserProfileClick}
         onLogout={handleLogoutClick}
       />
       <main className="main-content">
         <BudgetProvider user={user}>
+          <ScrollToTop />
           <Routes>
-            <Route path="/" element={<HomePage user={user} onLogin={handleLoginClick} />} />
+            <Route
+              path="/"
+              element={
+                <HomePage user={user} onLogin={handleLoginClick} onRegister={handleRegisterClick} />
+              }
+            />{' '}
             <Route
               path="/login"
               element={!user ? <Login setUser={setUser} /> : <Navigate to="/" />}
@@ -111,14 +134,11 @@ function AppRoute() {
               path="/purchaseplan"
               element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
             />
-
             <Route
               path="/purchasehistory"
               element={user ? <PurchaseHistory user={user} /> : <Navigate to="/login" />}
             />
-
             <Route path="/budget" element={user ? <Budget /> : <Navigate to="/login" />} />
-
             <Route path="/items/:id" element={user ? <ItemDetail /> : <Navigate to="/login" />} />
             <Route
               path="/userProfile"

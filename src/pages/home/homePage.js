@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
  * @param {*} param0 user and login
  * @returns {Function} jsx element
  */
-const HomePage = ({ user, onLogin }) => {
+const HomePage = ({ user, onLogin, onRegister }) => {
   const { safeToSpend } = useBudget()
   const [products, setProducts] = useState([])
 
@@ -29,7 +29,7 @@ const HomePage = ({ user, onLogin }) => {
       <div className="landing">
         <h1>Susbud</h1>
         <p className="tagline">Talk about your finances</p>
-        <button className="btn-cta" onClick={onLogin}>
+        <button className="btn-cta" onClick={onRegister}>
           Kom igång
         </button>
       </div>
@@ -83,6 +83,7 @@ const HomePage = ({ user, onLogin }) => {
 HomePage.propTypes = {
   user: PropTypes.object,
   onLogin: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
 }
 
 export default HomePage

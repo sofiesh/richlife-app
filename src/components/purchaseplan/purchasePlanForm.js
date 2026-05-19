@@ -100,7 +100,7 @@ const PurchasePlanForm = ({ onAdd }) => {
         onChange={handleChange}
       />
 
-      <button className="form-submit-btn" type="submit">
+      <button className="btn-primary" type="submit">
         Lägg till produkt
       </button>
     </form>
