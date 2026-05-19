@@ -1,16 +1,16 @@
-(lnu_tls) {
+{lnu_tls} {
     tls {
         issuer acme {
             dir https://ca.camp.lnu.se:9000/acme/acme/directory
+            trusted_roots /etc/ssl/certs/LNU_FTK_Campus_Root_CA_2025.crt
         }
-        issuer internal
     }
 }
 
 cu1059.camp.lnu.se {
     import lnu_tls
 
-    reverse_proxy app:80
+    reverse_proxy budgetapp:80
 
     log {
         output stdout

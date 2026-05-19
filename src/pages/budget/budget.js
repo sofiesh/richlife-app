@@ -26,18 +26,6 @@ const Budget = () => {
   const { items, setItems, income, expenses, totalIncome, totalExpenses, safeToSpend, userId } =
     useBudget()
 
-  // useEffect(() => {
-  //   getBudgetItems(user.uid)
-  //     .then(setItems)
-  //     .catch((err) => console.error('Budget error:', err))
-  // }, [user.uid])
-
-  // const income = items.filter((i) => i.type === 'income')
-  // const expenses = items.filter((i) => i.type === 'expense')
-  // const totalIncome = income.reduce((sum, i) => sum + i.amount, 0)
-  // const totalExpenses = expenses.reduce((sum, i) => sum + i.amount, 0)
-  // const safeToSpend = totalIncome - totalExpenses
-
   /**
    * Adds budget items to the database.
    */
