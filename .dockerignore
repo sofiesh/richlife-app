@@ -10,6 +10,9 @@
 !nginx.conf
 !Caddyfile
 !Dockerfile.caddy
+!certs/
+!/certs/LNU_FTK_Campus_Root_CA_2025.crt
+
 
 # Allow source code and public assets
 !public
