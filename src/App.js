@@ -5,6 +5,7 @@ import Login from './pages/login/login.js'
 import Register from './components/register/register.js'
 import Navbar from './components/navbar/navbar.js'
 import HomePage from './pages/home/homePage.js'
+import Insights from './pages/insights/insights.js'
 import PurchasePlan from './pages/purchaseplan/purchasePlan.js'
 import PurchaseHistory from './pages/purchasehistory/purchaseHistory.js'
 import ScrollToTop from './components/scrollToTop/scrollToTop.js'
@@ -52,6 +53,13 @@ function AppRoute() {
    * @returns {void}
    */
   const handleRegisterClick = () => navigate('/register')
+
+  /**
+   * Handles the click event for the insights button.
+   *
+   * @returns {void}
+   */
+  const handleInsightsClick = () => navigate('/insights')
 
   /**
    * Handles the click event for the purchaseplan button.
@@ -102,6 +110,7 @@ function AppRoute() {
         onHome={handleHomeClick}
         onLogin={handleLoginClick}
         onRegister={handleRegisterClick}
+        onInsights={handleInsightsClick}
         onPurchasePlan={handlePurchasePlanClick}
         onPurchaseHistory={handlePurchaseHistoryClick}
         onBudget={handleBudgetClick}
@@ -129,6 +138,10 @@ function AppRoute() {
             <Route
               path="/homepage"
               element={user ? <PurchasePlan user={user} /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/insights"
+              element={user ? <Insights user={user} /> : <Navigate to="/insights" />}
             />
             <Route
               path="/purchaseplan"
