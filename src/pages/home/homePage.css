@@ -1,4 +1,8 @@
 /* Homepage page styling */
+.home-hidden {
+  display: none;
+}
+
 .home-purchaseplan {
   display: flex;
   flex-direction: column;

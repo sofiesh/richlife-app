@@ -7,6 +7,10 @@ import {
   deleteBudgetItem,
 } from '../../repositories/budgetRepository.js'
 import './budget.css'
+import BudgetAlerts from './budgetAlerts.js'
+import BudgetExpenseSection from './budgetExpenseSection.js'
+import BudgetSection from './budgetSection'
+import { getBudgetAlerts } from '../../utils/budgetAlerts.js'
 
 const EXPENSE_CATEGORIES = ['boende', 'sparande', 'prenumeration', 'transport', 'mat', 'övrigt']
 
@@ -21,6 +25,7 @@ const Budget = () => {
   const [addForm, setAddForm] = useState({ label: '', amount: '', category: 'övrigt' })
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
+  const [alerts, setAlerts] = useState([])
 
   const navigate = useNavigate()
   const { items, setItems, income, expenses, totalIncome, totalExpenses, safeToSpend, userId } =
@@ -37,6 +42,7 @@ const Budget = () => {
         amount: Number(addForm.amount),
       })
       setItems([...items, saved])
+      setAlerts(getBudgetAlerts(totalIncome, expenses))
       setAddingType(null)
       setAddForm({ label: '', amount: '', category: 'övrigt' })
     } catch (err) {
@@ -80,6 +86,7 @@ const Budget = () => {
         amount: Number(editForm.amount),
       })
       setItems(items.map((i) => (i.id === id ? updated : i)))
+      setAlerts(getBudgetAlerts(totalIncome, expenses))
       setEditingId(null)
     } catch (err) {
       console.error('Kunde inte uppdatera:', err)
@@ -87,160 +94,61 @@ const Budget = () => {
   }
 
   return (
-    <div className="budget">
+    <div className="budget-page">
       <button type="button" className="item-back" onClick={() => navigate('/')}>
         Tillbaka
       </button>
       <h1>Budget</h1>
 
       {/* Inkomster */}
-      <section className="budget-section">
-        <h2>Inkomster</h2>
-        {income.map((i) => (
-          <div key={i.id} className="budget-row">
-            {editingId === i.id ? (
-              <>
-                <input
-                  value={editForm.label}
-                  onChange={(e) => setEditForm({ ...editForm, label: e.target.value })}
-                />
-                <input
-                  type="number"
-                  value={editForm.amount}
-                  onChange={(e) => setEditForm({ ...editForm, amount: e.target.value })}
-                />
-                <button onClick={() => handleEditSave(i.id)}>Spara</button>
-                <button onClick={() => setEditingId(null)}>Avbryt</button>
-              </>
-            ) : (
-              <>
-                <span>{i.label}</span>
-                <span>{i.amount.toLocaleString('sv-SE')} kr</span>
-                <button onClick={() => handleEditClick(i)}>Ändra</button>
-                <button onClick={() => handleDelete(i.id)}>✕</button>
-              </>
-            )}
-          </div>
-        ))}
+      <BudgetSection
+        title="Inkomster"
+        items={income}
+        type="income"
+        total={totalIncome}
+        editingId={editingId}
+        editForm={editForm}
+        addingType={addingType}
+        addForm={addForm}
+        onEditChange={setEditForm}
+        onAddChange={setAddForm}
+        onEditClick={handleEditClick}
+        onEditSave={handleEditSave}
+        onEditCancel={() => setEditingId(null)}
+        onDelete={handleDelete}
+        onAddSave={handleAdd}
+        onAddStart={() => {
+          setAddingType('income')
+          setEditingId(null)
+        }}
+        onAddCancel={() => setAddingType(null)}
+      />
 
-        {addingType === 'income' && (
-          <div className="budget-row">
-            <input
-              placeholder="Namn (t.ex. Lön)"
-              value={addForm.label}
-              onChange={(e) => setAddForm({ ...addForm, label: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Belopp"
-              value={addForm.amount}
-              onChange={(e) => setAddForm({ ...addForm, amount: e.target.value })}
-            />
-            <button onClick={handleAdd}>Spara</button>
-            <button onClick={() => setAddingType(null)}>Avbryt</button>
-          </div>
-        )}
-        <button
-          onClick={() => {
-            setAddingType('income')
-            setEditingId(null)
-          }}
-        >
-          + Lägg till inkomst
-        </button>
-
-        <div className="budget-total">Totalt: {totalIncome.toLocaleString('sv-SE')} kr</div>
-      </section>
-
-      {/* Avdrag */}
-      <section className="budget-section">
-        <h2>Avdrag</h2>
-        {EXPENSE_CATEGORIES.map((cat) => {
-          const catItems = expenses.filter((i) => i.category === cat)
-          if (catItems.length === 0) return null
-          return (
-            <div key={cat}>
-              <h3 className="budget-category">{cat}</h3>
-              {catItems.map((i) => (
-                <div key={i.id} className="budget-row">
-                  {editingId === i.id ? (
-                    <>
-                      <input
-                        value={editForm.label}
-                        onChange={(e) => setEditForm({ ...editForm, label: e.target.value })}
-                      />
-                      <input
-                        type="number"
-                        value={editForm.amount}
-                        onChange={(e) => setEditForm({ ...editForm, amount: e.target.value })}
-                      />
-                      <select
-                        value={editForm.category}
-                        onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                      >
-                        {EXPENSE_CATEGORIES.map((c) => (
-                          <option key={c} value={c}>
-                            {c}
-                          </option>
-                        ))}
-                      </select>
-                      <button onClick={() => handleEditSave(i.id)}>Spara</button>
-                      <button onClick={() => setEditingId(null)}>Avbryt</button>
-                    </>
-                  ) : (
-                    <>
-                      <span>{i.label}</span>
-                      <span>{i.amount.toLocaleString('sv-SE')} kr</span>
-                      <button onClick={() => handleEditClick(i)}>Ändra</button>
-                      <button onClick={() => handleDelete(i.id)}>✕</button>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-          )
-        })}
-
-        {addingType === 'expense' && (
-          <div className="budget-row">
-            <input
-              placeholder="Namn (t.ex. Hyra)"
-              value={addForm.label}
-              onChange={(e) => setAddForm({ ...addForm, label: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Belopp"
-              value={addForm.amount}
-              onChange={(e) => setAddForm({ ...addForm, amount: e.target.value })}
-            />
-            <select
-              value={addForm.category}
-              onChange={(e) => setAddForm({ ...addForm, category: e.target.value })}
-            >
-              {EXPENSE_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-            <button onClick={handleAdd}>Spara</button>
-            <button onClick={() => setAddingType(null)}>Avbryt</button>
-          </div>
-        )}
-        <button
-          onClick={() => {
-            setAddingType('expense')
-            setEditingId(null)
-          }}
-        >
-          + Lägg till avdrag
-        </button>
-
-        <div className="budget-total">Totalt: {totalExpenses.toLocaleString('sv-SE')} kr</div>
-      </section>
+      {/* Utgifter */}
+      <BudgetExpenseSection
+        items={expenses}
+        categories={EXPENSE_CATEGORIES}
+        total={totalExpenses}
+        editingId={editingId}
+        editForm={editForm}
+        addingType={addingType}
+        addForm={addForm}
+        onEditChange={setEditForm}
+        onAddChange={setAddForm}
+        onEditClick={handleEditClick}
+        onEditSave={handleEditSave}
+        onEditCancel={() => setEditingId(null)}
+        onDelete={handleDelete}
+        onAddSave={handleAdd}
+        onAddStart={() => {
+          setAddingType('expense')
+          setEditingId(null)
+        }}
+        onAddCancel={() => setAddingType(null)}
+      />
 
       {/* Safe to spend */}
+      <BudgetAlerts alerts={alerts} />
       <section className="budget-result">
         <span>Safe to spend</span>
         <span className={safeToSpend >= 0 ? 'positive' : 'negative'}>
