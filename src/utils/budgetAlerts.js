@@ -43,11 +43,18 @@ export function getBudgetAlerts(totalIncome, expenses) {
     })
 
   const food = pct('mat')
-  if (food > 15) alerts.push({ category: 'mat', message: `Din matkostnad är ${food}%...` })
+  if (food > 15)
+    alerts.push({
+      category: 'mat',
+      message: `Din matkostnad är ${food}% och är ${overBy(food, 15)}% högre än rekommenderat.`,
+    })
 
   const transport = pct('transport')
   if (transport > 15)
-    alerts.push({ category: 'transport', message: `Din transportkostnad är ${transport}%...` })
+    alerts.push({
+      category: 'transport',
+      message: `Din transportkostnad är ${transport}% och är ${overBy(transport, 15)}% högre än rekommenderat.`,
+    })
 
   const totalFixed = pct('boende') + pct('mat') + pct('transport')
   if (totalFixed > 60)
