@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { signIn, signUp } from '../../auth'
 import './register.css'
+import { seedDefaultBudgetItems } from '../../repositories/budgetRepository'
 
 /**
  * Component for registering a new user.
@@ -24,10 +25,11 @@ function Register() {
     e.preventDefault()
     try {
       await signUp(email, password)
-      // If registration is successful
+      // Sign in user to get user ID for seeding default budget items
+      const { user } = await signIn(email, password)
+      await seedDefaultBudgetItems(user.id)
+      // If registration and seeding is successful
       setRegistrationSuccess(true)
-      // Sign in user
-      await signIn(email, password)
     } catch (error) {
       setError(error.message)
     }

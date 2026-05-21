@@ -3,7 +3,7 @@
 .profile-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: linear-gradient(135deg, #f5f7fa, #e4f7e7);
   padding: 20px;

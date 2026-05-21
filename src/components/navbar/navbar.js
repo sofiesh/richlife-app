@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import logo from '../../Susbud_logo.png'
 import './navbar.css'
@@ -15,6 +15,7 @@ import { faCircleUser, faBars, faXmark } from '@fortawesome/free-solid-svg-icons
  * @param {Function} props.onPurchaseHistory - Navigate to purchase history.
  * @param {Function} props.onBudget - Navigate to budget.
  * @param {Function} props.onLogin - Navigate to login.
+ * @param {Function} props.onInsights - Navigate to insights.
  * @param {Function} props.onRegister - Navigate to register.
  * @param {Function} props.onProfile - Navigate to user profile.
  * @param {Function} props.onLogout - Sign out user.
@@ -27,11 +28,13 @@ const Navbar = ({
   onPurchaseHistory,
   onBudget,
   onLogin,
+  onInsights,
   onRegister,
   onProfile,
   onLogout,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
 
   /**
    * Closes the navigation menu.
@@ -48,22 +51,28 @@ const Navbar = ({
      * @returns {void}
      */
     const handleClickOutside = (e) => {
-      if (menuOpen && !e.target.closest('.navbar')) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuOpen(false)
       }
     }
-    document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
-  }, [menuOpen])
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
-    <nav className="navbar">
-      <button className="navbar-brand" onClick={onHome}>
+    <nav className="navbar" ref={menuRef}>
+      <button
+        className="navbar-brand"
+        onClick={() => {
+          onHome()
+          close()
+        }}
+      >
         <img src={logo} alt="Susbud" className="navbar-logo" />
         <span className="navbar-title">Susbud</span>
       </button>
 
-      <div className={`navbar-actions${menuOpen ? ' open' : ''}`} onClick={close}>
+      <div className={`navbar-actions${menuOpen ? ' open' : ''}`}>
         {user ? (
           <>
             <button
@@ -107,6 +116,16 @@ const Navbar = ({
             </button>
 
             <button
+              className="nav-btn nav-btn--outline2"
+              onClick={() => {
+                onInsights()
+                close()
+              }}
+            >
+              <span className="menu-label">Insikter</span>
+            </button>
+
+            <button
               className="nav-btn nav-btn--outline"
               onClick={() => {
                 onLogout()
@@ -143,7 +162,14 @@ const Navbar = ({
       <div className="navbar-right">
         <button
           className="navbar-icon-btn"
-          onClick={user ? onProfile : onLogin}
+          onClick={() => {
+            if (user) {
+              onProfile()
+            } else {
+              onLogin()
+            }
+            close()
+          }}
           aria-label={user ? 'Min profil' : 'Logga in'}
         >
           <FontAwesomeIcon icon={faCircleUser} />
@@ -162,6 +188,7 @@ Navbar.propTypes = {
   onPurchasePlan: PropTypes.func,
   onPurchaseHistory: PropTypes.func,
   onBudget: PropTypes.func,
+  onInsights: PropTypes.func,
   onLogin: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   onProfile: PropTypes.func.isRequired,

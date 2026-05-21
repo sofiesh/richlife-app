@@ -39,21 +39,30 @@ const HomePage = ({ user, onLogin, onRegister }) => {
   return (
     <div className="home-dashboard">
       <section className="home-top">
-        <InfoCard
-          title="Safe to spend"
-          value={`${safeToSpend.toLocaleString('sv-SE')} kr`}
-          subtitle="av 5 000 kr budget"
-          variant="highlight"
-        />
-        <Link to="/purchaseplan" className="card-link">
+        <Link to="/budget" className="card-link">
           <InfoCard
-            title="I önskelistan"
-            value={`${countProducts(products)} produkter`}
-            subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+            title="Safe to spend"
+            value={`${safeToSpend.toLocaleString('sv-SE')} kr`}
+            subtitle="av 5 000 kr budget"
+            variant="highlight"
           />
         </Link>
-        <InfoCard title="Köppoäng" value="72" subtitle="den här månaden" />
-        <InfoCard title="Insikter" value="2 alerts" variant="warning" />
+
+        {/* Hidden for test */}
+        <div className="home-hidden">
+          <Link to="/purchaseplan" className="card-link">
+            <InfoCard
+              title="I önskelistan"
+              value={`${countProducts(products)} produkter`}
+              subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+            />
+          </Link>
+          <InfoCard title="Köppoäng" value="72" subtitle="den här månaden" />
+        </div>
+
+        <Link to="/insights" className="card-link">
+          <InfoCard title="Insikter" value="2 alerts" variant="warning" />
+        </Link>
       </section>
 
       <section className="home-nav">

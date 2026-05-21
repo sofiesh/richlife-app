@@ -55,3 +55,25 @@ export const deleteBudgetItem = async (id) => {
   const { error } = await supabase.from('budget_items').delete().eq('id', id)
   if (error) throw error
 }
+
+// Default budget items to seed for new users
+const DEFAULT_BUDGET_ITEMS = [
+  { label: 'Lön', type: 'income', amount: 0, category: null },
+  { label: 'Boende', type: 'expense', amount: 0, category: 'boende' },
+  { label: 'Mat', type: 'expense', amount: 0, category: 'mat' },
+  { label: 'Transport', type: 'expense', amount: 0, category: 'transport' },
+  { label: 'Sparande', type: 'expense', amount: 0, category: 'sparande' },
+]
+
+/**
+ * Seeds the database with default budget items for a user.
+ *
+ * @param {string} userId - The user ID.
+ */
+export const seedDefaultBudgetItems = async (userId) => {
+  const existing = await getBudgetItems(userId)
+  if (existing.length > 0) return // redan seedat
+  for (const item of DEFAULT_BUDGET_ITEMS) {
+    await addBudgetItem(userId, item)
+  }
+}
