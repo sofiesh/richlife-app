@@ -43,7 +43,7 @@ const HomePage = ({ user, onLogin, onRegister }) => {
           <InfoCard
             title="Safe to spend"
             value={`${safeToSpend.toLocaleString('sv-SE')} kr`}
-            subtitle="av 5 000 kr budget"
+            subtitle="kvar den här månaden"
             variant="highlight"
           />
         </Link>
