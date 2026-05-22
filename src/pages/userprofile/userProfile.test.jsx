@@ -1,13 +1,13 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import UserProfile from './userProfile.js'
+import UserProfile from './userProfile'
 import { updateProfile } from 'firebase/auth'
 
 // Mocka Firebase
-jest.mock('firebase/auth', () => ({
-  updateProfile: jest.fn(),
+vi.mock('firebase/auth', () => ({
+  updateProfile: vi.fn(),
 }))
-jest.mock('../../firebase', () => ({ auth: {} }))
+vi.mock('../../firebase', () => ({ auth: {} }))
 
 const mockUser = {
   email: 'test@example.com',

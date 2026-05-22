@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import InfoCard from '../../components/infocard/infoCard.js'
-import { getProducts } from '../../repositories/productRepository.js'
-import { countProducts, sumNewPrice } from '../../utils/productUtils.js'
-import { useBudget } from '../../context/budgetContext.js'
+import InfoCard from '../../components/infocard/infoCard'
+import { getProducts } from '../../repositories/productRepository'
+import { countProducts, sumNewPrice } from '../../utils/productUtils'
+import { useBudget } from '../../context/budgetContext'
 import './homePage.css'
 import { Link } from 'react-router-dom'
 

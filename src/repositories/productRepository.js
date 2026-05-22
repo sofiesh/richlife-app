@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase'
+import { supabase } from '../lib/supabase.js'
 
 /**
  * Fetches all products for a user.

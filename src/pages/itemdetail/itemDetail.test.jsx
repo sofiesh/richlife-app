@@ -3,30 +3,39 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import ItemDetail from './itemDetail'
 
-const mockNavigate = jest.fn()
-jest.mock('../../repositories/productRepository', () => {
+const mockNavigate = vi.hoisted(() => vi.fn())
+const mockUpdateProduct = vi.hoisted(() =>
+  vi.fn().mockImplementation((_id, updates) => Promise.resolve({ id: '1', is_bought: false, ...updates }))
+)
+const mockDeleteProduct = vi.hoisted(() => vi.fn().mockResolvedValue())
+
+vi.mock('../../repositories/productRepository', () => {
   const products = {
     1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, purchased: false },
     2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, purchased: true },
   }
   return {
     getProductById: (id) => Promise.resolve(products[id]),
-    updateProduct: (_id, updates) =>
-      Promise.resolve({
-        id: '1',
-        is_bought: false,
-        ...updates,
-      }),
-    deleteProduct: jest.fn().mockResolvedValue(),
+    updateProduct: mockUpdateProduct,
+    deleteProduct: mockDeleteProduct,
   }
 })
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-}))
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
 
-beforeEach(() => mockNavigate.mockClear())
+beforeEach(() => {
+  mockNavigate.mockClear()
+  mockUpdateProduct.mockImplementation((_id, updates) =>
+    Promise.resolve({ id: '1', is_bought: false, ...updates })
+  )
+  mockDeleteProduct.mockResolvedValue()
+})
 
 /**
  * Renderar ItemDetail med ett specifikt produkt-id.
@@ -104,8 +113,7 @@ test('döljer Ta bort-knappen under redigering', async () => {
 })
 
 test('visar felmeddelande om uppdateringen misslyckas', async () => {
-  const repo = require('../../repositories/productRepository')
-  jest.spyOn(repo, 'updateProduct').mockRejectedValueOnce(new Error('Supabase error'))
+  mockUpdateProduct.mockRejectedValueOnce(new Error('Supabase error'))
   renderItemDetail('1')
   fireEvent.click(await screen.findByRole('button', { name: 'Redigera produkt' }))
   fireEvent.click(await screen.findByText('Spara'))
@@ -126,8 +134,7 @@ test('navigerar till /purchaseplan efter bekräftad borttagning', async () => {
 })
 
 test('visar felmeddelande om borttagningen misslyckas', async () => {
-  const { deleteProduct } = require('../../repositories/productRepository')
-  deleteProduct.mockRejectedValueOnce(new Error('Supabase error'))
+  mockDeleteProduct.mockRejectedValueOnce(new Error('Supabase error'))
   renderItemDetail('1')
   fireEvent.click(await screen.findByRole('button', { name: 'Ta bort produkt' }))
   fireEvent.click(await screen.findByText('Ja, ta bort'))

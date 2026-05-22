@@ -4,11 +4,11 @@ import Navbar from './navbar'
 
 const props = {
   user: null,
-  onHome: jest.fn(),
-  onLogin: jest.fn(),
-  onRegister: jest.fn(),
-  onProfile: jest.fn(),
-  onLogout: jest.fn(),
+  onHome: vi.fn(),
+  onLogin: vi.fn(),
+  onRegister: vi.fn(),
+  onProfile: vi.fn(),
+  onLogout: vi.fn(),
 }
 
 test('visar Logga in och Registrera när användaren är utloggad', () => {

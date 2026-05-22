@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import { getPurchasedProducts } from '../../repositories/productRepository.js'
+import { getPurchasedProducts } from '../../repositories/productRepository'
 import './purchaseHistory.css'
 
 /**

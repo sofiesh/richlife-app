@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import InfoCard from './infoCard.js'
+import InfoCard from './infoCard'
 
 test('visar titel och värde', () => {
   render(<InfoCard title="Safe to spend" value="3 200 kr" />)

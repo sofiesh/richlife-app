@@ -35,7 +35,7 @@ test:
   dependencies:
     - install
   script:
-    - npm test -- --watchAll=false --ci --forceExit # runs Jest once and completes (not interactive)
+    - npm test # Vitests runs once and exists if all tests pass.
 
 deploy_staging:
   stage: deploy

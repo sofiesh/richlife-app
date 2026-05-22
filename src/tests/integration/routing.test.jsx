@@ -3,10 +3,10 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import UserProfile from '../../pages/userprofile/userProfile.js'
+import UserProfile from '../../pages/userprofile/userProfile'
 
-jest.mock('firebase/auth', () => ({ updateProfile: jest.fn() }))
-jest.mock('../../firebase.js', () => ({ auth: {} }))
+vi.mock('firebase/auth', () => ({ updateProfile: vi.fn() }))
+vi.mock('../../firebase.js', () => ({ auth: {} }))
 
 const mockUser = {
   email: 'test@example.com',

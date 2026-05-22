@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useBudget } from '../../context/budgetContext.js'
+import { useBudget } from '../../context/budgetContext'
 import {
   addBudgetItem,
   updateBudgetItem,
   deleteBudgetItem,
-} from '../../repositories/budgetRepository.js'
+} from '../../repositories/budgetRepository'
 import './budget.css'
-import BudgetAlerts from './budgetAlerts.js'
-import BudgetExpenseSection from './budgetExpenseSection.js'
+import BudgetAlerts from './budgetAlerts'
+import BudgetExpenseSection from './budgetExpenseSection'
 import BudgetSection from './budgetSection'
-import { getBudgetAlerts } from '../../utils/budgetAlerts.js'
+import { getBudgetAlerts } from '../../utils/budgetAlerts'
 
 const EXPENSE_CATEGORIES = ['boende', 'sparande', 'prenumeration', 'transport', 'mat', 'övrigt']
 
