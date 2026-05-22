@@ -12,6 +12,8 @@
 !Dockerfile.caddy
 !certs/
 !/certs/LNU_FTK_Campus_Root_CA_2025.crt
+!index.html
+!vite.config.js
 
 # Allow source code and public assets
 !public
