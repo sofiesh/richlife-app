@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 
-jest.mock('firebase/auth', () => ({
+vi.mock('firebase/auth', () => ({
   /**
    * Mock for Firebase auth.
    *
@@ -15,7 +15,7 @@ jest.mock('firebase/auth', () => ({
     return () => {}
   },
 }))
-jest.mock('./firebase', () => ({ auth: {} }))
+vi.mock('./firebase', () => ({ auth: {} }))
 
 /**
  * Mock for Supabase to ensure URL at createClient.
@@ -24,7 +24,7 @@ jest.mock('./firebase', () => ({ auth: {} }))
  * @param supabase
  * @param callback
  */
-jest.mock('./lib/supabase', () => ({ supabase: {} }))
+vi.mock('./lib/supabase', () => ({ supabase: {} }))
 
 test('appen renderar utan att krascha', () => {
   render(

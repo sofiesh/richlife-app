@@ -1,21 +1,20 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import HomePage from './homePage.js'
+import HomePage from './homePage'
 
-jest.mock('../../context/budgetContext', () => ({
+vi.mock('../../context/budgetContext', () => ({
   useBudget: () => ({
     safeToSpend: 5000,
     totalIncome: 10000,
   }),
 }))
 
-jest.mock('../../repositories/productRepository', () => ({
+vi.mock('../../repositories/productRepository', () => ({
   getProducts: () => Promise.resolve([]),
 }))
 
-const onLogin = jest.fn()
-
+const onLogin = vi.fn()
 test('visar landningssida när användaren inte är inloggad', async () => {
   render(
     <MemoryRouter>

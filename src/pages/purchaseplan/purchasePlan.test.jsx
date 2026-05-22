@@ -1,10 +1,11 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import PurchasePlan from './purchasePlan.js'
+import PurchasePlan from './purchasePlan'
 
-const mockNavigate = jest.fn()
-jest.mock('../../repositories/productRepository', () => ({
+const mockNavigate = vi.hoisted(() => vi.fn())
+
+vi.mock('../../repositories/productRepository', () => ({
   getProducts: () =>
     Promise.resolve([
       { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, purchased: false },
@@ -13,13 +14,16 @@ jest.mock('../../repositories/productRepository', () => ({
   addProduct: () => Promise.resolve(),
 }))
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-}))
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
 
-jest.mock('../../components/rankingstars/rankingStar.js', () => () => null)
-jest.mock('../../utils/calculateStarScore.js', () => ({
+vi.mock('../../components/rankingstars/rankingStar.js', () => () => null)
+vi.mock('../../utils/calculateStarScore.js', () => ({
   calculateStarScore: () => 5,
 }))
 

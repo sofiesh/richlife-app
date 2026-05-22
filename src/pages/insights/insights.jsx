@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useBudget } from '../../context/budgetContext.js'
+import { useBudget } from '../../context/budgetContext'
 import { getBudgetAlerts } from '../../utils/budgetAlerts'
 import './insights.css'
 

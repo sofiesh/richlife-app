@@ -1,12 +1,14 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import Budget from './budget.js'
+import Budget from './budget'
 
-jest.mock('../../context/budgetContext', () => ({
+const mockNavigate = vi.hoisted(() => vi.fn())
+
+vi.mock('../../context/budgetContext', () => ({
   useBudget: () => ({
     items: [{ id: '1', label: 'hyra', amount: 3000, type: 'expense', category: 'boende' }],
-    setItems: jest.fn(),
+    setItems: vi.fn(),
     income: [],
     expenses: [{ id: '1', label: 'hyra', amount: 3000, type: 'expense', category: 'boende' }],
     totalIncome: 0,
@@ -16,10 +18,13 @@ jest.mock('../../context/budgetContext', () => ({
   }),
 }))
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => jest.fn(),
-}))
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
 
 test('visar tillagd utgift', async () => {
   render(
