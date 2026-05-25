@@ -65,37 +65,34 @@ const PurchasePlan = ({ user }) => {
       <button type="button" className="item-back" onClick={() => navigate('/')}>
         Tillbaka
       </button>
-      <h1>Köpkollen</h1>
-      <Button onClick={() => setShowForm(!showForm)} variant="outline">
-        {showForm ? 'Avbryt' : 'Lägg till produkt'}
-      </Button>
+
+      <div className="purchaseplan-header">
+        <h1>Köpkollen</h1>
+        <Button onClick={() => setShowForm(!showForm)} variant="outline">
+          {showForm ? 'Avbryt' : 'Lägg till produkt'}
+        </Button>
+      </div>
 
       {showForm && <PurchasePlanForm onAdd={handleAddItem} />}
 
+
       {/* KPI-boxar */}
-      <InfoCard
-        title="I önskelistan"
-        value={`${countProducts(products)} produkter`}
-        subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
-      />
-
-      <InfoCard
-        title="Viktigaste köp nu"
-        valiue={`${getBestProduct(products)}`}
-        {...(bestProduct && (
-          <div style={{ marginTop: 8, fontSize: '14px', color: '#555' }}>
-            {bestProduct.name} ({bestProduct.new_price} kr)
-          </div>
-        ))}
-      />
-
-      <InfoCard
-        title="Totalt spenderat nuvarande månad"
-        value="15 000 kr"
-        subtitle="av 5 000 kr budget"
-      />
-
-      <InfoCard title="Köppoäng" value="3/5" subtitle="Se analys och tips" variant="highlight" />
+      <div className="purchaseplan-stats">
+        <div className="card-link">
+          <InfoCard
+            title="I önskelistan"
+            value={`${countProducts(products)} produkter`}
+            subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+          />
+        </div>
+        <div className="card-link">
+          <InfoCard
+            title="Viktigaste köp nu"
+            value={bestProduct ? bestProduct.name : '–'}
+            subtitle={bestProduct ? `${bestProduct.new_price?.toLocaleString('sv-SE')} kr` : undefined}
+          />
+        </div>
+      </div>
 
       {/* Toggle */}
       {/* <div className="toggle">
@@ -109,7 +106,7 @@ const PurchasePlan = ({ user }) => {
             </div> */}
 
       {/* Lista */}
-      <div className="list">
+      <div className="list-section">
         <div style={{ overflowX: 'auto' }}>
           <table className="product-table">
             <thead>
@@ -137,7 +134,7 @@ const PurchasePlan = ({ user }) => {
                   <td data-label="Value-rating">{item.value_rating || '-'}</td>
                   <td data-label="Priority">{item.priority || '-'}</td>
                   <td data-label="Score">
-                    <Stars value={item.starValue} onChange={() => {}} />
+                    <Stars value={item.starValue} onChange={() => { }} />
                   </td>
                 </tr>
               ))}
@@ -145,7 +142,7 @@ const PurchasePlan = ({ user }) => {
           </table>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

@@ -1,7 +1,32 @@
 /* Purchase plan page styling */
 .purchaseplan {
-  padding: 1rem;
-  text-align: left;
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(135deg, #f5f7fa, #e4f7e7);
+  padding: 20px 16px;
+}
+
+.purchaseplan h1 {
+  font-size: 1.5rem;
+  color: #1a8c51;
+  margin: 0;
+  padding: 0;
+}
+
+.purchaseplan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #1a8c51;
+}
+
+.list-section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  margin-bottom: 16px;
 }
 
 .stats {
@@ -19,6 +44,13 @@
   font-size: 0.85rem;
 }
 
+.card-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 .toggle {
   display: flex;
   gap: 1rem;
@@ -31,6 +63,7 @@
 
 .add-product {
   margin-top: 1rem;
+  align-self: flex-start;
 }
 
 .product-table {
@@ -53,6 +86,25 @@
   cursor: pointer;
 }
 
+.purchaseplan-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.purchaseplan-stats .info-card__value {
+  font-size: 20px;
+}
+
+.purchaseplan-stats .info-card__title {
+  font-size: 11px;
+}
+
+.purchaseplan-stats .info-card__subtitle {
+  font-size: 11px;
+}
+
 @media (max-width: 767px) {
   .hide-mobile {
     display: none;
@@ -64,12 +116,6 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
-  }
-
-  .stats {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin: 2rem 0;
   }
 
   .card {

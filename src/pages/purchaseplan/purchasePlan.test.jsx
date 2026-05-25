@@ -43,12 +43,12 @@ const renderPurchasePlan = () =>
 
 test('visar produktlistan', async () => {
   renderPurchasePlan()
-  expect(await screen.findByText('iPhone 15')).toBeInTheDocument()
+  expect(await screen.findByRole('cell', { name: 'iPhone 15' })).toBeInTheDocument()
   expect(screen.queryByText('Nike sneakers')).not.toBeInTheDocument()
 })
 
 test('navigerar till detaljsida vid klick på produktrad', async () => {
   renderPurchasePlan()
-  fireEvent.click(await screen.findByText('iPhone 15'))
+  fireEvent.click(await screen.findByRole('cell', { name: 'iPhone 15' }))
   expect(mockNavigate).toHaveBeenCalledWith('/items/1')
 })
