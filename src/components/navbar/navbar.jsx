@@ -62,118 +62,68 @@ const Navbar = ({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  return (
-    <nav className="navbar" ref={menuRef}>
-      <button
-        className="navbar-brand"
-        onClick={() => {
-          onHome()
-          close()
-        }}
-      >
-        <img src={logo} alt="Susbud" className="navbar-logo" />
-        <span className="navbar-title">Susbud</span>
-      </button>
+return (
+  <nav className="navbar" ref={menuRef}>
 
-      <div className={`navbar-actions${menuOpen ? ' open' : ''}`}>
-        {user ? (
-          <>
-            <button
-              className="nav-btn nav-btn--outline2"
-              onClick={() => {
-                onHome()
-                close()
-              }}
-            >
-              <span className="menu-label">Startsida</span>
-            </button>
+    <button className="navbar-brand" onClick={() => { onHome(); close() }}>
+      <img src={logo} alt="Susbud" className="navbar-logo" />
+      <span className="navbar-title">Susbud</span>
+    </button>
 
-            <button
-              className="nav-btn nav-btn--outline2"
-              onClick={() => {
-                onPurchasePlan()
-                close()
-              }}
-            >
-              <span className="menu-label">Köpkollen</span>
-            </button>
-
-            <button
-              className="nav-btn nav-btn--outline2"
-              onClick={() => {
-                onPurchaseHistory()
-                close()
-              }}
-            >
-              <span className="menu-label">Historik</span>
-            </button>
-
-            <button
-              className="nav-btn nav-btn--outline2"
-              onClick={() => {
-                onBudget()
-                close()
-              }}
-            >
-              <span className="menu-label">Budget</span>
-            </button>
-
-            <button
-              className="nav-btn nav-btn--outline2"
-              onClick={() => {
-                onInsights()
-                close()
-              }}
-            >
-              <span className="menu-label">Insikter</span>
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              className="nav-btn nav-btn--text"
-              onClick={() => {
-                onLogin()
-                close()
-              }}
-            >
-              Logga in
-            </button>
-            <button
-              className="nav-btn nav-btn--primary"
-              onClick={() => {
-                onRegister()
-                close()
-              }}
-            >
-              Registrera
-            </button>
-          </>
-        )}
+    {user && (
+      <div className="navbar-center">
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onHome(); close() }}>Startsida</button>
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onPurchasePlan(); close() }}>Köpkollen</button>
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onPurchaseHistory(); close() }}>Historik</button>
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onBudget(); close() }}>Budget</button>
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onInsights(); close() }}>Insikter</button>
       </div>
+    )}
 
-      <div className="navbar-right">
+    <div className="navbar-right">
+      {!user && (
+        <div className="navbar-auth">
+          <button className="nav-btn nav-btn--text" onClick={onLogin}>Logga in</button>
+          <button className="nav-btn nav-btn--primary" onClick={onRegister}>Registrera</button>
+        </div>
+      )}
+
+      {user && (
         <div className="profile-menu-wrapper">
           <button className="navbar-icon-btn" onClick={() => { setProfileOpen(!profileOpen); setMenuOpen(false) }}>
             <FontAwesomeIcon icon={faCircleUser} />
           </button>
           {profileOpen && (
             <div className="profile-dropdown">
-              <button onClick={() => { onProfile(); setProfileOpen(false) }}>
-                Användarprofil
-              </button>
-              <button onClick={() => { onLogout(); setProfileOpen(false) }}>
-                Logga ut
-              </button>
+              <button onClick={() => { onProfile(); setProfileOpen(false) }}>Användarprofil</button>
+              <button onClick={() => { onLogout(); setProfileOpen(false) }}>Logga ut</button>
             </div>
           )}
         </div>
+      )}
+
+      {user && (
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
         </button>
+      )}
+    </div>
+
+    {user && menuOpen && (
+      <div className="navbar-mobile-menu">
+        <button className="nav-btn" onClick={() => { onHome(); close() }}>Startsida</button>
+        <button className="nav-btn" onClick={() => { onPurchasePlan(); close() }}>Köpkollen</button>
+        <button className="nav-btn" onClick={() => { onPurchaseHistory(); close() }}>Historik</button>
+        <button className="nav-btn" onClick={() => { onBudget(); close() }}>Budget</button>
+        <button className="nav-btn" onClick={() => { onInsights(); close() }}>Insikter</button>
+        <button className="nav-btn" onClick={() => { onProfile(); close() }}>Användarprofil</button>
+        <button className="nav-btn" onClick={() => { onLogout(); close() }}>Logga ut</button>
       </div>
-    </nav>
-  )
+    )}
+
+  </nav>
+)
+
 }
 
 Navbar.propTypes = {
