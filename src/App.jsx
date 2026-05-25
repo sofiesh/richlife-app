@@ -2,7 +2,7 @@
 import './App.css'
 import ItemDetail from './pages/itemdetail/itemDetail'
 import Login from './pages/login/login'
-import Register from './components/register/register'
+import Register from './pages/register/register'
 import Navbar from './components/navbar/navbar'
 import HomePage from './pages/home/homePage'
 import Insights from './pages/insights/insights'

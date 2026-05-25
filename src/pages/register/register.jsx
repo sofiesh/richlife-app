@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react'
 import { signIn, signUp } from '../../auth'
-import './register.css'
 import { seedDefaultBudgetItems } from '../../repositories/budgetRepository'
+import '../auth/auth.css'
 
 /**
  * Component for registering a new user.
@@ -36,14 +36,14 @@ function Register() {
   }
 
   return (
-    <div className="register-page">
-      <div className="register-container">
+    <div className="auth-page">
+      <div className="auth-container">
         <h3>Registrera ny användare</h3>
         {registrationSuccess ? (
           <p>Registrering lyckades</p>
         ) : (
           <form onSubmit={handleRegister}>
-            <div className="register-field">
+            <div className="auth-field">
               <label>E-post</label>
               <input
                 type="email"
@@ -52,7 +52,7 @@ function Register() {
                 placeholder="din@epost.se"
               />
             </div>
-            <div className="register-field">
+            <div className="auth-field">
               <label>Lösenord</label>
               <input
                 type="password"
@@ -61,7 +61,7 @@ function Register() {
                 placeholder="••••••••"
               />
             </div>
-            {error && <p className="register-error">{error}</p>}
+            {error && <p className="auth-error">{error}</p>}
             <button type="submit" className="btn-primary">
               Registrera
             </button>

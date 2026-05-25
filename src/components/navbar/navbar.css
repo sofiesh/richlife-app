@@ -71,7 +71,8 @@
 }
 
 .navbar-actions {
-  display: none; /* mobile hides as standard */
+  display: none;
+  /* mobile hides as standard */
 }
 
 .navbar-actions.open {
@@ -139,7 +140,8 @@
 }
 
 .hamburger {
-  display: block; /* visible on mobile */
+  display: block;
+  /* visible on mobile */
   background: none;
   border: none;
   color: #157a44;
@@ -181,13 +183,20 @@
   }
 
   .navbar-actions {
-    display: flex; /* always show on desktop */
+    display: flex;
+    /* always show on desktop */
     flex-direction: row;
     align-items: center;
     gap: 8px;
   }
 
   .hamburger {
-    display: none; /* hide on desktop */
+    display: none;
+    /* hide on desktop */
+  }
+
+  .menu-label {
+    display: inline;
+    margin-left: 0;
   }
 }

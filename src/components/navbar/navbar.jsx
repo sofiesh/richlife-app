@@ -124,16 +124,6 @@ const Navbar = ({
             >
               <span className="menu-label">Insikter</span>
             </button>
-
-            <button
-              className="nav-btn nav-btn--outline"
-              onClick={() => {
-                onLogout()
-                close()
-              }}
-            >
-              <span className="menu-label">Logga ut</span>
-            </button>
           </>
         ) : (
           <>
@@ -160,16 +150,17 @@ const Navbar = ({
       </div>
 
       <div className="navbar-right">
+        {user && (
+          <button
+            className="nav-btn nav-btn--primary"
+            onClick={() => { onLogout(); close() }}
+          >
+            Logga ut
+          </button>
+        )}
         <button
           className="navbar-icon-btn"
-          onClick={() => {
-            if (user) {
-              onProfile()
-            } else {
-              onLogin()
-            }
-            close()
-          }}
+          onClick={() => { if (user) { onProfile() } else { onLogin() } close() }}
           aria-label={user ? 'Min profil' : 'Logga in'}
         >
           <FontAwesomeIcon icon={faCircleUser} />
