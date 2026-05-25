@@ -35,6 +35,8 @@ const Navbar = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
+  const [profileOpen, setProfileOpen] = useState(false)
+
 
   /**
    * Closes the navigation menu.
@@ -53,6 +55,7 @@ const Navbar = ({
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuOpen(false)
+        setProfileOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -124,16 +127,6 @@ const Navbar = ({
             >
               <span className="menu-label">Insikter</span>
             </button>
-
-            <button
-              className="nav-btn nav-btn--outline"
-              onClick={() => {
-                onLogout()
-                close()
-              }}
-            >
-              <span className="menu-label">Logga ut</span>
-            </button>
           </>
         ) : (
           <>
@@ -160,20 +153,21 @@ const Navbar = ({
       </div>
 
       <div className="navbar-right">
-        <button
-          className="navbar-icon-btn"
-          onClick={() => {
-            if (user) {
-              onProfile()
-            } else {
-              onLogin()
-            }
-            close()
-          }}
-          aria-label={user ? 'Min profil' : 'Logga in'}
-        >
-          <FontAwesomeIcon icon={faCircleUser} />
-        </button>
+        <div className="profile-menu-wrapper">
+          <button className="navbar-icon-btn" onClick={() => { setProfileOpen(!profileOpen); setMenuOpen(false) }}>
+            <FontAwesomeIcon icon={faCircleUser} />
+          </button>
+          {profileOpen && (
+            <div className="profile-dropdown">
+              <button onClick={() => { onProfile(); setProfileOpen(false) }}>
+                Användarprofil
+              </button>
+              <button onClick={() => { onLogout(); setProfileOpen(false) }}>
+                Logga ut
+              </button>
+            </div>
+          )}
+        </div>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
         </button>

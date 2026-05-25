@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import { getPurchasedProducts } from '../../repositories/productRepository'
+import InfoCard from '../../components/infocard/infoCard'
 import './purchaseHistory.css'
 
 /**
@@ -38,10 +39,13 @@ const PurchaseHistory = ({ user }) => {
         Tillbaka
       </button>
       <h1>Köphistorik</h1>
-      <p>Totalt spenderat: {totalSpent.toLocaleString('sv-SE')} kr</p>
-
+      <InfoCard
+        title="Totalt spenderat"
+        value={`${totalSpent.toLocaleString('sv-SE')} kr`}
+        variant="highlight"
+      />
       {Object.entries(grouped).map(([month, items]) => (
-        <div key={month}>
+        <div key={month} className="list-section">
           <h2>{month}</h2>
           <table className="product-table">
             <thead>
@@ -72,7 +76,7 @@ const PurchaseHistory = ({ user }) => {
         </div>
       ))}
 
-      {products.length === 0 && <p>Inga köp registrerade ännu.</p>}
+      {products.length === 0 && <p className="empty-state">Inga köp registrerade ännu.</p>}
     </div>
   )
 }

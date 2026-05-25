@@ -71,7 +71,8 @@
 }
 
 .navbar-actions {
-  display: none; /* mobile hides as standard */
+  display: none;
+  /* mobile hides as standard */
 }
 
 .navbar-actions.open {
@@ -139,7 +140,8 @@
 }
 
 .hamburger {
-  display: block; /* visible on mobile */
+  display: block;
+  /* visible on mobile */
   background: none;
   border: none;
   color: #157a44;
@@ -175,19 +177,65 @@
   border-bottom: none;
 }
 
+.profile-menu-wrapper {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  min-width: 160px;
+  z-index: 200;
+}
+
+.profile-dropdown button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  color: #1f2a37;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown button:last-child {
+  border-bottom: none;
+  color: #c0392b;
+}
+
+.profile-dropdown button:hover {
+  background: #f9fafb;
+}
+
 @media (min-width: 600px) {
   .navbar {
     padding: 0 2rem;
   }
 
   .navbar-actions {
-    display: flex; /* always show on desktop */
+    display: flex;
+    /* always show on desktop */
     flex-direction: row;
     align-items: center;
     gap: 8px;
   }
 
   .hamburger {
-    display: none; /* hide on desktop */
+    display: none;
+    /* hide on desktop */
+  }
+
+  .menu-label {
+    display: inline;
+    margin-left: 0;
   }
 }

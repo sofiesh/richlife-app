@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { signIn } from '../../auth'
-import './login.css'
+import '../auth/auth.css'
 
 /**
  * Login component.
@@ -32,14 +32,14 @@ function Login() {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-container">
+    <div className="auth-page">
+      <div className="auth-container">
         <h3>Logga in</h3>
         {loginSuccess ? (
           <p>Du är inloggad</p>
         ) : (
           <form onSubmit={handleLogin}>
-            <div className="login-field">
+            <div className="auth-field">
               <label>E-post</label>
               <input
                 type="email"
@@ -48,7 +48,7 @@ function Login() {
                 placeholder="din@epost.se"
               />
             </div>
-            <div className="login-field">
+            <div className="auth-field">
               <label>Lösenord</label>
               <input
                 type="password"
@@ -57,7 +57,7 @@ function Login() {
                 placeholder="••••••••"
               />
             </div>
-            {error && <p className="login-error">{error}</p>}
+            {error && <p className="auth-error">{error}</p>}
             <button type="submit" className="btn-primary">
               Logga in
             </button>
