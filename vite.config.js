@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
     plugins: [react({ include: /\.(jsx?|tsx?)$/ }), VitePWA({ registerType: 'autoUpdate' })],
-    base: '/budgetapp/',
+    base: '/',
     resolve: {
         extensions: ['.jsx', '.js', '.tsx', '.ts'],
     },
