@@ -1,11 +1,14 @@
 // auth.js
-
+import { auth } from './firebase'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth'
-import { auth } from './firebase'
+
+const googleProvider = new GoogleAuthProvider()
 
 /**
  * Function to sign up a new user.
@@ -48,4 +51,13 @@ function observeAuthState(callback) {
   return onAuthStateChanged(auth, callback)
 }
 
-export { signUp, signIn, signOut, observeAuthState }
+/**
+ * Function to sign in with Google.
+ *
+ * @returns {Promise<import("firebase/auth").UserCredential>} - User credentials
+ */
+function signInWithGoogle() {
+  return signInWithPopup(auth, googleProvider)
+}
+
+export { signUp, signIn, signOut, observeAuthState, signInWithGoogle }

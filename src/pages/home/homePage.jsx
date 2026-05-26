@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import InfoCard from '../../components/infocard/infoCard'
 import { getProducts } from '../../repositories/productRepository'
+import { getBudgetAlerts } from '../../utils/budgetAlerts'
 import { countProducts, sumNewPrice } from '../../utils/productUtils'
 import { useBudget } from '../../context/budgetContext'
 import './homePage.css'
@@ -14,8 +15,10 @@ import { Link } from 'react-router-dom'
  * @returns {Function} jsx element
  */
 const HomePage = ({ user, onLogin, onRegister }) => {
-  const { safeToSpend } = useBudget()
+  const { safeToSpend, totalIncome, expenses } = useBudget()
   const [products, setProducts] = useState([])
+
+  const alertCount = getBudgetAlerts(totalIncome, expenses).length
 
   useEffect(() => {
     if (!user) return
@@ -61,7 +64,11 @@ const HomePage = ({ user, onLogin, onRegister }) => {
         </div>
 
         <Link to="/insights" className="card-link">
-          <InfoCard title="Insikter" value="2 alerts" variant="warning" />
+          <InfoCard
+            title="Insikter"
+            value={alertCount === 0 ? 'Inga varningar' : `${alertCount} varningar`}
+            variant={alertCount === 0 ? 'default' : 'warning'}
+          />
         </Link>
       </section>
 
