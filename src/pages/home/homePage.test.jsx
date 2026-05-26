@@ -7,6 +7,7 @@ vi.mock('../../context/budgetContext', () => ({
   useBudget: () => ({
     safeToSpend: 5000,
     totalIncome: 10000,
+    expenses: [],
   }),
 }))
 

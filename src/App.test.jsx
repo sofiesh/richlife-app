@@ -12,8 +12,10 @@ vi.mock('firebase/auth', () => ({
    */
   onAuthStateChanged: (auth, callback) => {
     callback(null)
-    return () => {}
+    return () => { }
   },
+  GoogleAuthProvider: vi.fn(),
+  signInWithPopup: vi.fn(),
 }))
 vi.mock('./firebase', () => ({ auth: {} }))
 
