@@ -55,8 +55,8 @@ const ItemDetail = () => {
       new_price: item.new_price,
       second_hand_price: item.second_hand_price,
       category: item.category,
-      priority: item.priority,
-      value_rating: item.value_rating,
+      usage_frequency: item.usage_frequency,
+      joy_score: item.joy_score,
     })
     setIsEditing(true)
   }
@@ -147,33 +147,40 @@ const ItemDetail = () => {
               )}
             </div>
             <div className="item-detail-row">
-              <span className="item-label">Prioritet</span>
+              <span className="item-label">Användningsfrekvens</span>
               {isEditing ? (
-                <input
+                <select
                   className="item-value"
-                  type="number"
-                  value={formData.priority}
-                  onChange={(e) => setFormData({ ...formData, priority: Number(e.target.value) })}
-                />
+                  value={formData.usage_frequency || ''}
+                  onChange={(e) => setFormData({ ...formData, usage_frequency: e.target.value })}
+                >
+                  <option value="">Välj frekvens</option>
+                  <option value="dagligen">Dagligen</option>
+                  <option value="varje vecka">Varje vecka</option>
+                  <option value="varje månad">Varje månad</option>
+                  <option value="mer sällan">Mer sällan</option>
+                </select>
               ) : (
-                <span className="item-value">{item.priority}</span>
+                <span className="item-value">{item.usage_frequency || '–'}</span>
               )}
             </div>
+
             <div className="item-detail-row">
-              <span className="item-label">Värdering</span>
+              <span className="item-label">Glädjefaktor</span>
               {isEditing ? (
                 <input
                   className="item-value"
                   type="number"
-                  value={formData.value_rating}
-                  onChange={(e) =>
-                    setFormData({ ...formData, value_rating: Number(e.target.value) })
-                  }
+                  min="1"
+                  max="10"
+                  value={formData.joy_score || ''}
+                  onChange={(e) => setFormData({ ...formData, joy_score: Number(e.target.value) })}
                 />
               ) : (
-                <span className="item-value">{item.value_rating}</span>
+                <span className="item-value">{item.joy_score ? `${item.joy_score}/10` : '–'}</span>
               )}
             </div>
+
             <div className="item-detail-row">
               <span className="item-label">Status</span>
               <label className="toggle-switch">
@@ -194,12 +201,13 @@ const ItemDetail = () => {
           <div className="item-buttons">
             {isEditing ? (
               <>
-                <button type="submit" disabled={isUpdating}>
+                <button type="submit" className="btn-save" disabled={isUpdating}>
                   {isUpdating ? 'Sparar…' : 'Spara'}
                 </button>
-                <button type="button" onClick={() => setIsEditing(false)} disabled={isUpdating}>
+                <button type="button" className="btn-cancel" onClick={() => setIsEditing(false)} disabled={isUpdating}>
                   Avbryt
                 </button>
+
               </>
             ) : (
               <button

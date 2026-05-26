@@ -16,8 +16,8 @@ const PurchasePlanForm = ({ onAdd }) => {
     new_price: '',
     second_hand_price: '',
     category: '',
-    priority: '',
-    value_rating: '',
+    usage_frequency: '',
+    joy_score: '',
   })
 
   /**
@@ -40,8 +40,8 @@ const PurchasePlanForm = ({ onAdd }) => {
       ...formItem,
       new_price: formItem.new_price ? Number(formItem.new_price) : null,
       second_hand_price: formItem.second_hand_price ? Number(formItem.second_hand_price) : null,
-      priority: formItem.priority ? Number(formItem.priority) : null,
-      value_rating: formItem.value_rating ? Number(formItem.value_rating) : null,
+      usage_frequency: formItem.usage_frequency || null,
+      joy_score: formItem.joy_score ? Number(formItem.joy_score) : null,
     }
     onAdd(parsed)
     setFormItem({
@@ -49,8 +49,8 @@ const PurchasePlanForm = ({ onAdd }) => {
       new_price: '',
       second_hand_price: '',
       category: '',
-      priority: '',
-      value_rating: '',
+      usage_frequency: '',
+      joy_score: '',
     })
   }
 
@@ -85,18 +85,30 @@ const PurchasePlanForm = ({ onAdd }) => {
         value={formItem.category}
         onChange={handleChange}
       />
+      {/* Usage frequency dropdown */}
+      <div className="form-field">
+        <label className="form-label" htmlFor="usage_frequency">
+          Användningsfrekvens
+        </label>
+        <select
+          className="form-input"
+          id="usage_frequency"
+          name="usage_frequency"
+          value={formItem.usage_frequency}
+          onChange={handleChange}
+        >
+          <option value="">Välj frekvens</option>
+          <option value="dagligen">Dagligen</option>
+          <option value="varje vecka">Varje vecka</option>
+          <option value="varje månad">Varje månad</option>
+          <option value="mer sällan">Mer sällan</option>
+        </select>
+      </div>
       <PurchasePlanInputField
-        name="priority"
-        label="Prioritet (1–5)"
-        placeholder="3"
-        value={formItem.priority}
-        onChange={handleChange}
-      />
-      <PurchasePlanInputField
-        name="value_rating"
-        label="Värdering (1–5)"
-        placeholder="3"
-        value={formItem.value_rating}
+        name="joy_score"
+        label="Glädjefaktor (1–10)"
+        placeholder="Hur glad gör produkten dig? Lyckligast = 10"
+        value={formItem.joy_score}
         onChange={handleChange}
       />
 

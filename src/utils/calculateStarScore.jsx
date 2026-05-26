@@ -1,12 +1,13 @@
 /**
- * Calculate a star score for a product based on its value rating and price.
+ * Calculate a star score for a product based on use frequency and joy score.
  *
- * @param {{ value_rating: number, price: number }} products - The product object containing valueRating and price.
+ * @param {{ usage_frequency: string, joy_score: number }} p - The product object containing usage frequency and joy score.
  * @returns {number} The calculated star score.
  */
-export function calculateStarScore(products) {
-  const value = products.value_rating || 0
-  const price = products.price || 1
+const freqMap = { dagligen: 4, 'varje vecka': 3, 'varje månad': 2, 'mer sällan': 1 }
 
-  return (value * 1000) / price
+export function calculateStarScore(p) {
+  const freq = freqMap[p.usage_frequency] ?? 2
+  const joy = p.joy_score ?? 5
+  return freq * joy
 }
