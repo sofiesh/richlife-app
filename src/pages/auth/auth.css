@@ -46,7 +46,69 @@
 .auth-field input {
   border: none;
   background: transparent;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #111827;
   outline: none;
+}
+
+.btn-primary {
+  width: 100%;
+  background: #1a8c51;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-primary:hover {
+  background: #157a44;
+}
+
+.auth-divider {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  margin: 12px 0;
+  position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.auth-divider::before {
+  left: 0;
+}
+.auth-divider::after {
+  right: 0;
+}
+
+.btn-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.btn-google:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
 }
