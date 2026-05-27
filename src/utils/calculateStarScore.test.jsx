@@ -1,17 +1,21 @@
 import { calculateStarScore } from './calculateStarScore'
 
-test('läser value_rating, inte valueRating', () => {
-  expect(calculateStarScore({ value_rating: 5, price: 1000 })).toBe(5)
+test('dagligen + joy 10 ger högt score', () => {
+  expect(calculateStarScore({ usage_frequency: 'dagligen', joy_score: 10 })).toBe(40)
 })
 
-test('högre value_rating ger högre score', () => {
-  const low = calculateStarScore({ value_rating: 1, price: 1000 })
-  const high = calculateStarScore({ value_rating: 5, price: 1000 })
+test('högre joy_score ger högre score', () => {
+  const low = calculateStarScore({ usage_frequency: 'varje vecka', joy_score: 2 })
+  const high = calculateStarScore({ usage_frequency: 'varje vecka', joy_score: 8 })
   expect(high).toBeGreaterThan(low)
 })
 
-test('lägre pris ger högre score', () => {
-  const expensive = calculateStarScore({ value_rating: 3, price: 5000 })
-  const cheap = calculateStarScore({ value_rating: 3, price: 500 })
-  expect(cheap).toBeGreaterThan(expensive)
+test('högre frekvens ger högre score', () => {
+  const seldom = calculateStarScore({ usage_frequency: 'mer sällan', joy_score: 5 })
+  const daily = calculateStarScore({ usage_frequency: 'dagligen', joy_score: 5 })
+  expect(daily).toBeGreaterThan(seldom)
+})
+
+test('saknade värden använder defaults', () => {
+  expect(calculateStarScore({})).toBe(10)
 })

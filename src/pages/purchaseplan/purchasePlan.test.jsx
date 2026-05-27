@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import PurchasePlan from './purchasePlan'
+import { useBudget } from '../../context/budgetContext'
 
 const mockNavigate = vi.hoisted(() => vi.fn())
 
@@ -12,6 +13,10 @@ vi.mock('../../repositories/productRepository', () => ({
       { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, purchased: true },
     ]),
   addProduct: () => Promise.resolve(),
+}))
+
+vi.mock('../../context/budgetContext', () => ({
+  useBudget: () => ({ safeToSpend: 5000 }),
 }))
 
 vi.mock('react-router-dom', async (importOriginal) => {

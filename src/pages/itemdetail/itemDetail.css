@@ -177,6 +177,54 @@
   background: #fee2e2;
 }
 
+.btn-save {
+  background: #1a8c51;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background: #157a44;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background: #f9fafb;
+}
+
+input.item-value,
+select.item-value {
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: right;
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+input.item-value:focus,
+select.item-value:focus {
+  background: #d3e3da;
+  padding: 10px 12px;
+  border-radius: 6px 6px 6px 6px;
+}
+
 @media (min-width: 600px) {
   .item-detail-page {
     padding: 40px 20px;

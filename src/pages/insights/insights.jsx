@@ -56,6 +56,9 @@ const Insights = () => {
             <div key={category} className="insights-row">
               <span className="insights-label">{label}</span>
               <span className="insights-value">{value}% av inkomst</span>
+              <span className="insights-limit">
+                max {Math.round(totalIncome * limit / 100).toLocaleString('sv-SE')} kr
+              </span>
               <span>{isWarning ? '⚠️' : '✅'}</span>
             </div>
           )

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './purchasePlan.css'
 import Button from '../../components/button/button'
+import { useBudget } from '../../context/budgetContext'
 import { calculateStarScore } from '../../utils/calculateStarScore'
 import { getProducts, addProduct } from '../../repositories/productRepository'
 import { countProducts, sumNewPrice, getBestProduct } from '../../utils/productUtils'
@@ -21,6 +22,9 @@ const PurchasePlan = ({ user }) => {
   const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
+
+  const { safeToSpend } = useBudget()
+
 
   useEffect(() => {
     getProducts(user.uid)
@@ -90,6 +94,24 @@ const PurchasePlan = ({ user }) => {
             title="Viktigaste köp nu"
             value={bestProduct ? bestProduct.name : '–'}
             subtitle={bestProduct ? `${bestProduct.new_price?.toLocaleString('sv-SE')} kr` : undefined}
+          />
+        </div>
+        <div className="card-link">
+          <InfoCard
+            title="KÖP TILL NYPRIS:"
+            value={safeToSpend > 0 && bestProduct
+              ? `${Math.ceil(bestProduct.new_price / safeToSpend)} månader`
+              : '–'}
+            subtitle={bestProduct ? `${bestProduct.name} · nypris` : 'Fyll i din budget'}
+          />
+        </div>
+        <div className="card-link">
+          <InfoCard
+            title="KÖP SECONDHAND:"
+            value={safeToSpend > 0 && bestProduct
+              ? `${Math.ceil(bestProduct.second_hand_price / safeToSpend)} månader`
+              : '–'}
+            subtitle={bestProduct ? `${bestProduct.name} · secondhand` : 'Fyll i din budget'}
           />
         </div>
       </div>
