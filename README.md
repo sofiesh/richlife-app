@@ -1,76 +1,91 @@
-# Getting Started with Create React App
+# Susbud
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A personal finance app for mindful purchasing decisions. Helps users manage a purchase wishlist, track budgets, and reflect on what truly brings value to their lives.
 
-## Available Scripts
+## Live demo
+[cu1059.camp.lnu.se](https://cu1059.camp.lnu.se)
 
-In the project directory, you can run:
+[richlife-budgetapp.netlify.app](https://richlife-budgetapp.netlify.app/)
 
-### `npm start`
+## Video
+...
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React 18 + Vite
+- Firebase Authentication
+- Supabase (PostgreSQL)
+- Deployed via Docker + Caddy on a self-hosted server
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js 20+
+- A Firebase project with Authentication enabled
+- A Supabase project
 
-### `npm run build`
+## Getting started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository and install dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+   git clone <repo-url>
+   cd budgetapp
+   npm install --legacy-peer-deps
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Copy the environment template and fill in your credentials:
+```bash
+    cp .env.example .env
+```
 
-### `npm run eject`
+3. Start the development server:
+```bash
+    npm start
+```
+The app runs at http://localhost:5173.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Scripts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Command | Description |
+|--------|-------------|
+| `npm start` | Start development server |
+| `npm test` | Run test suite |
+| `npm run build` | Build for production |
+| `npm run lint` | Run ESLint |
+| `npm run coverage` | Run tests with coverage report |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The app is containerised with Docker. Production deployment is handled automatically by GitLab CI/CD on push to main.
 
-## Learn More
+To deploy manually:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+See [Contributing](https://gitlab.lnu.se/1dv613/student/ss226jn/project-hub/-/wikis/Contributing) in the project wiki.
 
-### Code Splitting
+## Folder Structure
+```
+.
+├── Caddyfile
+├── certs
+├── docker-compose.development.yaml
+├── docker-compose.production.yaml
+├── docker-compose.yaml
+├── Dockerfile
+├── Dockerfile.caddy
+├── index.html
+├── nginx.conf
+├── package-lock.json
+├── package.json
+├── public
+├── README.md
+├── ROADMAP.md
+├── src
+└── vite.config.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-### Acknowledgements
-The project idea comes from diving into the world of minimalism and living a rich life with the resources you already have. In a family it is important to talk about what you value and what you want to spend your time and money on. The application owes thanks to my husband, ChatGPT and Claude. For help troubleshooting any hour of the day, for bouncing ideas and helping me see things from different perspectives. 
-Also many thanks to my course collegues for [coming...]
 
