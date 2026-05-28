@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById, updateProduct, deleteProduct } from '../../repositories/productRepository'
 import Button from '../../components/button/button'
+import JoyScoreSlider from '../../components/joyscore/joyScoreSlider'
 import './itemDetail.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -123,7 +124,7 @@ const ItemDetail = () => {
   return (
     <div className="item-detail-page">
       <div className="item-detail-container">
-        <button type="button" className="item-back" onClick={() => navigate('(-1)')}>
+        <button type="button" className="item-back" onClick={() => navigate(-1)}>
           Tillbaka
         </button>
 
@@ -192,17 +193,13 @@ const ItemDetail = () => {
             <div className="item-detail-row">
               <span className="item-label">Glädjefaktor</span>
               {isEditing ? (
-                <input
-                  className="item-value"
-                  type="number"
-                  min="1"
-                  max="10"
-                  value={formData.joy_score || ''}
-                  onChange={(e) => setFormData({ ...formData, joy_score: Number(e.target.value) })}
-                />
+                <div className="joy-slider-row">
+                  <JoyScoreSlider value={formData.joy_score} onChange={(val) => setFormData({ ...formData, joy_score: val })} />
+                </div>
               ) : (
                 <span className="item-value">{item.joy_score ? `${item.joy_score}/10` : '–'}</span>
               )}
+
             </div>
 
             <div className="item-detail-row">

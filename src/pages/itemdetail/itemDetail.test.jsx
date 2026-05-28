@@ -113,7 +113,7 @@ test('avmarkerar köpt direkt utan villkorsval', async () => {
 test('Tillbaka-knappen navigerar tillbaka', async () => {
   renderItemDetail('1')
   fireEvent.click(await screen.findByText('Tillbaka'))
-  expect(mockNavigate).toHaveBeenCalledWith('(-1)')
+  expect(mockNavigate).toHaveBeenCalledWith(-1)
 })
 
 test('visar redigeringsformulär när Ändra produkt klickas', async () => {

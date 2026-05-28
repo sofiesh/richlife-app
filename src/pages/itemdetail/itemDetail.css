@@ -236,6 +236,12 @@ select.item-value:focus {
   right: 0;
 }
 
+.joy-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (min-width: 600px) {
   .item-detail-page {
     padding: 40px 20px;
