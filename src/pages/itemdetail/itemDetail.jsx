@@ -51,12 +51,12 @@ const ItemDetail = () => {
    */
   const handleEditClick = () => {
     setFormData({
-      name: item.name,
-      new_price: item.new_price,
-      second_hand_price: item.second_hand_price,
-      category: item.category,
-      usage_frequency: item.usage_frequency,
-      joy_score: item.joy_score,
+      name: item.name ?? '',
+      new_price: item.new_price ?? 0,
+      second_hand_price: item.second_hand_price ?? 0,
+      category: item.category ?? '',
+      usage_frequency: item.usage_frequency ?? 0,
+      joy_score: item.joy_score ?? 0,
     })
     setIsEditing(true)
   }

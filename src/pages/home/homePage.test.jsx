@@ -16,10 +16,11 @@ vi.mock('../../repositories/productRepository', () => ({
 }))
 
 const onLogin = vi.fn()
+const onRegister = vi.fn()
 test('visar landningssida när användaren inte är inloggad', async () => {
   render(
     <MemoryRouter>
-      <HomePage user={null} onLogin={onLogin} />
+      <HomePage user={null} onLogin={onLogin} onRegister={onRegister} />
     </MemoryRouter>,
   )
   await waitFor(() => {
@@ -32,7 +33,7 @@ test('visar info-kort när användaren är inloggad', async () => {
   const mockUser = { uid: 'user-123', email: 'test@example.com' } // uid tillagd
   render(
     <MemoryRouter>
-      <HomePage user={mockUser} onLogin={onLogin} />
+      <HomePage user={mockUser} onLogin={onLogin} onRegister={onRegister} />
     </MemoryRouter>,
   )
   await waitFor(() => {
