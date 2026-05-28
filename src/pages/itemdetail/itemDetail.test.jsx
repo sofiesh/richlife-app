@@ -5,14 +5,14 @@ import ItemDetail from './itemDetail'
 
 const mockNavigate = vi.hoisted(() => vi.fn())
 const mockUpdateProduct = vi.hoisted(() =>
-  vi.fn().mockImplementation((_id, updates) => Promise.resolve({ id: '1', is_bought: false, ...updates }))
+  vi.fn().mockImplementation((_id, updates) => Promise.resolve({ id: '1', purchased: false, ...updates }))
 )
 const mockDeleteProduct = vi.hoisted(() => vi.fn().mockResolvedValue())
 
 vi.mock('../../repositories/productRepository', () => {
   const products = {
-    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, purchased: false },
-    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, purchased: true },
+    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, second_hand_price: 8000, usage_frequency: 'dagligen', joy_score: 8, purchased: false },
+    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, second_hand_price: 700, usage_frequency: 'varje vecka', joy_score: 6, purchased: true },
   }
   return {
     getProductById: (id) => Promise.resolve(products[id]),
@@ -32,7 +32,7 @@ vi.mock('react-router-dom', async (importOriginal) => {
 beforeEach(() => {
   mockNavigate.mockClear()
   mockUpdateProduct.mockImplementation((_id, updates) =>
-    Promise.resolve({ id: '1', is_bought: false, ...updates })
+    Promise.resolve({ id: '1', purchased: false, ...updates })
   )
   mockDeleteProduct.mockResolvedValue()
 })
