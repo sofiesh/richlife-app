@@ -13,9 +13,14 @@ import './button.css'
  * @param {string} [props.variant='primary'] - Button variant (primary, outline, text)
  * @returns {Function} JSX Element
  */
-const Button = ({ onClick, children, variant = 'primary', type = 'button' }) => {
+const Button = ({ onClick, children, variant = 'primary', type = 'button', disabled = false }) => {
   return (
-    <button className={`button btn--${variant}`} onClick={onClick} type={type}>
+    <button
+      className={`button btn--${variant}`}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {children}
     </button>
   )
@@ -24,8 +29,9 @@ const Button = ({ onClick, children, variant = 'primary', type = 'button' }) => 
 Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'outline', 'text']),
+  variant: PropTypes.oneOf(['primary', 'outline', 'text', 'danger']),
   type: PropTypes.string,
+  disabled: PropTypes.bool,
 }
 
 export default Button
