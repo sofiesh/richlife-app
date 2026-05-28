@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById, updateProduct, deleteProduct } from '../../repositories/productRepository'
+import Button from '../../components/button/button'
 import './itemDetail.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Creates a view for item details.
@@ -25,6 +26,8 @@ const ItemDetail = () => {
   const [isDeleting, setIsDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState(null)
 
+  const [showConditionChoice, setShowConditionChoice] = useState(false)
+
   useEffect(() => {
     getProductById(id)
       .then(setItem)
@@ -36,15 +39,37 @@ const ItemDetail = () => {
   if (!item) return <p>Produkten hittades inte.</p>
 
   /**
-   * Toggle function for bought or not bought.
+   * Handles the change of the toggle switch for purchase status.
+   *
+   * @returns {void}
    */
-  const toggleBought = async () => {
+  const handleToggleChange = async () => {
+    if (!item.purchased) {
+      setShowConditionChoice(true)
+    } else {
+      const updated = await updateProduct(id, {
+        purchased: false,
+        purchased_at: null,
+        purchased_condition: null,
+      })
+      setItem(updated)
+    }
+  }
+
+  /**
+   * Confirms the purchase of an item.
+   * @param {*} condition The condition of the purchased item.
+   */
+  const handleConfirmPurchase = async (condition) => {
     const updated = await updateProduct(id, {
-      purchased: !item.purchased,
-      purchased_at: !item.purchased ? new Date().toISOString() : null,
+      purchased: true,
+      purchased_at: new Date().toISOString(),
+      purchased_condition: condition,
     })
     setItem(updated)
+    setShowConditionChoice(false)
   }
+
 
   /**
    * Handles click on edit button.
@@ -98,7 +123,7 @@ const ItemDetail = () => {
   return (
     <div className="item-detail-page">
       <div className="item-detail-container">
-        <button type="button" className="item-back" onClick={() => navigate('/purchaseplan')}>
+        <button type="button" className="item-back" onClick={() => navigate('(-1)')}>
           Tillbaka
         </button>
 
@@ -164,7 +189,6 @@ const ItemDetail = () => {
                 <span className="item-value">{item.usage_frequency || '–'}</span>
               )}
             </div>
-
             <div className="item-detail-row">
               <span className="item-label">Glädjefaktor</span>
               {isEditing ? (
@@ -183,11 +207,37 @@ const ItemDetail = () => {
 
             <div className="item-detail-row">
               <span className="item-label">Status</span>
-              <label className="toggle-switch">
-                <input type="checkbox" checked={item.purchased} onChange={toggleBought} />
-                <span className="toggle-slider" />
-                <span className="toggle-label">{item.purchased ? 'Köpt' : 'Ej köpt'}</span>
-              </label>
+              {showConditionChoice ? (
+                <div className="purchase-condition-choice">
+                  <button
+                    type="button"
+                    className="btn-icon condition-close"
+                    aria-label="Avbryt"
+                    onClick={() => setShowConditionChoice(false)}
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                  </button>
+                  <p>Hur köpte du produkten?</p>
+                  <div className="purchase-condition-buttons">
+                    <Button onClick={() => handleConfirmPurchase('new')}>Nyköpt</Button>
+                    <Button variant="outline" onClick={() => handleConfirmPurchase('second_hand')}>
+                      Begagnat
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <label className="toggle-switch">
+                  <input type="checkbox" checked={item.purchased} onChange={handleToggleChange} />
+                  <span className="toggle-slider" />
+                  <span className="toggle-label">
+                    {item.purchased
+                      ? item.purchased_condition === 'second_hand'
+                        ? 'Köpt – begagnat'
+                        : 'Köpt – nyköpt'
+                      : 'Ej köpt'}
+                  </span>
+                </label>
+              )}
             </div>
           </div>
 
@@ -207,7 +257,6 @@ const ItemDetail = () => {
                 <button type="button" className="btn-cancel" onClick={() => setIsEditing(false)} disabled={isUpdating}>
                   Avbryt
                 </button>
-
               </>
             ) : (
               <button
@@ -236,21 +285,12 @@ const ItemDetail = () => {
               ) : (
                 <div className="delete-confirm">
                   <p>Är du säker på att du vill ta bort {item.name}?</p>
-                  <button
-                    type="button"
-                    className="btn-delete"
-                    onClick={handleDelete}
-                    disabled={isDeleting}
-                  >
+                  <Button variant="danger" onClick={handleDelete} disabled={isDeleting}>
                     {isDeleting ? 'Tar bort…' : 'Ja, ta bort'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setConfirmDelete(false)}
-                    disabled={isDeleting}
-                  >
+                  </Button>
+                  <Button variant="outline" onClick={() => setConfirmDelete(false)} disabled={isDeleting}>
                     Avbryt
-                  </button>
+                  </Button>
                 </div>
               ))}
           </div>

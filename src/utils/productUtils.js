@@ -30,3 +30,44 @@ export const sumSecondHandPrice = (products) =>
  * @returns {object} The product valued most important
  */
 export const getBestProduct = (rankedProducts) => rankedProducts[0] ?? null
+
+/**
+ * Counts products bought second-hand.
+ *
+ * @param {Array} products purchased products
+ * @returns {number} count of second-hand purchases
+ */
+export const countSecondHandProducts = (products) =>
+  products.filter((p) => p.purchased_condition === 'second_hand').length
+
+/**
+ * Calculates actual savings from buying second-hand.
+ *
+ * @param {Array} products purchased products
+ * @returns {number} total saved in kr
+ */
+export const calculateActualSavingsSecondHand = (products) =>
+  products
+    .filter(
+      (p) =>
+        p.purchased_condition === 'second_hand' &&
+        p.new_price != null &&
+        p.second_hand_price != null,
+    )
+    .reduce((sum, p) => sum + (p.new_price - p.second_hand_price), 0)
+
+/**
+ * Calculates potential additional savings if new purchases had been bought second-hand.
+ *
+ * @param {Array} products purchased products
+ * @returns {number} potential savings in kr
+ */
+export const calculatePotentialSavingsIfAllSecondHand = (products) =>
+  products
+    .filter(
+      (p) =>
+        p.purchased_condition !== 'second_hand' &&
+        p.new_price != null &&
+        p.second_hand_price != null,
+    )
+    .reduce((sum, p) => sum + (p.new_price - p.second_hand_price), 0)

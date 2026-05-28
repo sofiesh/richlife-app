@@ -38,6 +38,6 @@ test('visar info-kort när användaren är inloggad', async () => {
   )
   await waitFor(() => {
     expect(screen.getByText('Safe to spend')).toBeInTheDocument()
-    expect(screen.getByText('Köpkollen')).toBeInTheDocument()
+    expect(screen.getByText('Önskelista')).toBeInTheDocument()
   })
 })

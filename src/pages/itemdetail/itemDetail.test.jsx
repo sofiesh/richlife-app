@@ -5,14 +5,17 @@ import ItemDetail from './itemDetail'
 
 const mockNavigate = vi.hoisted(() => vi.fn())
 const mockUpdateProduct = vi.hoisted(() =>
-  vi.fn().mockImplementation((_id, updates) => Promise.resolve({ id: '1', purchased: false, ...updates }))
+  vi.fn().mockImplementation((_id, updates) =>
+    Promise.resolve({ id: '1', purchased: false, purchased_condition: null, ...updates })
+  )
 )
 const mockDeleteProduct = vi.hoisted(() => vi.fn().mockResolvedValue())
 
 vi.mock('../../repositories/productRepository', () => {
   const products = {
-    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, second_hand_price: 8000, usage_frequency: 'dagligen', joy_score: 8, purchased: false },
-    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, second_hand_price: 700, usage_frequency: 'varje vecka', joy_score: 6, purchased: true },
+    1: { id: '1', name: 'iPhone 15', category: 'Elektronik', new_price: 12990, second_hand_price: 8000, usage_frequency: 'dagligen', joy_score: 8, purchased: false, purchased_condition: null },
+    2: { id: '2', name: 'Nike sneakers', category: 'Mode', new_price: 1299, second_hand_price: 700, usage_frequency: 'varje vecka', joy_score: 6, purchased: true, purchased_condition: 'new' },
+    3: { id: '3', name: 'Cykel', category: 'Sport', new_price: 5000, second_hand_price: 2500, usage_frequency: 'dagligen', joy_score: 9, purchased: true, purchased_condition: 'second_hand' },
   }
   return {
     getProductById: (id) => Promise.resolve(products[id]),
@@ -32,7 +35,7 @@ vi.mock('react-router-dom', async (importOriginal) => {
 beforeEach(() => {
   mockNavigate.mockClear()
   mockUpdateProduct.mockImplementation((_id, updates) =>
-    Promise.resolve({ id: '1', purchased: false, ...updates })
+    Promise.resolve({ id: '1', purchased: false, purchased_condition: null, ...updates })
   )
   mockDeleteProduct.mockResolvedValue()
 })
@@ -64,22 +67,51 @@ test('visar Ej köpt för en ej köpt produkt', async () => {
   expect(await screen.findByRole('checkbox')).not.toBeChecked()
 })
 
-test('visar Köpt för en redan köpt produkt', async () => {
+test('visar Köpt – nyköpt för nyköpt produkt', async () => {
   renderItemDetail('2')
-  expect(await screen.findByText('Köpt')).toBeInTheDocument()
+  expect(await screen.findByText('Köpt – nyköpt')).toBeInTheDocument()
   expect(await screen.findByRole('checkbox')).toBeChecked()
 })
 
-test('togglar köpt-status vid knappklick', async () => {
-  renderItemDetail('1')
-  fireEvent.click(await screen.findByRole('checkbox'))
-  expect(await screen.findByText('Köpt')).toBeInTheDocument()
+test('visar Köpt – begagnat för begagnat köpt produkt', async () => {
+  renderItemDetail('3')
+  expect(await screen.findByText('Köpt – begagnat')).toBeInTheDocument()
 })
 
-test('Tillbaka-knappen navigerar till /purchaseplan', async () => {
+test('visar köpvilkorsval när ej köpt produkt markeras', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByRole('checkbox'))
+  expect(await screen.findByText('Hur köpte du produkten?')).toBeInTheDocument()
+  expect(await screen.findByText('Nyköpt')).toBeInTheDocument()
+  expect(await screen.findByText('Begagnat')).toBeInTheDocument()
+})
+
+test('sparar nyköpt och visar Köpt – nyköpt', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByRole('checkbox'))
+  fireEvent.click(await screen.findByText('Nyköpt'))
+  expect(await screen.findByText('Köpt – nyköpt')).toBeInTheDocument()
+  expect(mockUpdateProduct).toHaveBeenCalledWith('1', expect.objectContaining({ purchased_condition: 'new' }))
+})
+
+test('sparar begagnat och visar Köpt – begagnat', async () => {
+  renderItemDetail('1')
+  fireEvent.click(await screen.findByRole('checkbox'))
+  fireEvent.click(await screen.findByText('Begagnat'))
+  expect(await screen.findByText('Köpt – begagnat')).toBeInTheDocument()
+  expect(mockUpdateProduct).toHaveBeenCalledWith('1', expect.objectContaining({ purchased_condition: 'second_hand' }))
+})
+
+test('avmarkerar köpt direkt utan vilkorsval', async () => {
+  renderItemDetail('2')
+  fireEvent.click(await screen.findByRole('checkbox'))
+  expect(mockUpdateProduct).toHaveBeenCalledWith('2', expect.objectContaining({ purchased: false, purchased_condition: null }))
+})
+
+test('Tillbaka-knappen navigerar tillbaka', async () => {
   renderItemDetail('1')
   fireEvent.click(await screen.findByText('Tillbaka'))
-  expect(mockNavigate).toHaveBeenCalledWith('/purchaseplan')
+  expect(mockNavigate).toHaveBeenCalledWith('(-1)')
 })
 
 test('visar redigeringsformulär när Ändra produkt klickas', async () => {

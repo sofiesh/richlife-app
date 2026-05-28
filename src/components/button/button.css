@@ -10,7 +10,7 @@
 .button {
   background-color: #1a8c51;
   font-size: 16px;
-  padding: 10px 24px;
+  padding: 10px 20px;
   margin: 10px;
   border: none;
   border-radius: 4px;
@@ -44,4 +44,18 @@
 
 .btn--text:hover {
   text-decoration: underline;
+}
+
+.btn--danger {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+.btn--danger:hover {
+  background-color: #a93226;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

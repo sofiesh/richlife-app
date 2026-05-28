@@ -7,6 +7,8 @@ import { countProducts, sumNewPrice } from '../../utils/productUtils'
 import { useBudget } from '../../context/budgetContext'
 import './homePage.css'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faListCheck, faChartLine, faWallet } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * A home page.
@@ -74,22 +76,22 @@ const HomePage = ({ user, onLogin, onRegister }) => {
 
       <section className="home-nav">
         <Link to="/purchaseplan" className="home-nav__card">
-          <span className="home-nav__label">Köpkollen</span>
-          <span className="home-nav__arrow">→</span>
+          <FontAwesomeIcon icon={faListCheck}/>
+          <span className="home-nav__label">Önskelista</span>
         </Link>
       </section>
 
       <section className="home-nav">
         <Link to="/purchasehistory" className="home-nav__card">
+          <FontAwesomeIcon icon={faChartLine}/>
           <span className="home-nav__label">Köphistorik</span>
-          <span className="home-nav__arrow">→</span>
         </Link>
       </section>
 
       <section className="home-nav">
         <Link to="/budget" className="home-nav__card">
+          <FontAwesomeIcon icon={faWallet}/>
           <span className="home-nav__label">Min budget</span>
-          <span className="home-nav__arrow">→</span>
         </Link>
       </section>
     </div>

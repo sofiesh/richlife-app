@@ -73,7 +73,7 @@ return (
     {user && (
       <div className="navbar-center">
         <button className="nav-btn nav-btn--outline2" onClick={() => { onHome(); close() }}>Startsida</button>
-        <button className="nav-btn nav-btn--outline2" onClick={() => { onPurchasePlan(); close() }}>Köpkollen</button>
+        <button className="nav-btn nav-btn--outline2" onClick={() => { onPurchasePlan(); close() }}>Önskelista</button>
         <button className="nav-btn nav-btn--outline2" onClick={() => { onPurchaseHistory(); close() }}>Historik</button>
         <button className="nav-btn nav-btn--outline2" onClick={() => { onBudget(); close() }}>Budget</button>
         <button className="nav-btn nav-btn--outline2" onClick={() => { onInsights(); close() }}>Insikter</button>
@@ -112,7 +112,7 @@ return (
     {user && menuOpen && (
       <div className="navbar-mobile-menu">
         <button className="nav-btn" onClick={() => { onHome(); close() }}>Startsida</button>
-        <button className="nav-btn" onClick={() => { onPurchasePlan(); close() }}>Köpkollen</button>
+        <button className="nav-btn" onClick={() => { onPurchasePlan(); close() }}>Önskelista</button>
         <button className="nav-btn" onClick={() => { onPurchaseHistory(); close() }}>Historik</button>
         <button className="nav-btn" onClick={() => { onBudget(); close() }}>Budget</button>
         <button className="nav-btn" onClick={() => { onInsights(); close() }}>Insikter</button>

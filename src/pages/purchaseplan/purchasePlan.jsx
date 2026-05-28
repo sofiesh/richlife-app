@@ -71,7 +71,7 @@ const PurchasePlan = ({ user }) => {
       </button>
 
       <div className="purchaseplan-header">
-        <h1>Köpkollen</h1>
+        <h1>Önskelista</h1>
         <Button onClick={() => setShowForm(!showForm)} variant="outline">
           {showForm ? 'Avbryt' : 'Lägg till produkt'}
         </Button>
@@ -153,8 +153,8 @@ const PurchasePlan = ({ user }) => {
                   <td data-label="Kategori">{item.category || '-'}</td>
                   <td data-label="Nypris">{item.new_price || '-'} kr</td>
                   <td data-label="Andrahandspris">{item.second_hand_price || '-'} kr</td>
-                  <td data-label="Value-rating">{item.value_rating || '-'}</td>
-                  <td data-label="Priority">{item.priority || '-'}</td>
+                  <td data-label="Användningsfrekvens">{item.usage_frequency || '-'}</td>
+                  <td data-label="Glädjefaktor">{item.joy_score || '-'}</td>
                   <td data-label="Score">
                     <Stars value={item.starValue} onChange={() => { }} />
                   </td>
