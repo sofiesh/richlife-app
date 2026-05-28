@@ -99,6 +99,25 @@
   font-size: 0.9rem;
 }
 
+.purchasehistory-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.purchasehistory-stats .info-card__value {
+  font-size: 20px;
+}
+
+.purchasehistory-stats .info-card__title {
+  font-size: 11px;
+}
+
+.purchasehistory-stats .info-card__subtitle {
+  font-size: 11px;
+}
+
 @media (max-width: 767px) {
   .hide-mobile {
     display: none;

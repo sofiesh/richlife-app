@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import { getPurchasedProducts } from '../../repositories/productRepository'
+import { countSecondHandProducts, calculateActualSavingsSecondHand, calculatePotentialSavingsIfAllSecondHand } from '../../utils/productUtils'
 import InfoCard from '../../components/infocard/infoCard'
 import './purchaseHistory.css'
 
@@ -31,7 +32,17 @@ const PurchaseHistory = ({ user }) => {
     return acc
   }, {})
 
-  const totalSpent = products.reduce((sum, p) => sum + (p.new_price || 0), 0)
+  const totalSpent = products.reduce((sum, p) => {
+    if (p.purchased_condition === 'second_hand' && p.second_hand_price != null) {
+      return sum + p.second_hand_price
+    }
+    return sum + (p.new_price || 0)
+  }, 0)
+
+  const secondHandCount = countSecondHandProducts(products)
+  const secondHandPercent = products.length > 0 ? ((secondHandCount / products.length) * 100).toFixed(1) : null
+  const actualSavings = calculateActualSavingsSecondHand(products)
+  const potentialSavings = calculatePotentialSavingsIfAllSecondHand(products)
 
   return (
     <div className="purchasehistory">
@@ -39,11 +50,31 @@ const PurchaseHistory = ({ user }) => {
         Tillbaka
       </button>
       <h1>Köphistorik</h1>
-      <InfoCard
-        title="Totalt spenderat"
-        value={`${totalSpent.toLocaleString('sv-SE')} kr`}
-        variant="highlight"
-      />
+      <div className="purchasehistory-stats">
+        <InfoCard
+          title="Totalt spenderat"
+          value={`${totalSpent.toLocaleString('sv-SE')} kr`}
+          variant="highlight"
+        />
+        <InfoCard
+          title="Andel begagnat"
+          value={secondHandPercent !== null ? `${secondHandPercent} %` : '–'}
+          subtitle={`${secondHandCount} av ${products.length} produkter`}
+          variant="default"
+        />
+        <InfoCard
+          title="Faktisk besparing"
+          value={`${actualSavings.toLocaleString('sv-SE')} kr`}
+          subtitle="sparat via begagnatköp"
+          variant="success"
+        />
+        <InfoCard
+          title="Möjlig ytterligare besparing"
+          value={`${potentialSavings.toLocaleString('sv-SE')} kr`}
+          subtitle="om allt köpts begagnat"
+          variant="default"
+        />
+      </div>
       {Object.entries(grouped).map(([month, items]) => (
         <div key={month} className="list-section">
           <h2>{month}</h2>
