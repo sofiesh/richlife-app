@@ -1,4 +1,12 @@
-import { countProducts, sumNewPrice, sumSecondHandPrice, getBestProduct } from './productUtils'
+import {
+  countProducts,
+  sumNewPrice,
+  sumSecondHandPrice,
+  getBestProduct,
+  countSecondHandProducts,
+  calculateActualSavingsSecondHand,
+  calculatePotentialSavingsIfAllSecondHand,
+} from './productUtils'
 
 const products = [
   { name: 'Jacka', new_price: 1200, second_hand_price: 400, category: 'kläder' },
@@ -52,3 +60,41 @@ test('getBestProduct returnerar första produkten i listan', () => {
 test('getBestProduct returnerar null om inga produkter finns', () => {
   expect(getBestProduct([])).toBeNull()
 })
+
+const purchasedProducts = [
+  { name: 'Jacka', new_price: 1200, second_hand_price: 400, purchased_condition: 'second_hand' },
+  { name: 'Cykel', new_price: 4000, second_hand_price: 1000, purchased_condition: 'new' },
+  { name: 'Bok', new_price: 300, second_hand_price: null, purchased_condition: 'second_hand' },
+]
+
+// TC13.10 countSecondHandProducts counts second-hand purchases (unit test)
+test('countSecondHandProducts räknar begagnatköp', () => {
+  expect(countSecondHandProducts(purchasedProducts)).toBe(2)
+})
+
+// TC13.11 countSecondHandProducts returns 0 for empty list (unit test)
+test('countSecondHandProducts returnerar 0 för tom lista', () => {
+  expect(countSecondHandProducts([])).toBe(0)
+})
+
+// TC13.12 calculateActualSavingsSecondHand sums savings for second-hand with valid prices (unit test)
+test('calculateActualSavingsSecondHand beräknar faktisk besparing', () => {
+  expect(calculateActualSavingsSecondHand(purchasedProducts)).toBe(1200 - 400) // Cykel saknar second_hand, Bok saknar second_hand_price
+})
+
+// TC13.13 calculateActualSavingsSecondHand ignores products with null prices (unit test)
+test('calculateActualSavingsSecondHand ignorerar null-priser', () => {
+  const items = [{ new_price: null, second_hand_price: 100, purchased_condition: 'second_hand' }]
+  expect(calculateActualSavingsSecondHand(items)).toBe(0)
+})
+
+// TC13.14 calculatePotentialSavingsIfAllSecondHand sums potential for non-second-hand (unit test)
+test('calculatePotentialSavingsIfAllSecondHand beräknar möjlig besparing', () => {
+  expect(calculatePotentialSavingsIfAllSecondHand(purchasedProducts)).toBe(4000 - 1000) // Jacka är second_hand, Bok saknar second_hand_price
+})
+
+// TC13.15 calculatePotentialSavingsIfAllSecondHand returns 0 for empty list (unit test)
+test('calculatePotentialSavingsIfAllSecondHand returnerar 0 för tom lista', () => {
+  expect(calculatePotentialSavingsIfAllSecondHand([])).toBe(0)
+})
+
