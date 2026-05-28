@@ -69,6 +69,7 @@ const HomePage = ({ user, onLogin, onRegister }) => {
           <InfoCard
             title="Insikter"
             value={alertCount === 0 ? 'Inga varningar' : `${alertCount} varningar`}
+            subtitle="för din budget"
             variant={alertCount === 0 ? 'default' : 'warning'}
           />
         </Link>
@@ -76,21 +77,27 @@ const HomePage = ({ user, onLogin, onRegister }) => {
 
       <section className="home-nav">
         <Link to="/purchaseplan" className="home-nav__card">
-          <FontAwesomeIcon icon={faListCheck}/>
+          <span className="home-nav__icon">
+            <FontAwesomeIcon icon={faListCheck} />
+          </span>
           <span className="home-nav__label">Önskelista</span>
         </Link>
       </section>
 
       <section className="home-nav">
         <Link to="/purchasehistory" className="home-nav__card">
-          <FontAwesomeIcon icon={faChartLine}/>
+          <span className="home-nav__icon">
+            <FontAwesomeIcon icon={faChartLine} />
+          </span>
           <span className="home-nav__label">Köphistorik</span>
         </Link>
       </section>
 
       <section className="home-nav">
         <Link to="/budget" className="home-nav__card">
-          <FontAwesomeIcon icon={faWallet}/>
+          <span className="home-nav__icon">
+            <FontAwesomeIcon icon={faWallet} />
+          </span>
           <span className="home-nav__label">Min budget</span>
         </Link>
       </section>

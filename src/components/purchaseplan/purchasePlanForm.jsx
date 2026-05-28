@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import JoyScoreSlider from '../joyscore/joyScoreSlider'
 import PurchasePlanInputField from './purchasePlanInputField'
 import './purchasePlanForm.css'
 
@@ -17,7 +18,7 @@ const PurchasePlanForm = ({ onAdd }) => {
     second_hand_price: '',
     category: '',
     usage_frequency: '',
-    joy_score: '',
+    joy_score: 5,
   })
 
   /**
@@ -104,13 +105,14 @@ const PurchasePlanForm = ({ onAdd }) => {
           <option value="mer sällan">Mer sällan</option>
         </select>
       </div>
-      <PurchasePlanInputField
-        name="joy_score"
-        label="Glädjefaktor (1–10)"
-        placeholder="Hur glad gör produkten dig? Lyckligast = 10"
-        value={formItem.joy_score}
-        onChange={handleChange}
-      />
+      <div className="form-field">
+        <label className="form-label">Glädjefaktor</label>
+        <JoyScoreSlider
+          value={formItem.joy_score}
+          onChange={(val) => setFormItem({ ...formItem, joy_score: val })}
+        />
+      </div>
+
 
       <button className="btn-primary" type="submit">
         Lägg till produkt

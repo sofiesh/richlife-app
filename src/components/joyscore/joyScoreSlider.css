@@ -1,0 +1,10 @@
+.joy-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.joy-slider-row input[type='range'] {
+  flex: 1;
+}
