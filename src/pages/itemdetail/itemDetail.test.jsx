@@ -102,10 +102,12 @@ test('sparar begagnat och visar Köpt – begagnat', async () => {
   expect(mockUpdateProduct).toHaveBeenCalledWith('1', expect.objectContaining({ purchased_condition: 'second_hand' }))
 })
 
-test('avmarkerar köpt direkt utan vilkorsval', async () => {
+test('avmarkerar köpt direkt utan villkorsval', async () => {
   renderItemDetail('2')
   fireEvent.click(await screen.findByRole('checkbox'))
-  expect(mockUpdateProduct).toHaveBeenCalledWith('2', expect.objectContaining({ purchased: false, purchased_condition: null }))
+  await waitFor(() => {
+    expect(mockUpdateProduct).toHaveBeenCalledWith('2', expect.objectContaining({ purchased: false, purchased_condition: null }))
+  })
 })
 
 test('Tillbaka-knappen navigerar tillbaka', async () => {
