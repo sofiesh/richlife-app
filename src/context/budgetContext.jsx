@@ -52,8 +52,14 @@ BudgetProvider.propTypes = {
 }
 
 /**
- * Exports the budget context.
+ * Exports the budget context with guard.
  *
  * @returns {Element} budget context.
  */
-export const useBudget = () => useContext(BudgetContext)
+export const useBudget = () => {
+  const context = useContext(BudgetContext)
+  if (context === undefined) {
+    throw new Error('useBudget must be used within a BudgetProvider')
+  }
+  return context
+}

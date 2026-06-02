@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { EXPENSE_CATEGORIES } from '../../constants'
 import { formatCurrency } from '../../utils/formatUtils'
 import { useBudget } from '../../context/budgetContext'
 import {
@@ -13,8 +13,6 @@ import BudgetAlerts from './budgetAlerts'
 import BudgetExpenseSection from './budgetExpenseSection'
 import BudgetSection from './budgetSection'
 import { getBudgetAlerts } from '../../utils/budgetAlerts'
-
-const EXPENSE_CATEGORIES = ['boende', 'sparande', 'prenumeration', 'transport', 'mat', 'övrigt']
 
 /**
  * The budget management page.
