@@ -1,3 +1,5 @@
+import { BUDGET_LIMITS } from '../constants'
+
 /**
  * Generates budget alerts based on income and expense data.
  *
@@ -36,28 +38,28 @@ export function getBudgetAlerts(totalIncome, expenses) {
   const overBy = (actual, limit) => Math.round((actual / limit - 1) * 100)
 
   const housing = pct('boende')
-  if (housing > 30)
+  if (housing > BUDGET_LIMITS.housing)
     alerts.push({
       category: 'boende',
-      message: `Din boendekostnad är ${overBy(housing, 30)}% högre än rekommenderat. Du lägger ${housing}% av inkomsten på boende — tumregeln är max 30%.`,
+      message: `Din boendekostnad är ${overBy(housing, BUDGET_LIMITS.housing)}% högre än rekommenderat. Du lägger ${housing}% av inkomsten på boende — tumregeln är max ${BUDGET_LIMITS.housing}%.`,
     })
 
   const food = pct('mat')
-  if (food > 15)
+  if (food > BUDGET_LIMITS.food)
     alerts.push({
       category: 'mat',
-      message: `Din matkostnad är ${food}% och är ${overBy(food, 15)}% högre än rekommenderat.`,
+      message: `Din matkostnad är ${food}% och är ${overBy(food, BUDGET_LIMITS.food)}% högre än rekommenderat.`,
     })
 
   const transport = pct('transport')
-  if (transport > 15)
+  if (transport > BUDGET_LIMITS.transport)
     alerts.push({
       category: 'transport',
-      message: `Din transportkostnad är ${transport}% och är ${overBy(transport, 15)}% högre än rekommenderat.`,
+      message: `Din transportkostnad är ${transport}% och är ${overBy(transport, BUDGET_LIMITS.transport)}% högre än rekommenderat.`,
     })
 
   const totalFixed = pct('boende') + pct('mat') + pct('transport')
-  if (totalFixed > 60)
+  if (totalFixed > BUDGET_LIMITS.totalFixed)
     alerts.push({
       category: 'totalt',
       message: `Boende, mat och transport tar tillsammans ${totalFixed}% av din inkomst. Det lämnar lite utrymme för sparande och oväntade utgifter.`,
