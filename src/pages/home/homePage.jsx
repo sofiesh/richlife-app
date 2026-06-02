@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import InfoCard from '../../components/infocard/infoCard'
+import { formatCurrency } from '../../utils/formatUtils'
 import { getProducts } from '../../repositories/productRepository'
 import { getBudgetAlerts } from '../../utils/budgetAlerts'
 import { countProducts, sumNewPrice } from '../../utils/productUtils'
@@ -47,7 +48,7 @@ const HomePage = ({ user, onLogin, onRegister }) => {
         <Link to="/budget" className="card-link">
           <InfoCard
             title="Safe to spend"
-            value={`${safeToSpend.toLocaleString('sv-SE')} kr`}
+            value={`${formatCurrency(safeToSpend)} kr`}
             subtitle="kvar den här månaden"
             variant="highlight"
           />
@@ -59,7 +60,7 @@ const HomePage = ({ user, onLogin, onRegister }) => {
             <InfoCard
               title="I önskelistan"
               value={`${countProducts(products)} produkter`}
-              subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+              subtitle={`Totalt värde: ${formatCurrency(sumNewPrice(products))} kr`}
             />
           </Link>
           <InfoCard title="Köppoäng" value="72" subtitle="den här månaden" />

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import BudgetRow from './budgetRow'
+import { formatCurrency } from '../../utils/formatUtils'
 
 /**
  * A budget section displaying a list of items with add and edit functionality.
@@ -105,7 +106,8 @@ const BudgetSection = ({
       + Lägg till {type === 'income' ? 'inkomst' : 'utgift'}
     </button>
 
-    <div className="budget-total">Totalt: {total.toLocaleString('sv-SE')} kr</div>
+    <div className="budget-total">Totalt: {formatCurrency(total)} kr
+    </div>
   </section>
 )
 

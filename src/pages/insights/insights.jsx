@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatCurrency } from '../../utils/formatUtils'
 import { useBudget } from '../../context/budgetContext'
 import { getBudgetAlerts } from '../../utils/budgetAlerts'
 import './insights.css'
@@ -57,7 +58,7 @@ const Insights = () => {
               <span className="insights-label">{label}</span>
               <span className="insights-value">{value}% av inkomst</span>
               <span className="insights-limit">
-                max {Math.round(totalIncome * limit / 100).toLocaleString('sv-SE')} kr
+                max {formatCurrency(Math.round(totalIncome * limit / 100))} kr
               </span>
               <span>{isWarning ? '⚠️' : '✅'}</span>
             </div>

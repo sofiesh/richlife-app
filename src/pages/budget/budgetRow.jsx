@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { formatCurrency } from '../../utils/formatUtils'
 
 /**
  * A single row in the budget list.
@@ -69,7 +70,8 @@ const BudgetRow = ({
   return (
     <div className="budget-item-row">
       <span className="budget-item-label">{item.label}</span>
-      <span className="budget-item-value">{item.amount.toLocaleString('sv-SE')} kr</span>
+      <span className="budget-item-value">{formatCurrency(item.amount)} kr
+      </span>
       <div className="budget-row-actions">
         <button className="btn-icon btn-icon--edit" aria-label="Redigera" onClick={onEdit}>
           <FontAwesomeIcon icon={faPen} />

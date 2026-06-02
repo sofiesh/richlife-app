@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './purchasePlan.css'
 import Button from '../../components/button/button'
+import { formatCurrency } from '../../utils/formatUtils'
 import { useBudget } from '../../context/budgetContext'
 import { calculateStarScore } from '../../utils/calculateStarScore'
 import { getProducts, addProduct } from '../../repositories/productRepository'
@@ -86,14 +87,14 @@ const PurchasePlan = ({ user }) => {
           <InfoCard
             title="I önskelistan"
             value={`${countProducts(products)} produkter`}
-            subtitle={`Totalt värde: ${sumNewPrice(products).toLocaleString('sv-SE')} kr`}
+            subtitle={`Totalt värde: ${formatCurrency(sumNewPrice(products))} kr`}
           />
         </div>
         <div className="card-link">
           <InfoCard
             title="Viktigaste köp nu"
             value={bestProduct ? bestProduct.name : '–'}
-            subtitle={bestProduct ? `${bestProduct.new_price?.toLocaleString('sv-SE')} kr` : undefined}
+            subtitle={bestProduct ? `${formatCurrency(bestProduct.new_price || 0)} kr` : undefined}
           />
         </div>
         <div className="card-link">
