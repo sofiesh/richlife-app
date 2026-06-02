@@ -47,4 +47,4 @@ deploy_staging:
   cache: [] # do not use cache, Docker handles on server.
   script:
     - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d --remove-orphans
-    - docker system prune -f
+    - docker image prune -f
