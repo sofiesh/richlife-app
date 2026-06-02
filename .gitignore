@@ -28,3 +28,4 @@ yarn-error.log*
 # SSH keys
 *.pub
 id_*
+project-hub.wiki.git/
