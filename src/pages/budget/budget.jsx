@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { formatCurrency } from '../../utils/formatUtils'
 import { useBudget } from '../../context/budgetContext'
 import {
   addBudgetItem,
@@ -152,7 +154,7 @@ const Budget = () => {
       <section className="budget-result">
         <span>Safe to spend</span>
         <span className={safeToSpend >= 0 ? 'positive' : 'negative'}>
-          {safeToSpend.toLocaleString('sv-SE')} kr
+          {formatCurrency(safeToSpend)} kr
         </span>
       </section>
     </div>

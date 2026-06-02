@@ -30,4 +30,11 @@ jobs:
       - run: npm ci --legacy-peer-deps
       - run: npm test
 
-      
+  deploy:
+    needs: [lint, test]
+    runs-on: self-hosted
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d --remove-orphans
+      - run: docker system prune -f

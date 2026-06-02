@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { formatCurrency, formatDate } from '../../utils/formatUtils'
 import { getPurchasedProducts } from '../../repositories/productRepository'
 import { countSecondHandProducts, calculateActualSavingsSecondHand, calculatePotentialSavingsIfAllSecondHand } from '../../utils/productUtils'
 import InfoCard from '../../components/infocard/infoCard'
@@ -53,7 +54,7 @@ const PurchaseHistory = ({ user }) => {
       <div className="purchasehistory-stats">
         <InfoCard
           title="Totalt spenderat"
-          value={`${totalSpent.toLocaleString('sv-SE')} kr`}
+          value={`${formatCurrency(totalSpent)} kr`}
           variant="highlight"
         />
         <InfoCard
@@ -64,13 +65,13 @@ const PurchaseHistory = ({ user }) => {
         />
         <InfoCard
           title="Faktisk besparing"
-          value={`${actualSavings.toLocaleString('sv-SE')} kr`}
+          value={`${formatCurrency(actualSavings)} kr`}
           subtitle="sparat via begagnatköp"
           variant="success"
         />
         <InfoCard
           title="Möjlig ytterligare besparing"
-          value={`${potentialSavings.toLocaleString('sv-SE')} kr`}
+          value={`${formatCurrency(potentialSavings)} kr`}
           subtitle="om allt köpts begagnat"
           variant="default"
         />
@@ -96,9 +97,9 @@ const PurchaseHistory = ({ user }) => {
                 >
                   <td data-label="Produkt">{item.name}</td>
                   <td data-label="Kategori">{item.category || '-'}</td>
-                  <td data-label="Pris">{item.new_price || '-'} kr</td>
+                  <td data-label="Pris">{formatCurrency(item.new_price || 0)} kr</td>
                   <td data-label="Datum">
-                    {new Date(item.purchased_at).toLocaleDateString('sv-SE')}
+                    {formatDate(item.purchased_at)}
                   </td>
                 </tr>
               ))}
