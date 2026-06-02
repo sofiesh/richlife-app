@@ -32,6 +32,8 @@ ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 
 # npm ci instead of npm install to ensure reproduceable builds
 RUN npm ci --legacy-peer-deps && chown -R node:node /usr/src/app
+RUN NODE_OPTIONS="--max-old-space-size=512" npm ci --legacy-peer-deps \
+    && chown -R node:node /usr/src/app
 # Copy application source code (run as non-root user)
 COPY --chown=node:node . .
 USER node
