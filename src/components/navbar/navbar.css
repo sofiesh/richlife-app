@@ -88,7 +88,7 @@
   position: absolute;
   top: 60px;
   right: 0;
-  background: #1a8c51;
+  background: #16824a;
   border: 1px solid #e8e8e8;
   padding: 1rem;
   display: flex;
@@ -159,13 +159,13 @@
 }
 
 .nav-btn--primary {
-  background: #1a8c51;
+  background: #16824a;
   border: none;
   color: white;
 }
 
 .nav-btn--primary:hover {
-  background: #157a44;
+  background: #16824a;
 }
 
 .hamburger {

@@ -1,11 +1,13 @@
 # Susbud
-
 A personal finance app for mindful purchasing decisions. Helps users manage a purchase wishlist, track budgets, and reflect on what truly brings value to their lives.
 
 ## Live demo
 [cu1059.camp.lnu.se](https://cu1059.camp.lnu.se)
 
 [richlife-budgetapp.netlify.app](https://richlife-budgetapp.netlify.app/)
+
+DigitalOcean deploy NB: HTTP only!
+[http://46.101.116.223/](http://46.101.116.223/)
 
 ## Video
 ...
@@ -42,7 +44,6 @@ A personal finance app for mindful purchasing decisions. Helps users manage a pu
 ```bash
     npm start
 ```
-The app runs at http://localhost:5173.
 
 ## Scripts
 
